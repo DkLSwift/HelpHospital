@@ -9,19 +9,18 @@ target 'HelpHospital' do
 
 pod 'Kingfisher'
 pod 'IQKeyboardManagerSwift'
-
-#pod 'Firebase/Core'
-#pod 'Firebase/Auth'
-#pod 'Firebase/Database'
-#pod 'FirebaseUI/Facebook'
-#pod 'Firebase/Messaging'
-#pod 'FirebaseInstanceID'
-#pod 'Firebase/Storage'
-#pod 'FBSDKLoginKit'
-#pod 'FacebookShare'
-#pod 'FacebookCore'
-#pod 'FacebookLogin'
-#pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
+pod 'FirebaseUI/Facebook'
+pod 'Firebase/Messaging'
+pod 'FirebaseInstanceID'
+pod 'Firebase/Storage'
+pod 'FBSDKLoginKit'
+pod 'FacebookShare'
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
 
   target 'HelpHospitalTests' do
     inherit! :search_paths
