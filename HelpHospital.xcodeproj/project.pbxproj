@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16954E5F70A1012AB39DC8B8 /* Pods_HelpHospital_HelpHospitalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73ED2F714F5C581B22620CFA /* Pods_HelpHospital_HelpHospitalUITests.framework */; };
 		6E5902262429007C00E3F3C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5902252429007C00E3F3C2 /* AppDelegate.swift */; };
 		6E5902282429007C00E3F3C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5902272429007C00E3F3C2 /* SceneDelegate.swift */; };
 		6E59022A2429007C00E3F3C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5902292429007C00E3F3C2 /* ViewController.swift */; };
@@ -16,6 +17,8 @@
 		6E5902352429008000E3F3C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E5902332429008000E3F3C2 /* LaunchScreen.storyboard */; };
 		6E5902402429008000E3F3C2 /* HelpHospitalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59023F2429008000E3F3C2 /* HelpHospitalTests.swift */; };
 		6E59024B2429008000E3F3C2 /* HelpHospitalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59024A2429008000E3F3C2 /* HelpHospitalUITests.swift */; };
+		A8E1733D984DC3F1F829E475 /* Pods_HelpHospitalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E983E9FE9BE6166837A65292 /* Pods_HelpHospitalTests.framework */; };
+		D5491A48E9E2DCE2FDA2AC1B /* Pods_HelpHospital.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8CD979AEF8A7F6743A47E3 /* Pods_HelpHospital.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,15 @@
 		6E5902462429008000E3F3C2 /* HelpHospitalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelpHospitalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E59024A2429008000E3F3C2 /* HelpHospitalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpHospitalUITests.swift; sourceTree = "<group>"; };
 		6E59024C2429008000E3F3C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73ED2F714F5C581B22620CFA /* Pods_HelpHospital_HelpHospitalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelpHospital_HelpHospitalUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E2A1D77ADCFC513EB6537E5 /* Pods-HelpHospital-HelpHospitalUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpHospital-HelpHospitalUITests.release.xcconfig"; path = "Target Support Files/Pods-HelpHospital-HelpHospitalUITests/Pods-HelpHospital-HelpHospitalUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9190AE204806879DF49422CB /* Pods-HelpHospitalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpHospitalTests.debug.xcconfig"; path = "Target Support Files/Pods-HelpHospitalTests/Pods-HelpHospitalTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A5F00BAD9DADDE4799121882 /* Pods-HelpHospital-HelpHospitalUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpHospital-HelpHospitalUITests.debug.xcconfig"; path = "Target Support Files/Pods-HelpHospital-HelpHospitalUITests/Pods-HelpHospital-HelpHospitalUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BCCDE29D804AFB0A68CE2EF4 /* Pods-HelpHospital.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpHospital.debug.xcconfig"; path = "Target Support Files/Pods-HelpHospital/Pods-HelpHospital.debug.xcconfig"; sourceTree = "<group>"; };
+		D92FF18955E995925E865DFD /* Pods-HelpHospitalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpHospitalTests.release.xcconfig"; path = "Target Support Files/Pods-HelpHospitalTests/Pods-HelpHospitalTests.release.xcconfig"; sourceTree = "<group>"; };
+		E983E9FE9BE6166837A65292 /* Pods_HelpHospitalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelpHospitalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB8CD979AEF8A7F6743A47E3 /* Pods_HelpHospital.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelpHospital.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE577E234C2622F6B86EC854 /* Pods-HelpHospital.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpHospital.release.xcconfig"; path = "Target Support Files/Pods-HelpHospital/Pods-HelpHospital.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5491A48E9E2DCE2FDA2AC1B /* Pods_HelpHospital.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8E1733D984DC3F1F829E475 /* Pods_HelpHospitalTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +86,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16954E5F70A1012AB39DC8B8 /* Pods_HelpHospital_HelpHospitalUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0247F3A7B202CCBEE93253E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BCCDE29D804AFB0A68CE2EF4 /* Pods-HelpHospital.debug.xcconfig */,
+				FE577E234C2622F6B86EC854 /* Pods-HelpHospital.release.xcconfig */,
+				A5F00BAD9DADDE4799121882 /* Pods-HelpHospital-HelpHospitalUITests.debug.xcconfig */,
+				8E2A1D77ADCFC513EB6537E5 /* Pods-HelpHospital-HelpHospitalUITests.release.xcconfig */,
+				9190AE204806879DF49422CB /* Pods-HelpHospitalTests.debug.xcconfig */,
+				D92FF18955E995925E865DFD /* Pods-HelpHospitalTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		6E5902192429007C00E3F3C2 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +113,8 @@
 				6E59023E2429008000E3F3C2 /* HelpHospitalTests */,
 				6E5902492429008000E3F3C2 /* HelpHospitalUITests */,
 				6E5902232429007C00E3F3C2 /* Products */,
+				0247F3A7B202CCBEE93253E9 /* Pods */,
+				D5A0F32B4278B125E904F237 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +161,16 @@
 			path = HelpHospitalUITests;
 			sourceTree = "<group>";
 		};
+		D5A0F32B4278B125E904F237 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB8CD979AEF8A7F6743A47E3 /* Pods_HelpHospital.framework */,
+				73ED2F714F5C581B22620CFA /* Pods_HelpHospital_HelpHospitalUITests.framework */,
+				E983E9FE9BE6166837A65292 /* Pods_HelpHospitalTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,9 +178,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E59024F2429008000E3F3C2 /* Build configuration list for PBXNativeTarget "HelpHospital" */;
 			buildPhases = (
+				FF83DB6334D0F1E5661CC653 /* [CP] Check Pods Manifest.lock */,
 				6E59021E2429007C00E3F3C2 /* Sources */,
 				6E59021F2429007C00E3F3C2 /* Frameworks */,
 				6E5902202429007C00E3F3C2 /* Resources */,
+				4D52F2BF8BDE7CD5774A4567 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,6 +197,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E5902522429008000E3F3C2 /* Build configuration list for PBXNativeTarget "HelpHospitalTests" */;
 			buildPhases = (
+				326B554A2E45F60CDD0B9C43 /* [CP] Check Pods Manifest.lock */,
 				6E5902372429008000E3F3C2 /* Sources */,
 				6E5902382429008000E3F3C2 /* Frameworks */,
 				6E5902392429008000E3F3C2 /* Resources */,
@@ -173,9 +216,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E5902552429008000E3F3C2 /* Build configuration list for PBXNativeTarget "HelpHospitalUITests" */;
 			buildPhases = (
+				4E89EBE2D3CC7027C3D6219E /* [CP] Check Pods Manifest.lock */,
 				6E5902422429008000E3F3C2 /* Sources */,
 				6E5902432429008000E3F3C2 /* Frameworks */,
 				6E5902442429008000E3F3C2 /* Resources */,
+				06FAE1E689E7329247406177 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,6 +301,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		06FAE1E689E7329247406177 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HelpHospital-HelpHospitalUITests/Pods-HelpHospital-HelpHospitalUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HelpHospital-HelpHospitalUITests/Pods-HelpHospital-HelpHospitalUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HelpHospital-HelpHospitalUITests/Pods-HelpHospital-HelpHospitalUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		326B554A2E45F60CDD0B9C43 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HelpHospitalTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D52F2BF8BDE7CD5774A4567 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HelpHospital/Pods-HelpHospital-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HelpHospital/Pods-HelpHospital-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HelpHospital/Pods-HelpHospital-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E89EBE2D3CC7027C3D6219E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HelpHospital-HelpHospitalUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF83DB6334D0F1E5661CC653 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HelpHospital-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6E59021E2429007C00E3F3C2 /* Sources */ = {
@@ -436,7 +584,9 @@
 		};
 		6E5902502429008000E3F3C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCCDE29D804AFB0A68CE2EF4 /* Pods-HelpHospital.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
@@ -454,7 +604,9 @@
 		};
 		6E5902512429008000E3F3C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE577E234C2622F6B86EC854 /* Pods-HelpHospital.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
@@ -472,6 +624,7 @@
 		};
 		6E5902532429008000E3F3C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9190AE204806879DF49422CB /* Pods-HelpHospitalTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -494,6 +647,7 @@
 		};
 		6E5902542429008000E3F3C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D92FF18955E995925E865DFD /* Pods-HelpHospitalTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -516,6 +670,7 @@
 		};
 		6E5902562429008000E3F3C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5F00BAD9DADDE4799121882 /* Pods-HelpHospital-HelpHospitalUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -536,6 +691,7 @@
 		};
 		6E5902572429008000E3F3C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E2A1D77ADCFC513EB6537E5 /* Pods-HelpHospital-HelpHospitalUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
