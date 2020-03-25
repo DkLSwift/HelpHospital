@@ -36,7 +36,9 @@ class HospitalWorkerNeedsTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalWorkerNeedsCell
 
+        let need = needs[indexPath.row]
        
+        cell.titleLabel.text = need.title
 
         return cell
     }

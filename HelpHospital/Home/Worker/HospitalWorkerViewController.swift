@@ -31,11 +31,12 @@ class HospitalWorkerViewController: UIViewController, FormViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if MemberSession.share.isLogged {
-            setupConnectedUI()
-        } else {
-            setupDisconnectedUI()
-        }
+        navigationItem.largeTitleDisplayMode = .never
+//        if MemberSession.share.isLogged {
+//            setupConnectedUI()
+//        } else {
+//            setupDisconnectedUI()
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,10 +59,18 @@ class HospitalWorkerViewController: UIViewController, FormViewProtocol {
     func setupConnectedUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
         
+        var safeTopAnchor = view.topAnchor
+        var safeBottomAnchor = view.bottomAnchor
+        if #available(iOS 11.0, *) {
+            safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
+            safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
+        }
+        
         let topPadding = self.topbarHeight
         let botPadding = self.tabBarHeight
         containerView = UIView()
         view.addSubview(containerView!)
+        containerView?.backgroundColor = clearBlue
         containerView?.fillSuperview(padding: .init(top: topPadding, left: 0, bottom: botPadding, right: 0))
         
         tableViewController = HospitalWorkerNeedsTableViewController()
