@@ -78,7 +78,6 @@ class LoginView: UIView, UITextFieldDelegate {
     
     var fbsdkButton: FBLoginButton?
     var delegate: LoginViewProtocol?
-    var ref = Database.database().reference()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -179,9 +178,9 @@ extension LoginView: LoginButtonDelegate {
                 } else {
                     let user = Member(uuid: AuthId)
                     
-                    self.ref.child("users").child(AuthId).updateChildValues(["id": AuthId])
+                    ref.child("users").child(AuthId).updateChildValues(["id": AuthId])
                     
-                    self.ref.child("users").child(AuthId).observeSingleEvent(of: .value) { (snapshot) in
+                    ref.child("users").child(AuthId).observeSingleEvent(of: .value) { (snapshot) in
                         
                         let value = snapshot.value as? NSDictionary
                         user.pseudo = value?["pseudo"] as? String ?? ""

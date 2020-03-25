@@ -57,7 +57,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         return btn
     }()
     
-    var ref = Database.database().reference()
     weak var delegate: CreateAccountViewProtocol?
     
     override func viewDidLoad() {
@@ -102,7 +101,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 UserDefaults.standard.set(user.uuid, forKey: "UserId")
                 UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
                 
-                self.ref.child("users").child(id).updateChildValues([
+                ref.child("users").child(id).updateChildValues([
                     "id": id,
                     "pseudo" : pseudo
                 ])

@@ -22,7 +22,6 @@ class LogInViewController: UIViewController, LoginViewProtocol {
     
 
     let loginView = LoginView()
-    var ref = Database.database().reference()
     weak var delegate: SignInViewProtocol?
     
     

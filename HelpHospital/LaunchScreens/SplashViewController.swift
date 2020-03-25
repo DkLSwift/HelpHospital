@@ -11,8 +11,6 @@ import Firebase
 
 class SplashViewController: UIViewController {
     
-    var ref = Database.database().reference()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

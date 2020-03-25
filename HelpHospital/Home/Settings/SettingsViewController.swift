@@ -20,7 +20,7 @@ protocol SettingsViewProtocol: class {
 
 class SettingsViewController: UIViewController {
 
-    var ref = Database.database().reference()
+    
     weak var delegate: SignInViewProtocol?
     
     let connectButton: UIButton = {
@@ -108,8 +108,7 @@ class SettingsViewController: UIViewController {
                 MemberSession.share.user?.pseudo = pseudo
                 UserDefaults.standard.set(pseudo, forKey: "pseudo")
                 
-                
-                self.ref.child("users").child(id).updateChildValues(["pseudo" : pseudo])
+                ref.child("users").child(id).updateChildValues(["pseudo" : pseudo])
             }
             
         }
