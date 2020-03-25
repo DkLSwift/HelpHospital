@@ -26,26 +26,16 @@ class SplashViewController: UIViewController {
         if let id = defaults.value(forKey: "UserId") as? String {
             
             let user = Member(uuid: id)
-            ref.child("users").child(id).observeSingleEvent(of: .value) { (snapshot) in
-                let value = snapshot.value as? NSDictionary
-                
-                user.pseudo = value?["pseudo"] as? String ?? ""
-                
-                UserDefaults.standard.set(user.uuid, forKey: "UserId")
-                UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
-                
-                
-                DispatchQueue.main.async {
-                    let vc = HomeViewController()
-                    vc.user = user
-                    vc.modalPresentationStyle = .fullScreen
-                    self.present(vc, animated: true, completion: nil)
-                }
+            
+            if let pseudo = defaults.value(forKey: "pseudo") as? String {
+                user.pseudo = pseudo
             }
-        } else {
-            let vc = LogInViewController()
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            MemberSession.share.isLogged = true
+            MemberSession.share.user = user
         }
+        
+        let vc = HomeTabController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }

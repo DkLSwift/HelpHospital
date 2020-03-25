@@ -10,6 +10,10 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+protocol CreateAccountViewProtocol: class {
+    func didCreateAccount()
+}
+
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
 
     let topLabel: UILabel = {
@@ -54,7 +58,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }()
     
     var ref = Database.database().reference()
-    
+    weak var delegate: CreateAccountViewProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,10 +107,11 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                     "pseudo" : pseudo
                 ])
                 
-                let vc = HomeViewController()
-                vc.user = user
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true, completion: nil)
+                MemberSession.share.isLogged = true
+                MemberSession.share.user = user
+                self.delegate?.didCreateAccount()
+                
+                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -118,13 +123,16 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             if Utils.checkMail(mail: mail) {
                 if password == confirmPassword {
                     
-                    createUser(mail: mail, password: password, pseudo: pseudo)
-                    
+                    if password.count >= 6 {
+                        createUser(mail: mail, password: password, pseudo: pseudo)
+                    } else {
+                        Utils.callAlert(vc: self, title: "Erreur", message: "Le password doit contenir au moins 6 caractères.", action: "Ok")
+                    }
                 } else {
-                    Utils.callAlert(vc: self, title: "Erreur", message: "Les passwords entrés sont différents", action: "Ok")
+                    Utils.callAlert(vc: self, title: "Erreur", message: "Les passwords entrés sont différents.", action: "Ok")
                 }
             } else {
-                Utils.callAlert(vc: self, title: "Erreur", message: "L'e-mail est invalide", action: "Ok")
+                Utils.callAlert(vc: self, title: "Erreur", message: "L'e-mail est invalide.", action: "Ok")
             }
         } else {
             Utils.callAlert(vc: self, title: "Erreur", message: "Un champs de texte est vide.", action: "Ok")

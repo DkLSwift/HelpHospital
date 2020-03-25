@@ -12,11 +12,19 @@ import FirebaseAuth
 import FirebaseUI
 
 
+
+protocol SignInViewProtocol: class {
+    func didSignInAccount()
+}
+
+
 class LogInViewController: UIViewController, LoginViewProtocol {
     
 
     let loginView = LoginView()
     var ref = Database.database().reference()
+    weak var delegate: SignInViewProtocol?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,21 +56,18 @@ class LogInViewController: UIViewController, LoginViewProtocol {
                         let value = snapshot.value as? NSDictionary
                         let user = Member(uuid: id)
                         user.pseudo = value?["pseudo"] as? String ?? ""
+                        
                         UserDefaults.standard.set(user.uuid, forKey: "UserId")
                         UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
                         
-                        self.ref.child("users").child(id).updateChildValues([
-                            "id": id,
-                            "pseudo" : user.pseudo
-                        ])
+                        MemberSession.share.isLogged = true
+                        MemberSession.share.user = user
                         
-                        let vc = HomeTabController()
-                        vc.user = user
-                        vc.modalPresentationStyle = .fullScreen
-                        self.present(vc, animated: true, completion: {
-                            self.loginView.mailTF.text = ""
-                            self.loginView.passwordTF.text = ""
-                        })
+                        self.loginView.mailTF.text = ""
+                        self.loginView.passwordTF.text = ""
+                       
+                        self.delegate?.didSignInAccount()
+                        self.dismiss(animated: true, completion: nil)
                         
                     }) { (error) in
                         print(error.localizedDescription)
@@ -73,12 +78,9 @@ class LogInViewController: UIViewController, LoginViewProtocol {
             Utils.callAlert(vc: self, title: "Erreur", message: "Un champs de texte est vide", action: "Ok")
         }
     }
-    func fbLogin(user: Member) {
+    func fbLogin() {
         
-        let vc = HomeViewController()
-        vc.user = user
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -16,14 +16,14 @@ import FirebaseAuth
 protocol LoginViewProtocol {
     func createAccount()
     func connect(mail: String, password: String)
-    func fbLogin(user: Member)
+    func fbLogin()
 }
 
 class LoginView: UIView, UITextFieldDelegate {
     
     let welcomeLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Bienvenue sur l'application d'entraide contre le coco"
+        lbl.text = "Se connecter"
         lbl.font = UIFont.systemFont(ofSize: 36)
         lbl.numberOfLines = 0
         lbl.minimumScaleFactor = 0.6
@@ -102,6 +102,8 @@ class LoginView: UIView, UITextFieldDelegate {
     
         fbsdkButton = FBLoginButton()
         fbsdkButton?.removeConstraints(fbsdkButton!.constraints)
+        fbsdkButton?.delegate = self
+        
         connectButton.constrainWidth(constant: 250)
         [fbsdkButton!, mailTF, passwordTF, connectButton].forEach({ $0.constrainHeight(constant: 44)})
         
@@ -140,7 +142,8 @@ class LoginView: UIView, UITextFieldDelegate {
     }
 }
 
-extension LoginView {
+extension LoginView: LoginButtonDelegate {
+    
     func loginButtonDidLogOut(_ loginButton: FBLoginButton){
         print("User did disconnect ... ")
     }
@@ -186,7 +189,10 @@ extension LoginView {
                         UserDefaults.standard.set(user.uuid, forKey: "UserId")
                         UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
                         
-                        self.delegate?.fbLogin(user: user)
+                        MemberSession.share.isLogged = true
+                        MemberSession.share.user = user
+                        
+                        self.delegate?.fbLogin()
                     }
                 }
             })
