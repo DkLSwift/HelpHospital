@@ -16,7 +16,7 @@ import FirebaseAuth
 protocol LoginViewProtocol {
     func createAccount()
     func connect(mail: String, password: String)
-    func fbLogin()
+    func fbLogin(user: Member)
 }
 
 class LoginView: UIView, UITextFieldDelegate {
@@ -44,6 +44,7 @@ class LoginView: UIView, UITextFieldDelegate {
     
     let mailTF: TF = {
         let tf = TF(placeholder: "E-mail")
+        tf.keyboardType = .emailAddress
         return tf
     }()
     let passwordTF: TF = {
@@ -174,12 +175,18 @@ extension LoginView {
                     print("Error: \(err.localizedDescription)")
                 } else {
                     let user = Member(uuid: AuthId)
+                    
+                    self.ref.child("users").child(AuthId).updateChildValues(["id": AuthId])
+                    
                     self.ref.child("users").child(AuthId).observeSingleEvent(of: .value) { (snapshot) in
                         
                         let value = snapshot.value as? NSDictionary
                         user.pseudo = value?["pseudo"] as? String ?? ""
                         
-                        self.delegate?.fbLogin()
+                        UserDefaults.standard.set(user.uuid, forKey: "UserId")
+                        UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
+                        
+                        self.delegate?.fbLogin(user: user)
                     }
                 }
             })

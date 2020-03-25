@@ -25,6 +25,10 @@ class HomeViewController: UIViewController {
         let disconnectbtn = UIButton()
         disconnectbtn.constrainHeight(constant: 44)
         disconnectbtn.constrainWidth(constant: 100)
+        disconnectbtn.layer.borderColor = UIColor.black.cgColor
+        disconnectbtn.layer.borderWidth = 2
+        disconnectbtn.setTitle("DECO", for: .normal)
+        disconnectbtn.setTitleColor(.black, for: .normal)
         view.addSubview(disconnectbtn)
         disconnectbtn.centerInSuperview()
         
@@ -33,7 +37,14 @@ class HomeViewController: UIViewController {
     
     @objc func handleDisconnection() {
         LoginManager().logOut()
+        UserDefaults.standard.set(nil, forKey: "UserId")
+        UserDefaults.standard.set(nil, forKey: "pseudo")
+        
         dismiss(animated: true, completion: nil)
+        
+        let vc = LogInViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     deinit {

@@ -16,6 +16,7 @@ class LogInViewController: UIViewController, LoginViewProtocol {
     
 
     let loginView = LoginView()
+    var ref = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +48,21 @@ class LogInViewController: UIViewController, LoginViewProtocol {
                         let value = snapshot.value as? NSDictionary
                         let user = Member(uuid: id)
                         user.pseudo = value?["pseudo"] as? String ?? ""
+                        UserDefaults.standard.set(user.uuid, forKey: "UserId")
+                        UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
                         
-                        let vc = HomeViewController()
+                        self.ref.child("users").child(id).updateChildValues([
+                            "id": id,
+                            "pseudo" : user.pseudo
+                        ])
+                        
+                        let vc = HomeTabController()
+                        vc.user = user
                         vc.modalPresentationStyle = .fullScreen
-                        self.present(vc, animated: true, completion: nil)
+                        self.present(vc, animated: true, completion: {
+                            self.loginView.mailTF.text = ""
+                            self.loginView.passwordTF.text = ""
+                        })
                         
                     }) { (error) in
                         print(error.localizedDescription)
@@ -61,9 +73,10 @@ class LogInViewController: UIViewController, LoginViewProtocol {
             Utils.callAlert(vc: self, title: "Erreur", message: "Un champs de texte est vide", action: "Ok")
         }
     }
-    func fbLogin() {
+    func fbLogin(user: Member) {
         
         let vc = HomeViewController()
+        vc.user = user
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }

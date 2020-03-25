@@ -28,6 +28,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }()
     let mailTF: TF = {
         let tf = TF(placeholder: "E-mail")
+        tf.keyboardType = .emailAddress
         return tf
     }()
     let passwordTF: TF = {
@@ -51,6 +52,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         btn.layer.borderColor = dark.cgColor
         return btn
     }()
+    
+    var ref = Database.database().reference()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,6 +94,14 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 guard let id = authResult?.user.uid else { return }
                 let user = Member(uuid: id)
                 user.pseudo = pseudo
+                
+                UserDefaults.standard.set(user.uuid, forKey: "UserId")
+                UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
+                
+                self.ref.child("users").child(id).updateChildValues([
+                    "id": id,
+                    "pseudo" : pseudo
+                ])
                 
                 let vc = HomeViewController()
                 vc.user = user
