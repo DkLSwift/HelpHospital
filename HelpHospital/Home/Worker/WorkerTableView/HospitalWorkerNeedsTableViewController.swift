@@ -26,6 +26,7 @@ class HospitalWorkerNeedsTableViewController: UITableViewController {
         tableView.backgroundColor = clearBlue
         tableView.register(HospitalWorkerNeedsCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
+        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,7 +48,7 @@ class HospitalWorkerNeedsTableViewController: UITableViewController {
     }
 
     deinit {
-        print("Spot Suggestion TableViewController Successfully Deinited")
+        print("Worker TVC Deinit")
     }
 }
 

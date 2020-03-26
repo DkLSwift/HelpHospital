@@ -36,6 +36,8 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
         let queryHandle = circleQuery?.observe(.keyEntered, with: { (key, location) in
             keys.append(key)
         })
+        
+        success(keys)
     }
     
     
