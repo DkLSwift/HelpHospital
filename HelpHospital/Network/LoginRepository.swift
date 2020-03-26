@@ -29,13 +29,13 @@ class LoginRepository: LoginRepositoryProtocol {
                 error(err)
             }else{
                 guard let id = authResult?.user.uid else { return }
-                ref.child("users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                usersRef.child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     let value = snapshot.value as? NSDictionary
-                    let user = Member(uuid: id)
-                    user.pseudo = value?["pseudo"] as? String ?? ""
+                    let member = Member(uuid: id)
+                    member.pseudo = value?["pseudo"] as? String ?? ""
                     
-                    MemberSession.share.user = user
+                    MemberSession.share.member = member
                     
                     success()
                     
@@ -63,23 +63,23 @@ class LoginRepository: LoginRepositoryProtocol {
                             error(err)
                         } else {
                             guard let id = authResult?.user.uid else { return }
-                            let user = Member(uuid: id)
+                            let member = Member(uuid: id)
                             
                             let resDict = result as? NSDictionary
                             let firstName = resDict?["first_name"] as? String ?? ""
                             
-                            ref.child("users").child(id).observeSingleEvent(of: .value) { (snapshot) in
+                            usersRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
                                 
                                 let value = snapshot.value as? NSDictionary
-                                user.pseudo = value?["pseudo"] as? String ?? ""
+                                member.pseudo = value?["pseudo"] as? String ?? ""
                                 
-                                if user.pseudo == "" {
-                                    user.pseudo = firstName
+                                if member.pseudo == "" {
+                                    member.pseudo = firstName
                                     usersRef.child(id).updateChildValues([
                                         "pseudo" : firstName
                                     ])
                                 }
-                                MemberSession.share.user = user
+                                MemberSession.share.member = member
                                 success()
                             }
                         }
@@ -98,9 +98,9 @@ class LoginRepository: LoginRepositoryProtocol {
                 error(err)
             }else{
                 guard let id = authResult?.user.uid else { return }
-                let user = Member(uuid: id)
-                user.pseudo = pseudo
-                MemberSession.share.user = user
+                let member = Member(uuid: id)
+                member.pseudo = pseudo
+                MemberSession.share.member = member
                 
                 usersRef.child(id).updateChildValues([
                     "id": id,
@@ -118,13 +118,13 @@ class LoginRepository: LoginRepositoryProtocol {
             
             usersRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
                 
-                let user = Member(uuid: id)
+                let member = Member(uuid: id)
                 let value = snapshot.value as? NSDictionary
-                user.pseudo = value?["pseudo"] as? String ?? ""
-                MemberSession.share.user = user
+                member.pseudo = value?["pseudo"] as? String ?? ""
+                MemberSession.share.member = member
             }
         } else {
-            MemberSession.share.user = nil
+            MemberSession.share.member = nil
         }
     }
 }

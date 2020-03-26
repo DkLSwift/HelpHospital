@@ -164,49 +164,34 @@ extension LoginView: LoginButtonDelegate {
             }
             
             
-//            if AccessToken.current  != nil {
-//                let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-//                Auth.auth().signIn(with: credential) {  (authResult, error) in
-//                    if let error = error {
-//                        print(error)
-//                        return
-//                    } else {
-//                        self.fetchUserInfo(AuthId: (authResult?.user.uid)!)
-//                    }
-//                }
-//            }
         }
     }
     
-    func fetchUserInfo( AuthId : String) -> Void {
-        
-        if (AccessToken .current != nil) {
-            let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields":"id,first_name"])
-            graphRequest.start(completionHandler: { (connection, result, error) -> Void in
-                
-                if let err = error {
-                    print("Error: \(err.localizedDescription)")
-                } else {
-                    // result take firstname -> pseudo
-                    let user = Member(uuid: AuthId)
-                    
-                    ref.child("users").child(AuthId).updateChildValues([
-                        "id": AuthId])
-                    
-                    ref.child("users").child(AuthId).observeSingleEvent(of: .value) { (snapshot) in
-                        
-                        let value = snapshot.value as? NSDictionary
-                        user.pseudo = value?["pseudo"] as? String ?? ""
-                        
-                        UserDefaults.standard.set(user.uuid, forKey: "UserId")
-                        UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
-                        
-                        MemberSession.share.user = user
-                        
-                        self.delegate?.fbLogin()
-                    }
-                }
-            })
-        }
-    }
+//    func fetchUserInfo( AuthId : String) -> Void {
+//        
+//        if (AccessToken .current != nil) {
+//            let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields":"id,first_name"])
+//            graphRequest.start(completionHandler: { (connection, result, error) -> Void in
+//                
+//                if let err = error {
+//                    print("Error: \(err.localizedDescription)")
+//                } else {
+//                    // result take firstname -> pseudo
+//                    let member = Member(uuid: AuthId)
+//                    
+//                    
+//                    usersRef.child(AuthId).observeSingleEvent(of: .value) { (snapshot) in
+//                        
+//                        let value = snapshot.value as? NSDictionary
+//                        member.pseudo = value?["pseudo"] as? String ?? ""
+//                        
+//                        
+//                        MemberSession.share.user = member
+//                        
+//                        self.delegate?.fbLogin()
+//                    }
+//                }
+//            })
+//        }
+//    }
 }

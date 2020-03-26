@@ -23,6 +23,8 @@
 		6E655B07242C032B0081BB3B /* Need.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655B06242C032B0081BB3B /* Need.swift */; };
 		6E655B0D242CD4A20081BB3B /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655B0C242CD4A20081BB3B /* LoginRepository.swift */; };
 		6E655B0F242D012C0081BB3B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655B0E242D012C0081BB3B /* LocationManager.swift */; };
+		6E655B11242D0B570081BB3B /* HospitalHelperTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655B10242D0B570081BB3B /* HospitalHelperTableviewCell.swift */; };
+		6E655B13242D11A40081BB3B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655B12242D11A40081BB3B /* Service.swift */; };
 		6E65CDE0242B7E3A0067C724 /* HomeTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E65CDDF242B7E3A0067C724 /* HomeTabController.swift */; };
 		6E65CDE2242B7EA80067C724 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E65CDE1242B7EA80067C724 /* SettingsViewController.swift */; };
 		6E65CDE4242B7F0F0067C724 /* HospitalWorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E65CDE3242B7F0F0067C724 /* HospitalWorkerViewController.swift */; };
@@ -82,6 +84,8 @@
 		6E655B06242C032B0081BB3B /* Need.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Need.swift; sourceTree = "<group>"; };
 		6E655B0C242CD4A20081BB3B /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
 		6E655B0E242D012C0081BB3B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		6E655B10242D0B570081BB3B /* HospitalHelperTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalHelperTableviewCell.swift; sourceTree = "<group>"; };
+		6E655B12242D11A40081BB3B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		6E65CDDF242B7E3A0067C724 /* HomeTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabController.swift; sourceTree = "<group>"; };
 		6E65CDE1242B7EA80067C724 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6E65CDE3242B7F0F0067C724 /* HospitalWorkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalWorkerViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				6E655B0C242CD4A20081BB3B /* LoginRepository.swift */,
+				6E655B12242D11A40081BB3B /* Service.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				6E65CDE5242B7F560067C724 /* HospitalHelperViewController.swift */,
+				6E655B10242D0B570081BB3B /* HospitalHelperTableviewCell.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -625,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E655B0D242CD4A20081BB3B /* LoginRepository.swift in Sources */,
+				6E655B13242D11A40081BB3B /* Service.swift in Sources */,
 				6E655B05242BFC410081BB3B /* HospitalWorkerNeedsCell.swift in Sources */,
 				6E655B07242C032B0081BB3B /* Need.swift in Sources */,
 				6E678D6D242A6672007CA125 /* CreateAccountViewController.swift in Sources */,
@@ -650,6 +657,7 @@
 				6ECFAF73242A2D9700D4FDE5 /* Member.swift in Sources */,
 				6E65CDE6242B7F560067C724 /* HospitalHelperViewController.swift in Sources */,
 				6E697304242ABB2A0076064A /* TF.swift in Sources */,
+				6E655B11242D0B570081BB3B /* HospitalHelperTableviewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

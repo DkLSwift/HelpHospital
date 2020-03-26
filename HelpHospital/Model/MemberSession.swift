@@ -13,7 +13,7 @@ class MemberSession {
     public static let share = MemberSession()
     
     var isLogged: Bool {
-        user != nil
+        member != nil
     }
     
     var userDidSet: [((Member?) -> Void)] = []
@@ -22,9 +22,9 @@ class MemberSession {
         userDidSet.append(block)
     }
     
-    var user: Member? {
+    var member: Member? {
         didSet {
-            userDidSet.forEach {$0(user)}
+            userDidSet.forEach {$0(member)}
         }
     }
     

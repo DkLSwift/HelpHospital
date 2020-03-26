@@ -57,11 +57,13 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
             self.topLabel?.removeFromSuperview()
             self.setupConnectedUI()
         } else {
+            needs = []
+            tableViewController?.view.removeFromSuperview()
+            tableViewController = nil
             self.navigationItem.rightBarButtonItem = nil
             self.setupDisconnectedUI()
         }
     }
-    
     
     func setupDisconnectedUI() {
         guard topLabel != nil else { return }
@@ -93,7 +95,7 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
     }
 
     func fetchCurrentUserNeedsAndReloadTVData() {
-        guard let id = MemberSession.share.user?.uuid else { return }
+        guard let id = MemberSession.share.member?.uuid else { return }
         
         needs = []
         var keys = [String]()
@@ -137,7 +139,7 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     func postNeeds(title: String, desc: String?, time: String?) {
-        guard let location = locationManager.location, let id = MemberSession.share.user?.uuid, let key = needsRef.childByAutoId().key else { return }
+        guard let location = locationManager.location, let id = MemberSession.share.member?.uuid, let key = needsRef.childByAutoId().key else { return }
         
         geoFire = GeoFire(firebaseRef: needsRef)
         

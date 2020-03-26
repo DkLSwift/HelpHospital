@@ -90,8 +90,8 @@ class SettingsViewController: UIViewController {
         hStack.axis = .horizontal
 //        hStack.distribution = .fillEqually
         hStack.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 200, left: 30, bottom: 0, right: 30))
-        if MemberSession.share.user?.pseudo != "" {
-            pseudoLabel.text = MemberSession.share.user?.pseudo
+        if MemberSession.share.member?.pseudo != "" {
+            pseudoLabel.text = MemberSession.share.member?.pseudo
         } else {
             pseudoLabel.text = "Pseudo"
         }
@@ -113,11 +113,11 @@ class SettingsViewController: UIViewController {
             
             guard let pseudo = input.text else { return }
             if pseudo != "" {
-                guard let id = MemberSession.share.user?.uuid else { return }
+                guard let id = MemberSession.share.member?.uuid else { return }
                 self.pseudoLabel.text = pseudo
-                MemberSession.share.user?.pseudo = pseudo
+                MemberSession.share.member?.pseudo = pseudo
                 
-                ref.child("users").child(id).updateChildValues(["pseudo" : pseudo])
+                usersRef.child(id).updateChildValues(["pseudo" : pseudo])
             }
             
         }
@@ -142,7 +142,7 @@ class SettingsViewController: UIViewController {
             Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
         }
         
-        MemberSession.share.user = nil
+        MemberSession.share.member = nil
         
         removeConnectedUI()
     }
