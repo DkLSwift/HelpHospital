@@ -34,17 +34,30 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
     var locationManager: CLLocationManager? = CLLocationManager()
     var geoFire: GeoFire?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.largeTitleDisplayMode = .never
-//        if MemberSession.share.isLogged {
-//            setupConnectedUI()
-//        } else {
-//            setupDisconnectedUI()
+        
+//        MemberSession.share.userDidSet = { member in
+            
+            
 //        }
         setupLocationManager()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if MemberSession.share.isLogged {
+            self.topLabel?.removeFromSuperview()
+            self.setupConnectedUI()
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+            self.setupDisconnectedUI()
+        }
+    }
+    
+    
     func setupLocationManager() {
         locationManager?.requestAlwaysAuthorization()
         locationManager?.requestWhenInUseAuthorization()
@@ -53,16 +66,6 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
             locationManager?.delegate = self
             locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
             locationManager?.startUpdatingLocation()
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if MemberSession.share.isLogged {
-            topLabel?.removeFromSuperview()
-            setupConnectedUI()
-        } else {
-            navigationItem.rightBarButtonItem = nil
-            setupDisconnectedUI()
         }
     }
     
@@ -101,6 +104,7 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
     func fetchCurrentUserNeedsAndReloadTVData() {
         guard let id = MemberSession.share.user?.uuid else { return }
         
+        needs = []
         var keys = [String]()
         
         usersRef.child(id).child(currentRequests).observeSingleEvent(of: .value) { (snapshot) in
@@ -109,8 +113,6 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
                     guard let key = $0.key as? String else { return }
                     keys.append(key)
                 })
-                print(keys)
-                // work to do
                 keys.forEach { (key) in
                     needsRef.child(key).observeSingleEvent(of: .value) { (snapshot) in
                         
@@ -122,7 +124,6 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
                             let need = Need(title: title, time: time, desc: desc)
                             self.needs.append(need)
                         }
-                        
                         self.tableViewController?.needs = self.needs
                         self.tableViewController?.tableView.reloadData()
                     }

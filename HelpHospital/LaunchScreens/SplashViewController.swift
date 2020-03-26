@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import Firebase
 
 class SplashViewController: UIViewController {
+    
+    let loginRepository = LoginRepository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,21 +20,14 @@ class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        let defaults = UserDefaults.standard
+        loginRepository.requestAutologin()
         
-        if let id = defaults.value(forKey: "UserId") as? String {
-            
-            let user = Member(uuid: id)
-            
-            if let pseudo = defaults.value(forKey: "pseudo") as? String {
-                user.pseudo = pseudo
-            }
-            MemberSession.share.isLogged = true
-            MemberSession.share.user = user
-        }
         
-        let vc = HomeTabController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+            let vc = HomeTabController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        
+        
+        
     }
 }

@@ -21,6 +21,8 @@ protocol SignInViewProtocol: class {
 class LogInViewController: UIViewController, LoginViewProtocol {
     
 
+    let loginRepository = LoginRepository()
+    
     let loginView = LoginView()
     weak var delegate: SignInViewProtocol?
     
@@ -42,43 +44,51 @@ class LogInViewController: UIViewController, LoginViewProtocol {
         
         if mail != "" && password != "" {
             
-            let ref = Database.database().reference()
-            
-            Auth.auth().signIn(withEmail: mail, password: password){
-                (authResult, error) in
-                if error != nil {
-                    Utils.callAlert(vc: self, title: "Erreur", message: "E-mail ou mot de passe invalide", action: "Ok")
-                }else{
-                    guard let id = authResult?.user.uid else { return }
-                    ref.child("users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-                        
-                        let value = snapshot.value as? NSDictionary
-                        let user = Member(uuid: id)
-                        user.pseudo = value?["pseudo"] as? String ?? ""
-                        
-                        UserDefaults.standard.set(user.uuid, forKey: "UserId")
-                        UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
-                        
-                        MemberSession.share.isLogged = true
-                        MemberSession.share.user = user
-                        
-                        self.loginView.mailTF.text = ""
-                        self.loginView.passwordTF.text = ""
-                       
-                        self.delegate?.didSignInAccount()
-                        self.dismiss(animated: true, completion: nil)
-                        
-                    }) { (error) in
-                        print(error.localizedDescription)
-                    }
-                }
+            loginRepository.requestLogin(mail: mail, password: password, success: {
+                self.loginView.mailTF.text = ""
+                self.loginView.passwordTF.text = ""
+                
+                self.delegate?.didSignInAccount()
+                self.dismiss(animated: true, completion: nil)
+            }) { (err) in
+                Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
             }
+            
+//            Auth.auth().signIn(withEmail: mail, password: password){
+//                (authResult, error) in
+//                if error != nil {
+//                    Utils.callAlert(vc: self, title: "Erreur", message: "E-mail ou mot de passe invalide", action: "Ok")
+//                }else{
+//                    guard let id = authResult?.user.uid else { return }
+//                    ref.child("users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+//
+//                        let value = snapshot.value as? NSDictionary
+//                        let user = Member(uuid: id)
+//                        user.pseudo = value?["pseudo"] as? String ?? ""
+//
+//                        UserDefaults.standard.set(user.uuid, forKey: "UserId")
+//                        UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
+//
+//                        MemberSession.share.user = user
+//
+//                        self.loginView.mailTF.text = ""
+//                        self.loginView.passwordTF.text = ""
+//
+//                        self.delegate?.didSignInAccount()
+//                        self.dismiss(animated: true, completion: nil)
+//
+//                    }) { (error) in
+//                        print(error.localizedDescription)
+//                    }
+//                }
+//            }
         } else {
             Utils.callAlert(vc: self, title: "Erreur", message: "Un champs de texte est vide", action: "Ok")
         }
     }
+    
     func fbLogin() {
-        
+        self.delegate?.didSignInAccount()
         self.dismiss(animated: true, completion: nil)
     }
 }

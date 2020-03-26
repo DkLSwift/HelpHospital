@@ -11,7 +11,7 @@ import Foundation
 
 public class Member {
     
-    var uuid: String?
+    var uuid: String
     var pseudo: String?
     
     init(uuid: String) {

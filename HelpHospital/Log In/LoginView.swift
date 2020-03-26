@@ -79,6 +79,8 @@ class LoginView: UIView, UITextFieldDelegate {
     var fbsdkButton: FBLoginButton?
     var delegate: LoginViewProtocol?
     
+    let loginRepository = LoginRepository()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -153,32 +155,43 @@ extension LoginView: LoginButtonDelegate {
             return
         } else{
             loginButton.permissions = ["public_profile", "email"]
-            if AccessToken.current  != nil {
-                let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-                Auth.auth().signIn(with: credential) {  (authResult, error) in
-                    if let error = error {
-                        print(error)
-                        return
-                    } else {
-                        self.fetchUserInfo(AuthId: (authResult?.user.uid)!)
-                    }
-                }
+            
+            loginRepository.requestThidPartyLogin(success: {
+                
+                self.delegate?.fbLogin()
+            }) { ( err ) in
+                
             }
+            
+            
+//            if AccessToken.current  != nil {
+//                let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+//                Auth.auth().signIn(with: credential) {  (authResult, error) in
+//                    if let error = error {
+//                        print(error)
+//                        return
+//                    } else {
+//                        self.fetchUserInfo(AuthId: (authResult?.user.uid)!)
+//                    }
+//                }
+//            }
         }
     }
     
     func fetchUserInfo( AuthId : String) -> Void {
         
         if (AccessToken .current != nil) {
-            let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields":"id,gender,birthday,email,first_name,last_name,name,picture.width(480).height(480)"])
+            let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields":"id,first_name"])
             graphRequest.start(completionHandler: { (connection, result, error) -> Void in
                 
                 if let err = error {
                     print("Error: \(err.localizedDescription)")
                 } else {
+                    // result take firstname -> pseudo
                     let user = Member(uuid: AuthId)
                     
-                    ref.child("users").child(AuthId).updateChildValues(["id": AuthId])
+                    ref.child("users").child(AuthId).updateChildValues([
+                        "id": AuthId])
                     
                     ref.child("users").child(AuthId).observeSingleEvent(of: .value) { (snapshot) in
                         
@@ -188,7 +201,6 @@ extension LoginView: LoginButtonDelegate {
                         UserDefaults.standard.set(user.uuid, forKey: "UserId")
                         UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
                         
-                        MemberSession.share.isLogged = true
                         MemberSession.share.user = user
                         
                         self.delegate?.fbLogin()

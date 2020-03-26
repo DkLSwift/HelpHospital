@@ -60,13 +60,15 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if !MemberSession.share.isLogged {
-            setupConnect()
-        } else {
-            setupUI()
-        }
+      
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        if !MemberSession.share.isLogged {
+                  self.setupConnect()
+              } else {
+                  self.setupUI()
+              }
+    }
     func setupConnect() {
         view.addSubview(connectButton)
         connectButton.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 200, left: 30, bottom: 0, right: 0), size: .init(width: 150, height: 44))
@@ -106,7 +108,6 @@ class SettingsViewController: UIViewController {
                 guard let id = MemberSession.share.user?.uuid else { return }
                 self.pseudoLabel.text = pseudo
                 MemberSession.share.user?.pseudo = pseudo
-                UserDefaults.standard.set(pseudo, forKey: "pseudo")
                 
                 ref.child("users").child(id).updateChildValues(["pseudo" : pseudo])
             }
@@ -127,10 +128,13 @@ class SettingsViewController: UIViewController {
     }
     @objc func handleLogOut() {
         LoginManager().logOut()
+        do {
+            try Auth.auth().signOut()
+        } catch let err {
+            Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
+        }
+        
         MemberSession.share.user = nil
-        MemberSession.share.isLogged = false
-        UserDefaults.standard.set(nil, forKey: "UserId")
-        UserDefaults.standard.set(nil, forKey: "pseudo")
         
         removeConnectedUI()
     }

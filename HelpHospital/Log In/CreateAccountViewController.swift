@@ -106,7 +106,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                     "pseudo" : pseudo
                 ])
                 
-                MemberSession.share.isLogged = true
                 MemberSession.share.user = user
                 self.delegate?.didCreateAccount()
                 

@@ -12,8 +12,15 @@ class MemberSession {
     
     public static let share = MemberSession()
     
-    var isLogged = false
+    var isLogged: Bool {
+        user != nil
+    }
     
-    var user: Member?
+    var userDidSet: ((Member?) -> Void)?
+    var user: Member? {
+        didSet {
+            userDidSet?(user)
+        }
+    }
     
 }
