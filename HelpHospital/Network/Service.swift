@@ -18,7 +18,7 @@ class Service {
         var needs = [Need]()
         
         keys.forEach { key in
-            needsRef.observe(.value) { (snapshot) in
+            needsRef.child(key).observe(.value) { (snapshot) in
                 
                 if let value = snapshot.value as? NSDictionary {
                     guard let title = value["title"] as? String else { return }
@@ -31,7 +31,52 @@ class Service {
             }
         }
         
-        success(needs)
+        _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in 
+            success(needs)
+        })
+        
+    }
+    
+    
+    func fetchCurrentUserNeeds(id: String, success: @escaping ([Need]) -> Void) {
+        
+        var needs = [Need]()
+        var keys = [String]()
+        
+        usersRef.child(id).child(currentRequests).observeSingleEvent(of: .value) { (snapshot) in
+            if let values = snapshot.value as? NSDictionary {
+                values.forEach({
+                    guard let key = $0.key as? String else { return }
+                    keys.append(key)
+                })
+                
+                let dispatchGroup = DispatchGroup()
+                
+                keys.forEach { (key) in
+                    
+                    dispatchGroup.enter()
+                    needsRef.child(key).observeSingleEvent(of: .value) { (snapshot) in
+                        
+                        if let value = snapshot.value as? NSDictionary {
+                            guard let title = value["title"] as? String else { return }
+                            let desc = value["desc"] as? String
+                            let time = value["time"] as? String
+
+                            let need = Need(title: title, time: time, desc: desc)
+                            needs.append(need)
+                            dispatchGroup.leave()
+                        }
+                    }
+                }
+                dispatchGroup.notify(queue: .main){
+                    success(needs)
+                }
+            }
+            
+        }
+        
+        
+        
     }
     
 }

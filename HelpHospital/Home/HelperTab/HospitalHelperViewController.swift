@@ -26,7 +26,11 @@ class HospitalHelperViewController: UITableViewController {
             
             self.service.getNeeds(for: keys) { (needs) in
                 self.needs = needs
-                self.tableView.reloadData()
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
             }
             
         }) { (err) in
@@ -44,7 +48,7 @@ class HospitalHelperViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalWorkerNeedsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalHelperTableviewCell
 
          let need = needs[indexPath.row]
         

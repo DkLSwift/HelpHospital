@@ -37,8 +37,26 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
             keys.append(key)
         })
         
-        success(keys)
+        _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
+            circleQuery?.removeObserver(withFirebaseHandle: queryHandle!)
+            success(keys)
+        })
     }
     
-    
+    func postNeed(from location: CLLocation, key: String, id: String, title: String, desc: String?, time: String?) {
+        
+        let geoFire = GeoFire(firebaseRef: needsRef)
+        
+        geoFire.setLocation(location, forKey: key)
+        needsRef.child(key).updateChildValues([
+            "title": title,
+            "desc": desc ?? "",
+            "time": time ?? "",
+            "pseudo": MemberSession.share.member?.pseudo ?? "",
+            "workerId": id
+        ])
+        
+        usersRef.child(id).child(currentRequests).updateChildValues([key : key])
+        
+    }
 }

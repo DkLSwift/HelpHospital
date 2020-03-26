@@ -54,7 +54,5 @@ class HospitalWorkerNeedsCell: UITableViewCell {
         deleteNeedBtn.anchor(top: nil, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 30), size: .init(width: 44, height: 44))
         deleteNeedBtn.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-    
-    
 }
 
