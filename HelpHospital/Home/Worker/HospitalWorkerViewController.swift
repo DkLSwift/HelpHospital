@@ -111,25 +111,23 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
                 })
                 print(keys)
                 // work to do
-            }
-        }
-        
-        
-        needsRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
-            if let valueDict = snapshot.value as? NSDictionary {
-                valueDict.forEach { (key, value) in
-                    if let data = value as? NSDictionary {
-                        guard let title = data["title"] as? String else { return }
-                        let desc = data["desc"] as? String
-                        let time = data["time"] as? String
+                keys.forEach { (key) in
+                    needsRef.child(key).observeSingleEvent(of: .value) { (snapshot) in
                         
-                        let need = Need(title: title, time: time, desc: desc)
-                        self.needs.append(need)
+                        if let value = snapshot.value as? NSDictionary {
+                            guard let title = value["title"] as? String else { return }
+                            let desc = value["desc"] as? String
+                            let time = value["time"] as? String
+
+                            let need = Need(title: title, time: time, desc: desc)
+                            self.needs.append(need)
+                        }
+                        
+                        self.tableViewController?.needs = self.needs
+                        self.tableViewController?.tableView.reloadData()
                     }
                 }
             }
-            self.tableViewController?.needs = self.needs
-            self.tableViewController?.tableView.reloadData()
         }
     }
     
