@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import GeoFire
+import CoreLocation
+import FirebaseDatabase
 
-class HospitalWorkerViewController: UIViewController, FormViewProtocol {
+class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate, FormViewProtocol {
     
     
     let topLabel: UILabel? = {
@@ -28,6 +31,9 @@ class HospitalWorkerViewController: UIViewController, FormViewProtocol {
     
     var needs = [Need]()
     
+    var locationManager: CLLocationManager? = CLLocationManager()
+    var geoFire: GeoFire?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +43,17 @@ class HospitalWorkerViewController: UIViewController, FormViewProtocol {
 //        } else {
 //            setupDisconnectedUI()
 //        }
+        setupLocationManager()
+    }
+    func setupLocationManager() {
+        locationManager?.requestAlwaysAuthorization()
+        locationManager?.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager?.delegate = self
+            locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+            locationManager?.startUpdatingLocation()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,12 +83,13 @@ class HospitalWorkerViewController: UIViewController, FormViewProtocol {
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
         
-        let topPadding = self.topbarHeight
-        let botPadding = self.tabBarHeight
+//        let topPadding = self.topbarHeight
+//        let botPadding = self.tabBarHeight
         containerView = UIView()
         view.addSubview(containerView!)
         containerView?.backgroundColor = clearBlue
-        containerView?.fillSuperview(padding: .init(top: topPadding, left: 0, bottom: botPadding, right: 0))
+        containerView?.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor)
+//        containerView?.fillSuperview(padding: .init(top: topPadding, left: 0, bottom: botPadding, right: 0))
         
         tableViewController = HospitalWorkerNeedsTableViewController()
         containerView?.addSubview(tableViewController!.view)
@@ -82,6 +100,21 @@ class HospitalWorkerViewController: UIViewController, FormViewProtocol {
 
     func fetchCurrentUserNeedsAndReloadTVData() {
         guard let id = MemberSession.share.user?.uuid else { return }
+        
+        var keys = [String]()
+        
+        usersRef.child(id).child(currentRequests).observeSingleEvent(of: .value) { (snapshot) in
+            if let values = snapshot.value as? NSDictionary {
+                values.forEach({
+                    guard let key = $0.key as? String else { return }
+                    keys.append(key)
+                })
+                print(keys)
+                // work to do
+            }
+        }
+        
+        
         needsRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
             if let valueDict = snapshot.value as? NSDictionary {
                 valueDict.forEach { (key, value) in
@@ -114,12 +147,20 @@ class HospitalWorkerViewController: UIViewController, FormViewProtocol {
     }
     
     func postNeeds(title: String, desc: String?, time: String?) {
-        guard let id = MemberSession.share.user?.uuid else { return }
-        needsRef.child(id).childByAutoId().setValue([
+        guard let location = locationManager?.location, let id = MemberSession.share.user?.uuid, let key = needsRef.childByAutoId().key else { return }
+        
+        geoFire = GeoFire(firebaseRef: needsRef)
+        
+        print("key : ",key)
+        geoFire?.setLocation(location, forKey: key)
+        needsRef.child(key).updateChildValues([
             "title": title,
             "desc": desc ?? "",
-            "time": time ?? ""
+            "time": time ?? "",
+            "workerId": id
         ])
-        
+  
+        usersRef.child(id).child(currentRequests).updateChildValues([key : key])
+        fetchCurrentUserNeedsAndReloadTVData()
     }
 }

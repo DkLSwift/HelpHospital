@@ -18,6 +18,10 @@ let clearBlue = UIColor(red: 201/255, green: 249/255, blue: 255/255, alpha: 1.0)
 
 var ref = Database.database().reference()
 
+var usersRef: DatabaseReference {
+    return ref.child("users")
+}
 var needsRef: DatabaseReference {
     return ref.child("needs")
 }
+let currentRequests = "currentRequests"
