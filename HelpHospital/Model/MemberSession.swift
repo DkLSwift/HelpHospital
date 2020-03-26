@@ -16,10 +16,15 @@ class MemberSession {
         user != nil
     }
     
-    var userDidSet: ((Member?) -> Void)?
+    var userDidSet: [((Member?) -> Void)] = []
+    
+    func listenTo(block: @escaping ((Member?) -> Void)) {
+        userDidSet.append(block)
+    }
+    
     var user: Member? {
         didSet {
-            userDidSet?(user)
+            userDidSet.forEach {$0(user)}
         }
     }
     

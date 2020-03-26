@@ -31,7 +31,7 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
     
     var needs = [Need]()
     
-    var locationManager: CLLocationManager? = CLLocationManager()
+    var locationManager = LocationManager()
     var geoFire: GeoFire?
     
     
@@ -40,11 +40,16 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
         
         navigationItem.largeTitleDisplayMode = .never
         
-//        MemberSession.share.userDidSet = { member in
-            
-            
-//        }
-        setupLocationManager()
+        MemberSession.share.listenTo { _ in
+            if MemberSession.share.isLogged {
+                self.topLabel?.removeFromSuperview()
+                self.setupConnectedUI()
+            } else {
+                self.navigationItem.rightBarButtonItem = nil
+                self.setupDisconnectedUI()
+            }
+        }
+        locationManager.setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,17 +62,6 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
-    
-    func setupLocationManager() {
-        locationManager?.requestAlwaysAuthorization()
-        locationManager?.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager?.delegate = self
-            locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-            locationManager?.startUpdatingLocation()
-        }
-    }
     
     func setupDisconnectedUI() {
         guard topLabel != nil else { return }
@@ -86,13 +80,10 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
         
-//        let topPadding = self.topbarHeight
-//        let botPadding = self.tabBarHeight
         containerView = UIView()
         view.addSubview(containerView!)
         containerView?.backgroundColor = clearBlue
         containerView?.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor)
-//        containerView?.fillSuperview(padding: .init(top: topPadding, left: 0, bottom: botPadding, right: 0))
         
         tableViewController = HospitalWorkerNeedsTableViewController()
         containerView?.addSubview(tableViewController!.view)
@@ -146,7 +137,7 @@ class HospitalWorkerViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     func postNeeds(title: String, desc: String?, time: String?) {
-        guard let location = locationManager?.location, let id = MemberSession.share.user?.uuid, let key = needsRef.childByAutoId().key else { return }
+        guard let location = locationManager.location, let id = MemberSession.share.user?.uuid, let key = needsRef.childByAutoId().key else { return }
         
         geoFire = GeoFire(firebaseRef: needsRef)
         

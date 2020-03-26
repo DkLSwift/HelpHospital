@@ -60,8 +60,16 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
+        MemberSession.share.listenTo { _ in
+            if !MemberSession.share.isLogged {
+                self.setupConnect()
+            } else {
+                self.setupUI()
+            }
+        }
+        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         if !MemberSession.share.isLogged {
                   self.setupConnect()

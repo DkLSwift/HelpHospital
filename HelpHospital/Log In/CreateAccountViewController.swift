@@ -58,6 +58,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }()
     
     weak var delegate: CreateAccountViewProtocol?
+    let loginRepository = LoginRepository()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,33 +89,33 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         createAccountButton.addTarget(self, action: #selector(handleCreate), for: .touchUpInside)
     }
     
-    func createUser(mail: String, password: String, pseudo: String) {
-        
-        Auth.auth().createUser(withEmail: mail, password: password) {
-            (authResult, error) in
-            if error != nil {
-                print(error!)
-            }else{
-                guard let id = authResult?.user.uid else { return }
-                let user = Member(uuid: id)
-                user.pseudo = pseudo
-                
-                UserDefaults.standard.set(user.uuid, forKey: "UserId")
-                UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
-                
-                ref.child("users").child(id).updateChildValues([
-                    "id": id,
-                    "pseudo" : pseudo
-                ])
-                
-                MemberSession.share.user = user
-                self.delegate?.didCreateAccount()
-                
-                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-            }
-        }
-    }
-    
+//    func createUser(mail: String, password: String, pseudo: String) {
+//        
+//        Auth.auth().createUser(withEmail: mail, password: password) {
+//            (authResult, error) in
+//            if error != nil {
+//                print(error!)
+//            }else{
+//                guard let id = authResult?.user.uid else { return }
+//                let user = Member(uuid: id)
+//                user.pseudo = pseudo
+//                
+//                UserDefaults.standard.set(user.uuid, forKey: "UserId")
+//                UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
+//                
+//                ref.child("users").child(id).updateChildValues([
+//                    "id": id,
+//                    "pseudo" : pseudo
+//                ])
+//                
+//                MemberSession.share.user = user
+//                self.delegate?.didCreateAccount()
+//                
+//                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//            }
+//        }
+//    }
+//    
     @objc func handleCreate() {
         guard let mail = mailTF.text, let pseudo = pseudoTF.text, let password = passwordTF.text, let confirmPassword = confirmPasswordTF.text else { return }
         
@@ -122,7 +124,15 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 if password == confirmPassword {
                     
                     if password.count >= 6 {
-                        createUser(mail: mail, password: password, pseudo: pseudo)
+                        
+                        loginRepository.requestAccountCreation(mail: mail, password: password, pseudo: pseudo, success: {
+                            
+                            self.delegate?.didCreateAccount()
+                            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }) { (err) in
+                            Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
+                        }
+                        
                     } else {
                         Utils.callAlert(vc: self, title: "Erreur", message: "Le password doit contenir au moins 6 caractères.", action: "Ok")
                     }

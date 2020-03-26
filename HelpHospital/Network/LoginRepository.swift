@@ -14,7 +14,7 @@ protocol LoginRepositoryProtocol {
     
     func requestLogin(mail: String, password: String, success: @escaping () -> Void, error: @escaping (Error) -> Void)
     func requestThidPartyLogin(success: @escaping () -> Void, error: @escaping (Error) -> Void)
-    func requestAccountCreation(mail: String, password: String ,success: @escaping () -> Void,  error: @escaping (Error) -> Void)
+    func requestAccountCreation(mail: String, password: String, pseudo: String ,success: @escaping () -> Void,  error: @escaping (Error) -> Void)
 }
 
 
@@ -75,21 +75,41 @@ class LoginRepository: LoginRepositoryProtocol {
                                 
                                 if user.pseudo == "" {
                                     user.pseudo = firstName
+                                    usersRef.child(id).updateChildValues([
+                                        "pseudo" : firstName
+                                    ])
                                 }
                                 MemberSession.share.user = user
                                 success()
                             }
                         }
                     })
-                    
                 }
             }
         }
     }
     
     
-    func requestAccountCreation(mail: String, password: String ,success: @escaping () -> Void,  error: @escaping (Error) -> Void) {
+    func requestAccountCreation(mail: String, password: String, pseudo: String ,success: @escaping () -> Void,  error: @escaping (Error) -> Void) {
         
+        Auth.auth().createUser(withEmail: mail, password: password) {
+            (authResult, err) in
+            if let err = err {
+                error(err)
+            }else{
+                guard let id = authResult?.user.uid else { return }
+                let user = Member(uuid: id)
+                user.pseudo = pseudo
+                MemberSession.share.user = user
+                
+                usersRef.child(id).updateChildValues([
+                    "id": id,
+                    "pseudo" : pseudo
+                ])
+                
+                success()
+            }
+        }
     }
     
     
@@ -103,6 +123,8 @@ class LoginRepository: LoginRepositoryProtocol {
                 user.pseudo = value?["pseudo"] as? String ?? ""
                 MemberSession.share.user = user
             }
+        } else {
+            MemberSession.share.user = nil
         }
     }
 }
