@@ -16,6 +16,7 @@ class WorkerNotLoggedCell: UITableViewCell {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 34)
         lbl.text = "Vous devez être connecté pour pouvoir poster vos besoins."
+        lbl.numberOfLines = 0
         lbl.minimumScaleFactor = 0.6
         lbl.adjustsFontSizeToFitWidth = true
         lbl.textAlignment = .center

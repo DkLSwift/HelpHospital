@@ -10,6 +10,6 @@ import Foundation
 
 struct Need: Decodable {
     
-    let title: String
+    let title, id: String
     let time, desc: String?
 }

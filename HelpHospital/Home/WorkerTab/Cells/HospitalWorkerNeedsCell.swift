@@ -8,9 +8,6 @@
 
 import UIKit
 
-protocol HospitalWorkerNeedsCellProtocol: class {
-    
-}
 
 class HospitalWorkerNeedsCell: UITableViewCell {
 
@@ -26,15 +23,13 @@ class HospitalWorkerNeedsCell: UITableViewCell {
     let deleteNeedBtn: UIButton = {
         let btn = UIButton()
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        btn.setTitle("X", for: .normal)
         btn.setTitleColor(dark, for: .normal)
-        btn.layer.cornerRadius = 6
-        btn.layer.borderColor = dark.cgColor
-        btn.layer.borderWidth = 1
+        btn.setImage(UIImage(named: "bin"), for: .normal)
         return btn
     }()
     
-    weak var delegate: HospitalWorkerNeedsCellProtocol?
+    var needId: String?
+    var service = Service()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,6 +48,15 @@ class HospitalWorkerNeedsCell: UITableViewCell {
         addSubview(deleteNeedBtn)
         deleteNeedBtn.anchor(top: nil, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 30), size: .init(width: 44, height: 44))
         deleteNeedBtn.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        deleteNeedBtn.addTarget(self, action: #selector(handlePostDeletion), for: .touchUpInside)
+    }
+    
+    @objc func handlePostDeletion() {
+        guard let id = needId else { return }
+        service.deleteDBRef(ref: needsRef, id: id)
+        guard let uId = MemberSession.share.member?.uuid else { return }
+        usersRef.child(uId).child(currentRequests).child(id).removeValue()
     }
 }
 

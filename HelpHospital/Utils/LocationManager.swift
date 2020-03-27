@@ -53,7 +53,8 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
             "desc": desc ?? "",
             "time": time ?? "",
             "pseudo": MemberSession.share.member?.pseudo ?? "",
-            "workerId": id
+            "workerId": id,
+            "id": key
         ])
         
         usersRef.child(id).child(currentRequests).updateChildValues([key : key])
