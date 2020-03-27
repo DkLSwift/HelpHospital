@@ -15,6 +15,7 @@
 		6E5902352429008000E3F3C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E5902332429008000E3F3C2 /* LaunchScreen.storyboard */; };
 		6E5902402429008000E3F3C2 /* HelpHospitalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59023F2429008000E3F3C2 /* HelpHospitalTests.swift */; };
 		6E59024B2429008000E3F3C2 /* HelpHospitalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59024A2429008000E3F3C2 /* HelpHospitalUITests.swift */; };
+		6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E623D6C242E08950092250D /* WorkerFormViewController.swift */; };
 		6E655AFC242B9E320081BB3B /* MemberSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFB242B9E320081BB3B /* MemberSession.swift */; };
 		6E655AFE242BDB800081BB3B /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFD242BDB800081BB3B /* FormView.swift */; };
 		6E655B00242BFA3B0081BB3B /* UIViewController_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */; };
@@ -77,6 +78,7 @@
 		6E5902462429008000E3F3C2 /* HelpHospitalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelpHospitalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E59024A2429008000E3F3C2 /* HelpHospitalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpHospitalUITests.swift; sourceTree = "<group>"; };
 		6E59024C2429008000E3F3C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E623D6C242E08950092250D /* WorkerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerFormViewController.swift; sourceTree = "<group>"; };
 		6E655AFB242B9E320081BB3B /* MemberSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSession.swift; sourceTree = "<group>"; };
 		6E655AFD242BDB800081BB3B /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_ext.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 			children = (
 				6E655B01242BFB7A0081BB3B /* Cells */,
 				6E65CDE3242B7F0F0067C724 /* HospitalWorkerViewController.swift */,
+				6E623D6C242E08950092250D /* WorkerFormViewController.swift */,
 				6E655AFD242BDB800081BB3B /* FormView.swift */,
 			);
 			path = WorkerTab;
@@ -659,6 +662,7 @@
 				6E65CDE4242B7F0F0067C724 /* HospitalWorkerViewController.swift in Sources */,
 				6E678D70242A6B60007CA125 /* HomeViewController.swift in Sources */,
 				6ECFAF73242A2D9700D4FDE5 /* Member.swift in Sources */,
+				6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */,
 				6E65CDE6242B7F560067C724 /* HospitalHelperViewController.swift in Sources */,
 				6E697304242ABB2A0076064A /* TF.swift in Sources */,
 				6E655B11242D0B570081BB3B /* HospitalHelperTableviewCell.swift in Sources */,

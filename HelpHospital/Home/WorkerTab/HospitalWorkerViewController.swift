@@ -70,16 +70,19 @@ class HospitalWorkerViewController: UITableViewController, FormViewProtocol {
     }
     
     @objc func handleAdd() {
-        let popUp = FormView(text: "Ajouter un besoin", acceptButtonTitle: "VALIDER", cancelButtonTitle: "ANNULER")
-        view.addSubview(popUp)
-        popUp.fillSuperview()
-        popUp.delegate = self
-        UIView.animate(withDuration: 0.3, animations: {
-            popUp.blur.alpha = 1
-            popUp.alpha = 1
-        }) { (success) in
-            //
-        }
+//        let popUp = FormView(text: "Ajouter un besoin", acceptButtonTitle: "VALIDER", cancelButtonTitle: "ANNULER")
+//        view.addSubview(popUp)
+//        popUp.fillSuperview()
+//        popUp.delegate = self
+//        UIView.animate(withDuration: 0.3, animations: {
+//            popUp.blur.alpha = 1
+//            popUp.alpha = 1
+//        }) { (success) in
+//            //
+//        }
+        
+        let vc = WorkerFormViewController()
+        present(vc, animated: true, completion: nil)
     }
     
     func postNeeds(title: String, desc: String?, time: String?) {
