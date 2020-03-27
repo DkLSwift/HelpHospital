@@ -21,7 +21,22 @@ class HospitalHelperViewController: UITableViewController {
 
         setup()
         locationManager.setup()
+        fetchNeedsFromGeofire()
+    }
+    
+    
+    func setup() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = clearBlue
+        tableView.register(HospitalHelperTableviewCell.self, forCellReuseIdentifier: cellId)
+        tableView.showsVerticalScrollIndicator = false
+    }
+    
+    func fetchNeedsFromGeofire() {
+        
         guard let location = locationManager.location else { return }
+        needs = []
         locationManager.geoFireRequest(from: location, success: { (keys) in
             
             self.service.getNeeds(for: keys) { (needs) in
@@ -38,22 +53,13 @@ class HospitalHelperViewController: UITableViewController {
         }
     }
     
-    func setup() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = clearBlue
-        tableView.register(HospitalHelperTableviewCell.self, forCellReuseIdentifier: cellId)
-        tableView.showsVerticalScrollIndicator = false
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalHelperTableviewCell
 
          let need = needs[indexPath.row]
-        if let pseudo = need.pseudo {
-            cell.pseudoLabel.text = "- \(pseudo) -"
-        }
+        cell.pseudoLabel.text = "- \(need.pseudo) -"
+        
          
          cell.titleLabel.text = need.title
 
@@ -67,7 +73,11 @@ class HospitalHelperViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if MemberSession.share.isLogged {
-            
+            let vc = NeedDetailViewController()
+            vc.need = needs[indexPath.row]
+    
+            vc.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(vc, animated: true)
         } else {
             Utils.callAlert(vc: self, title: "Attention", message: "Vous devez être connecté pour voir les détails et communiquer.", action: "Ok")
         }
