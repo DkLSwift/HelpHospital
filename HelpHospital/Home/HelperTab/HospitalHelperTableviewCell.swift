@@ -11,6 +11,12 @@ import UIKit
 class HospitalHelperTableviewCell: UITableViewCell {
 
     
+    let pseudoLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 28)
+        return lbl
+    }()
+    
     let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
@@ -32,8 +38,12 @@ class HospitalHelperTableviewCell: UITableViewCell {
     }
     
     func setup() {
-        addSubview(titleLabel)
-        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 200, height: 0))
+        
+        let hStack = UIStackView(arrangedSubviews: [pseudoLabel, titleLabel])
+        addSubview(hStack)
+        hStack.backgroundColor = clearBlue
+        hStack.distribution = .fillEqually
+        hStack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 30, bottom: 0, right: 30), size: .init(width: 200, height: 0))
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
        
     }

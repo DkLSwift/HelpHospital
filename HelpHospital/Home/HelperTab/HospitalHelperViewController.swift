@@ -51,7 +51,10 @@ class HospitalHelperViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalHelperTableviewCell
 
          let need = needs[indexPath.row]
-        
+        if let pseudo = need.pseudo {
+            cell.pseudoLabel.text = "- \(pseudo) -"
+        }
+         
          cell.titleLabel.text = need.title
 
          return cell
@@ -59,7 +62,9 @@ class HospitalHelperViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return needs.count
     }
-    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if MemberSession.share.isLogged {
             

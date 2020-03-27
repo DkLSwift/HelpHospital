@@ -17,24 +17,28 @@ class Service {
         
         var needs = [Need]()
         
+        let dispatchGroup = DispatchGroup()
+        
         keys.forEach { key in
+            
+            dispatchGroup.enter()
             needsRef.child(key).observe(.value) { (snapshot) in
                 
                 if let value = snapshot.value as? NSDictionary {
                     guard let title = value["title"] as? String, let id = value["id"] as? String else { return }
                     let desc = value["desc"] as? String
                     let time = value["time"] as? String
-
-                    let need = Need(title: title, id: id, time: time, desc: desc)
+                    let pseudo = value["pseudo"] as? String
+                    let need = Need(title: title, id: id, time: time, desc: desc, pseudo: pseudo)
                     needs.append(need)
+                    dispatchGroup.leave()
                 }
             }
         }
         
-        _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in 
+        dispatchGroup.notify(queue: .main){
             success(needs)
-        })
-        
+        }
     }
     
     
@@ -61,8 +65,9 @@ class Service {
                             guard let title = value["title"] as? String, let id = value["id"] as? String else { return }
                             let desc = value["desc"] as? String
                             let time = value["time"] as? String
-
-                            let need = Need(title: title, id: id, time: time, desc: desc)
+                            let pseudo = value["pseudo"] as? String
+                            
+                            let need = Need(title: title, id: id, time: time, desc: desc, pseudo: pseudo)
                             needs.append(need)
                             dispatchGroup.leave()
                         }

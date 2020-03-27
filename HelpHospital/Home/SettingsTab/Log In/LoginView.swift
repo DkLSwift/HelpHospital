@@ -167,31 +167,4 @@ extension LoginView: LoginButtonDelegate {
         }
     }
     
-//    func fetchUserInfo( AuthId : String) -> Void {
-//        
-//        if (AccessToken .current != nil) {
-//            let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields":"id,first_name"])
-//            graphRequest.start(completionHandler: { (connection, result, error) -> Void in
-//                
-//                if let err = error {
-//                    print("Error: \(err.localizedDescription)")
-//                } else {
-//                    // result take firstname -> pseudo
-//                    let member = Member(uuid: AuthId)
-//                    
-//                    
-//                    usersRef.child(AuthId).observeSingleEvent(of: .value) { (snapshot) in
-//                        
-//                        let value = snapshot.value as? NSDictionary
-//                        member.pseudo = value?["pseudo"] as? String ?? ""
-//                        
-//                        
-//                        MemberSession.share.user = member
-//                        
-//                        self.delegate?.fbLogin()
-//                    }
-//                }
-//            })
-//        }
-//    }
 }

@@ -16,7 +16,7 @@ class HomeTabController: UITabBarController {
         
         viewControllers = [
             createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎"),
-            createNavController(viewController: HospitalHelperViewController(), title: "Donneur", imageName: "⚉"),
+            createNavController(viewController: HospitalHelperViewController(), title: "Donner", imageName: "⚉"),
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "✿")
         ]
     }

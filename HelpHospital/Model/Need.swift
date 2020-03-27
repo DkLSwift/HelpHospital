@@ -11,5 +11,5 @@ import Foundation
 struct Need: Decodable {
     
     let title, id: String
-    let time, desc: String?
+    let time, desc, pseudo: String?
 }
