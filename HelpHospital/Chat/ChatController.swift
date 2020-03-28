@@ -10,7 +10,8 @@ import UIKit
 
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var need: Need!
+    var need: Need?
+    var giverId: String?
     let chat = ChatMessageRepository()
     
     let messageTF: TF = {
@@ -87,13 +88,16 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         
-        guard let id = MemberSession.share.member?.uuid else { return }
+        guard let id = MemberSession.share.member?.uuid, let pseudo = MemberSession.share.member?.pseudo , let need = need else { return }
         let timestamp = Date().timeIntervalSince1970
         
-        let message = Message(text: text, fromId: id, toId: need.workerId, timestamp: timestamp)
+        
+        let message = Message(text: text, fromId: id, toId: need.workerId, pseudo: pseudo, timestamp: timestamp)
         chat.postMessage(workerId: need.workerId, currentUserId: id, needId: need.id, message: message) {
             self.messageTF.text = ""
+            
             // RELOAD TB
+            
         }
     }
 }

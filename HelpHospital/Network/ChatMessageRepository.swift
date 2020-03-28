@@ -25,6 +25,7 @@ class ChatMessageRepository {
             "text": message.text,
             "toId": message.toId,
             "fromId": message.fromId,
+            "pseudo": message.pseudo,
             "timestamp": message.timestamp
         ]
         
@@ -62,6 +63,7 @@ class ChatMessageRepository {
         
         keys.forEach({
             dispatchGroup.enter()
+            print("enter  ////////////////////")
             let id = $0
             messagesRef.child(id).observe(.value) { (snapshot) in
                 
@@ -74,9 +76,10 @@ class ChatMessageRepository {
                             guard let fromId = dict["fromId"] as? String,
                                 let toId = dict["toId"] as? String,
                                 let text = dict["text"] as? String,
+                                let pseudo = dict["pseudo"] as? String,
                                 let timestamp = dict["timestamp"] as? Double else { return }
                             
-                            let message = Message(text: text, fromId: fromId, toId: toId, timestamp: timestamp)
+                            let message = Message(text: text, fromId: fromId, toId: toId, pseudo: pseudo, timestamp: timestamp)
                             
                             messages.append(message)
                             
@@ -85,9 +88,11 @@ class ChatMessageRepository {
                     conversationsAndMessages[id] = messages
                 }
                 dispatchGroup.leave()
+                print("leave  *******************")
             }
         })
         dispatchGroup.notify(queue: .main){
+            print("notify  -----------")
             success(conversationsAndMessages)
         }
     }
