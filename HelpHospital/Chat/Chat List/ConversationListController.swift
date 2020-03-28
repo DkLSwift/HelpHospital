@@ -10,6 +10,8 @@ import UIKit
 
 class ConversationListController: UITableViewController {
 
+    let chat = ChatMessageRepository()
+    
     var conversationsId: [String]? = []
     
     override func viewDidLoad() {
@@ -17,10 +19,10 @@ class ConversationListController: UITableViewController {
 
         view.backgroundColor = .white
         
-        
-        
-        // oberse conv id
-        
+        chat.getConversationMessages(conversationsId: conversationsId) { (conversationsAndMessages) in
+            
+            print(conversationsAndMessages)
+        }
     }
 
     // MARK: - Table view data source
