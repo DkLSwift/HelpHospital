@@ -79,6 +79,22 @@ class Service {
         }
     }
     
+    func fetchCurrentRequestsKeys(success: @escaping ([String]) -> Void) {
+        guard let id = MemberSession.share.member?.uuid else { return }
+        
+        var keys = [String]()
+        usersRef.child(id).child(currentRequests).observe(.value) { (snapshot) in
+            
+            let value = snapshot.value as? [String: Any]
+            
+            value?.forEach({ (val) in
+                keys.append(val.key)
+            })
+            
+            success(keys)
+        }
+        
+    }
     
     func deleteDBRef( ref: DatabaseReference, id: String) {
         

@@ -89,11 +89,15 @@ class WorkerFormViewController: UIViewController {
             let desc = descTF.text
             let time = timeTF.text
             
+            guard title != "" else {
+                Utils.callAlert(vc: self, title: "Erreur", message: "Vous devez renseigner un titre", action: "Ok")
+                return
+            }
+            
+            
             locationManager.postNeed(from: location, key: key, id: id, title: title, desc: desc, time: time)
             mainVC?.fetchCurrentUserNeedsAndReloadTVData()
             self.dismiss(animated: true, completion: nil)
-        } else {
-            Utils.callAlert(vc: self, title: "Erreur", message: "Vous devez renseigner un titre", action: "Ok")
         }
        
     }

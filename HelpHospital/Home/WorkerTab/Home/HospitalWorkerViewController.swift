@@ -73,16 +73,12 @@ class HospitalWorkerViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if MemberSession.share.isLogged {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalWorkerNeedsCell
             
             let need = needs[indexPath.row]
             cell.needId = need.id
             cell.titleLabel.text = need.title
             return cell
-//        } else {
-//            return tableView.dequeueReusableCell(withIdentifier: disconnectedCellId, for: indexPath) as! WorkerNotLoggedCell
-//        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

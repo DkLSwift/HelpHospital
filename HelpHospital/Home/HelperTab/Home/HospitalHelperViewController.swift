@@ -39,9 +39,17 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
 
         setup()
         locationManager.setup()
-        fetchNeedsFromGeofire()
+        
+        MemberSession.share.listenTo { _ in
+            self.service.fetchCurrentRequestsKeys { (keys) in
+                
+                self.fetchNeedsFromGeofire(currentRequestKeys: keys)
+            }
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        
         chat.observeRegistredTopic { keys in
             self.conversationKeys = keys
         }
@@ -71,12 +79,14 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         messageBtn.addTarget(self, action: #selector(handleMessageBtn), for: .touchUpInside)
     }
     
-    func fetchNeedsFromGeofire() {
+    func fetchNeedsFromGeofire(currentRequestKeys: [String]) {
         
         guard let location = locationManager.location else { return }
         needs = []
-        locationManager.geoFireRequest(from: location, success: { (keys) in
+        
+        locationManager.geoFireRequest(from: location, currentRequestsKeys: currentRequestKeys, success: { (keys) in
             
+           
             self.service.getNeeds(for: keys) { (needs) in
                 self.needs = needs
                 
@@ -94,6 +104,9 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
   
     @objc func handleMessageBtn() {
         let vc = ConversationListController()
+        vc.conversationsId = conversationKeys
+        vc.modalPresentationStyle = .fullScreen
+         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -15,6 +15,12 @@ class ConversationListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .white
+        
+        
+        
+        // oberse conv id
+        
     }
 
     // MARK: - Table view data source

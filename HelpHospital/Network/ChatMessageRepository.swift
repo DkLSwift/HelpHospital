@@ -19,7 +19,7 @@ class ChatMessageRepository {
         
         let ref = messagesRef.child(workerId).child(needId)
         let childRef = ref.childByAutoId()
-        let key = childRef.key
+        guard let key = childRef.key else { return }
         
         let data: [String:Any] = [
             "text": message.text,
@@ -30,7 +30,7 @@ class ChatMessageRepository {
         
         childRef.setValue(data)
         
-        usersMessagesRef.child(currentUserId).child(needId).setValue([key: "1"])
+        usersMessagesRef.child(currentUserId).child(needId).child(key).setValue([key: "1"])
         
         success()
         
