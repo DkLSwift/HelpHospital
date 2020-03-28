@@ -42,20 +42,19 @@ class LogInViewController: UIViewController, LoginViewProtocol {
     
     func connect(mail: String, password: String) {
         
-        if mail != "" && password != "" {
-            
-            loginRepository.requestLogin(mail: mail, password: password, success: {
-                self.loginView.mailTF.text = ""
-                self.loginView.passwordTF.text = ""
-                
-                self.delegate?.didSignInAccount()
-                self.dismiss(animated: true, completion: nil)
-            }) { (err) in
-                Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
-            }
-            
-        } else {
+        guard mail != "" && password != "" else {
             Utils.callAlert(vc: self, title: "Erreur", message: "Un champs de texte est vide", action: "Ok")
+            return
+        }
+        
+        loginRepository.requestLogin(mail: mail, password: password, success: {
+            self.loginView.mailTF.text = ""
+            self.loginView.passwordTF.text = ""
+            
+            self.delegate?.didSignInAccount()
+            self.dismiss(animated: true, completion: nil)
+        }) { (err) in
+            Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
         }
     }
     

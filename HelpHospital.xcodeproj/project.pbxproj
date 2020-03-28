@@ -16,6 +16,12 @@
 		6E5902402429008000E3F3C2 /* HelpHospitalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59023F2429008000E3F3C2 /* HelpHospitalTests.swift */; };
 		6E59024B2429008000E3F3C2 /* HelpHospitalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59024A2429008000E3F3C2 /* HelpHospitalUITests.swift */; };
 		6E5A0E0A242E2C8900CDE281 /* NeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E09242E2C8900CDE281 /* NeedDetailViewController.swift */; };
+		6E5A0E0C242EB4C600CDE281 /* HospitalWorkerDisconnectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E0B242EB4C600CDE281 /* HospitalWorkerDisconnectedViewController.swift */; };
+		6E5A0E10242EC2FB00CDE281 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E0F242EC2FB00CDE281 /* ChatController.swift */; };
+		6E5A0E12242EC38700CDE281 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E11242EC38700CDE281 /* ChatCell.swift */; };
+		6E5A0E14242F662400CDE281 /* ChatMessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E13242F662400CDE281 /* ChatMessageRepository.swift */; };
+		6E5A0E16242F6CDF00CDE281 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E15242F6CDF00CDE281 /* Message.swift */; };
+		6E5A0E18242FBFC400CDE281 /* ConversationListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E17242FBFC300CDE281 /* ConversationListController.swift */; };
 		6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E623D6C242E08950092250D /* WorkerFormViewController.swift */; };
 		6E655AFC242B9E320081BB3B /* MemberSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFB242B9E320081BB3B /* MemberSession.swift */; };
 		6E655AFE242BDB800081BB3B /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFD242BDB800081BB3B /* FormView.swift */; };
@@ -80,6 +86,12 @@
 		6E59024A2429008000E3F3C2 /* HelpHospitalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpHospitalUITests.swift; sourceTree = "<group>"; };
 		6E59024C2429008000E3F3C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E5A0E09242E2C8900CDE281 /* NeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedDetailViewController.swift; sourceTree = "<group>"; };
+		6E5A0E0B242EB4C600CDE281 /* HospitalWorkerDisconnectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalWorkerDisconnectedViewController.swift; sourceTree = "<group>"; };
+		6E5A0E0F242EC2FB00CDE281 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		6E5A0E11242EC38700CDE281 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		6E5A0E13242F662400CDE281 /* ChatMessageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageRepository.swift; sourceTree = "<group>"; };
+		6E5A0E15242F6CDF00CDE281 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		6E5A0E17242FBFC300CDE281 /* ConversationListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListController.swift; sourceTree = "<group>"; };
 		6E623D6C242E08950092250D /* WorkerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerFormViewController.swift; sourceTree = "<group>"; };
 		6E655AFB242B9E320081BB3B /* MemberSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSession.swift; sourceTree = "<group>"; };
 		6E655AFD242BDB800081BB3B /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
@@ -186,14 +198,15 @@
 		6E5902242429007C00E3F3C2 /* HelpHospital */ = {
 			isa = PBXGroup;
 			children = (
-				6E655B0B242CD48C0081BB3B /* Network */,
-				6E655B0A242CD1590081BB3B /* Trash */,
 				6E678D71242A8439007CA125 /* Model */,
+				6E5A0E0E242EC26500CDE281 /* Chat */,
 				6E678D6E242A6B49007CA125 /* Home */,
+				6E655B0B242CD48C0081BB3B /* Network */,
+				6ECFAF6F242A2CA900D4FDE5 /* Utils */,
 				6ECFAF6C242A2B9000D4FDE5 /* LaunchScreens */,
 				6ECFAF7B242A338400D4FDE5 /* AppDelegate */,
-				6ECFAF6F242A2CA900D4FDE5 /* Utils */,
 				6E678D69242A5792007CA125 /* Extensions */,
+				6E655B0A242CD1590081BB3B /* Trash */,
 				6E5902362429008000E3F3C2 /* Info.plist */,
 				6EA5EF36242A1CE1000AA3A0 /* GoogleService-Info.plist */,
 				6E59022E2429007C00E3F3C2 /* HelpHospital.xcdatamodeld */,
@@ -237,6 +250,43 @@
 			path = NeedDetail;
 			sourceTree = "<group>";
 		};
+		6E5A0E0D242EB51600CDE281 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6E655B01242BFB7A0081BB3B /* Cells */,
+				6E5A0E0B242EB4C600CDE281 /* HospitalWorkerDisconnectedViewController.swift */,
+				6E65CDE3242B7F0F0067C724 /* HospitalWorkerViewController.swift */,
+				6E623D6C242E08950092250D /* WorkerFormViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		6E5A0E0E242EC26500CDE281 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				6E5A0E1A242FC92F00CDE281 /* Chat List */,
+				6E5A0E19242FC91C00CDE281 /* Chat Controller */,
+				6E5A0E0F242EC2FB00CDE281 /* ChatController.swift */,
+				6E5A0E11242EC38700CDE281 /* ChatCell.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		6E5A0E19242FC91C00CDE281 /* Chat Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Chat Controller";
+			sourceTree = "<group>";
+		};
+		6E5A0E1A242FC92F00CDE281 /* Chat List */ = {
+			isa = PBXGroup;
+			children = (
+				6E5A0E17242FBFC300CDE281 /* ConversationListController.swift */,
+			);
+			path = "Chat List";
+			sourceTree = "<group>";
+		};
 		6E655B01242BFB7A0081BB3B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +299,7 @@
 		6E655B0A242CD1590081BB3B /* Trash */ = {
 			isa = PBXGroup;
 			children = (
+				6E655AFD242BDB800081BB3B /* FormView.swift */,
 				6E655B02242BFBE20081BB3B /* HospitalWorkerNeedsTableViewController.swift */,
 				6E678D6F242A6B60007CA125 /* HomeViewController.swift */,
 			);
@@ -260,6 +311,7 @@
 			children = (
 				6E655B0C242CD4A20081BB3B /* LoginRepository.swift */,
 				6E655B12242D11A40081BB3B /* Service.swift */,
+				6E5A0E13242F662400CDE281 /* ChatMessageRepository.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -275,10 +327,7 @@
 		6E65CDE8242B7F710067C724 /* WorkerTab */ = {
 			isa = PBXGroup;
 			children = (
-				6E655B01242BFB7A0081BB3B /* Cells */,
-				6E65CDE3242B7F0F0067C724 /* HospitalWorkerViewController.swift */,
-				6E623D6C242E08950092250D /* WorkerFormViewController.swift */,
-				6E655AFD242BDB800081BB3B /* FormView.swift */,
+				6E5A0E0D242EB51600CDE281 /* Home */,
 			);
 			path = WorkerTab;
 			sourceTree = "<group>";
@@ -327,6 +376,7 @@
 				6ECFAF72242A2D9700D4FDE5 /* Member.swift */,
 				6E655AFB242B9E320081BB3B /* MemberSession.swift */,
 				6E655B06242C032B0081BB3B /* Need.swift */,
+				6E5A0E15242F6CDF00CDE281 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -658,6 +708,8 @@
 				6E5A0E0A242E2C8900CDE281 /* NeedDetailViewController.swift in Sources */,
 				6E655B0D242CD4A20081BB3B /* LoginRepository.swift in Sources */,
 				6E655B15242D53300081BB3B /* WorkerNotLoggedCell.swift in Sources */,
+				6E5A0E12242EC38700CDE281 /* ChatCell.swift in Sources */,
+				6E5A0E14242F662400CDE281 /* ChatMessageRepository.swift in Sources */,
 				6E655B13242D11A40081BB3B /* Service.swift in Sources */,
 				6E655B05242BFC410081BB3B /* HospitalWorkerNeedsCell.swift in Sources */,
 				6E655B07242C032B0081BB3B /* Need.swift in Sources */,
@@ -672,7 +724,10 @@
 				6ECFAF76242A2FEC00D4FDE5 /* LogInViewController.swift in Sources */,
 				6E655B0F242D012C0081BB3B /* LocationManager.swift in Sources */,
 				6ECFAF6E242A2C8300D4FDE5 /* UIView+Layout.swift in Sources */,
+				6E5A0E18242FBFC400CDE281 /* ConversationListController.swift in Sources */,
+				6E5A0E10242EC2FB00CDE281 /* ChatController.swift in Sources */,
 				6E655AFC242B9E320081BB3B /* MemberSession.swift in Sources */,
+				6E5A0E16242F6CDF00CDE281 /* Message.swift in Sources */,
 				6E65CDE2242B7EA80067C724 /* SettingsViewController.swift in Sources */,
 				6E655B00242BFA3B0081BB3B /* UIViewController_ext.swift in Sources */,
 				6E655B03242BFBE20081BB3B /* HospitalWorkerNeedsTableViewController.swift in Sources */,
@@ -680,6 +735,7 @@
 				6ECFAF71242A2CCF00D4FDE5 /* Utils.swift in Sources */,
 				6E678D6B242A57AD007CA125 /* UITextField_ext.swift in Sources */,
 				6E65CDE4242B7F0F0067C724 /* HospitalWorkerViewController.swift in Sources */,
+				6E5A0E0C242EB4C600CDE281 /* HospitalWorkerDisconnectedViewController.swift in Sources */,
 				6E678D70242A6B60007CA125 /* HomeViewController.swift in Sources */,
 				6ECFAF73242A2D9700D4FDE5 /* Member.swift in Sources */,
 				6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */,

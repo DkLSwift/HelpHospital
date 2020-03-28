@@ -89,61 +89,31 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         createAccountButton.addTarget(self, action: #selector(handleCreate), for: .touchUpInside)
     }
     
-//    func createUser(mail: String, password: String, pseudo: String) {
-//        
-//        Auth.auth().createUser(withEmail: mail, password: password) {
-//            (authResult, error) in
-//            if error != nil {
-//                print(error!)
-//            }else{
-//                guard let id = authResult?.user.uid else { return }
-//                let user = Member(uuid: id)
-//                user.pseudo = pseudo
-//                
-//                UserDefaults.standard.set(user.uuid, forKey: "UserId")
-//                UserDefaults.standard.set(user.pseudo, forKey: "pseudo")
-//                
-//                ref.child("users").child(id).updateChildValues([
-//                    "id": id,
-//                    "pseudo" : pseudo
-//                ])
-//                
-//                MemberSession.share.user = user
-//                self.delegate?.didCreateAccount()
-//                
-//                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//            }
-//        }
-//    }
-//    
     @objc func handleCreate() {
         guard let mail = mailTF.text, let pseudo = pseudoTF.text, let password = passwordTF.text, let confirmPassword = confirmPasswordTF.text else { return }
         
-        if mail != "" && pseudo != "" && password != "" && confirmPassword != "" {
-            if Utils.checkMail(mail: mail) {
-                if password == confirmPassword {
-                    
-                    if password.count >= 6 {
-                        
-                        loginRepository.requestAccountCreation(mail: mail, password: password, pseudo: pseudo, success: {
-                            
-                            self.delegate?.didCreateAccount()
-                            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                        }) { (err) in
-                            Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
-                        }
-                        
-                    } else {
-                        Utils.callAlert(vc: self, title: "Erreur", message: "Le password doit contenir au moins 6 caractères.", action: "Ok")
-                    }
-                } else {
-                    Utils.callAlert(vc: self, title: "Erreur", message: "Les passwords entrés sont différents.", action: "Ok")
-                }
-            } else {
-                Utils.callAlert(vc: self, title: "Erreur", message: "L'e-mail est invalide.", action: "Ok")
-            }
-        } else {
+        guard  mail != "" && pseudo != "" && password != "" && confirmPassword != "" else {
             Utils.callAlert(vc: self, title: "Erreur", message: "Un champs de texte est vide.", action: "Ok")
+            return
+        }
+        guard Utils.checkMail(mail: mail) else {
+            Utils.callAlert(vc: self, title: "Erreur", message: "L'e-mail est invalide.", action: "Ok")
+            return
+        }
+        guard password == confirmPassword else {
+            Utils.callAlert(vc: self, title: "Erreur", message: "Les passwords entrés sont différents.", action: "Ok")
+            return
+        }
+        guard password.count >= 6 else {
+            Utils.callAlert(vc: self, title: "Erreur", message: "Le password doit contenir au moins 6 caractères.", action: "Ok")
+            return
+        }
+        loginRepository.requestAccountCreation(mail: mail, password: password, pseudo: pseudo, success: {
+            
+            self.delegate?.didCreateAccount()
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        }) { (err) in
+            Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")
         }
     }
     

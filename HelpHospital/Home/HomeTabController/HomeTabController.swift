@@ -14,11 +14,16 @@ class HomeTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎") : createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "☣︎")
+        
         viewControllers = [
-            createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎"),
+            vc1,
             createNavController(viewController: HospitalHelperViewController(), title: "Donner", imageName: "⚉"),
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "✿")
         ]
+        MemberSession.share.listenTo { member in
+            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "☣︎")
+        }
     }
     
     fileprivate func createNavController(viewController: UIViewController, title: String, imageName: String) -> UIViewController {
@@ -32,5 +37,4 @@ class HomeTabController: UITabBarController {
         
         return navController
     }
-    
 }

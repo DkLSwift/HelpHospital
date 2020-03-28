@@ -42,7 +42,7 @@ class HospitalWorkerViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HospitalWorkerNeedsCell.self, forCellReuseIdentifier: cellId)
-        tableView.register(WorkerNotLoggedCell.self, forCellReuseIdentifier: disconnectedCellId)
+//        tableView.register(WorkerNotLoggedCell.self, forCellReuseIdentifier: disconnectedCellId)
         tableView.showsVerticalScrollIndicator = false
     }
     
@@ -53,13 +53,14 @@ class HospitalWorkerViewController: UITableViewController {
              guard let id = MemberSession.share.member?.uuid else { return }
             service.fetchCurrentUserNeeds(id: id) { (needs) in
                 self.needs = needs
-                self.tableView.reloadData()
+                 self.tableView.reloadData()
             }
             self.navigationItem.rightBarButtonItem?.isEnabled = true
-            
         } else {
+             self.tableView.reloadData()
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
+       
     }
     
     @objc func handleAdd() {
@@ -72,23 +73,23 @@ class HospitalWorkerViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if MemberSession.share.isLogged {
+//        if MemberSession.share.isLogged {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalWorkerNeedsCell
             
             let need = needs[indexPath.row]
             cell.needId = need.id
             cell.titleLabel.text = need.title
             return cell
-        } else {
-            return tableView.dequeueReusableCell(withIdentifier: disconnectedCellId, for: indexPath) as! WorkerNotLoggedCell
-        }
+//        } else {
+//            return tableView.dequeueReusableCell(withIdentifier: disconnectedCellId, for: indexPath) as! WorkerNotLoggedCell
+//        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MemberSession.share.isLogged ? needs.count : 1
+        return needs.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return needs.count > 0 ? 100 : 300
+        return 110
     }
 }

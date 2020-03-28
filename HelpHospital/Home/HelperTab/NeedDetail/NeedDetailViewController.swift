@@ -91,7 +91,11 @@ class NeedDetailViewController: UIViewController {
     }
     
     @objc func handleContact() {
-        print("yo")
+        let vc = ChatController()
+        vc.title = need.pseudo
+        vc.need = need
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

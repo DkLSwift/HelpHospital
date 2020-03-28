@@ -25,3 +25,9 @@ var needsRef: DatabaseReference {
     return ref.child("needs")
 }
 let currentRequests = "currentRequests"
+var messagesRef: DatabaseReference {
+    return ref.child("messages")
+}
+var usersMessagesRef: DatabaseReference {
+    return ref.child("usersMessages")
+}
