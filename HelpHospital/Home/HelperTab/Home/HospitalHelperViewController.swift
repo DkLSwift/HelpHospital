@@ -24,6 +24,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         let btn = UIButton()
         btn.setImage(UIImage(named: "speak"), for: .normal)
         btn.layer.borderWidth = 1
+        btn.backgroundColor = .white
         btn.layer.borderColor = dark.cgColor
         btn.layer.shadowColor = UIColor.lightGray.cgColor
         btn.layer.shadowOffset = .init(width: -2, height: 2)
@@ -40,7 +41,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         setup()
         locationManager.setup()
         
-        self.fetchNeedsFromGeofire(currentRequestKeys: nil)
+//        self.fetchNeedsFromGeofire(currentRequestKeys: nil)
         MemberSession.share.listenTo { _ in
             self.service.fetchCurrentRequestsKeys { (keys) in
                 

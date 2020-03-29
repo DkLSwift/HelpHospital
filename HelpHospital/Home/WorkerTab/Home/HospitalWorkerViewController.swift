@@ -42,7 +42,6 @@ class HospitalWorkerViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HospitalWorkerNeedsCell.self, forCellReuseIdentifier: cellId)
-//        tableView.register(WorkerNotLoggedCell.self, forCellReuseIdentifier: disconnectedCellId)
         tableView.showsVerticalScrollIndicator = false
     }
     

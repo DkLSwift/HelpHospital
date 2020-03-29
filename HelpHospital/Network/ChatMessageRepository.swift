@@ -87,8 +87,9 @@ class ChatMessageRepository {
                         }
                     }
                     conversationsAndMessages[id] = messages
+                    dispatchGroup.leave()
                 }
-                dispatchGroup.leave()
+               
                 print("leave  *******************")
             }
         })
@@ -109,6 +110,7 @@ class ChatMessageRepository {
             
             dispatchGroup.enter()
             var pseudo = ""
+            var title = ""
             var lastText = ""
             var lastTimestamp: Double = 0
             let (key, value) = arg
@@ -116,13 +118,14 @@ class ChatMessageRepository {
             service.getNeeds(for: [key]) { (need) in
                 
                 pseudo = need[0].pseudo
+                title = need[0].title
                 if let text = value.last?.text {
                     lastText = text
                 }
                 if let timestamp = value.last?.timestamp {
                     lastTimestamp = timestamp
                 }
-                let chatMessage = ChatMessagePreview(pseudo: pseudo, text: lastText, timestamp: lastTimestamp)
+                let chatMessage = ChatMessagePreview(pseudo: pseudo, title: title, text: lastText, key: key, timestamp: lastTimestamp)
                 chatMessagePreviews.append(chatMessage)
                 dispatchGroup.leave()
             }

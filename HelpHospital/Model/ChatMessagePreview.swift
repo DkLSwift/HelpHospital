@@ -11,6 +11,6 @@ import Foundation
 
 struct ChatMessagePreview {
     
-    let pseudo, text: String
+    let pseudo, title, text, key: String
     let timestamp: Double
 }

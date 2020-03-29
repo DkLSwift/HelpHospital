@@ -14,6 +14,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var giverId: String?
     let chat = ChatMessageRepository()
     
+    var messages: [Message]?
+    
     let messageTF: TF = {
         let tf = TF(placeholder: "Envoyer un message")
         return tf
@@ -31,8 +33,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
 
+       
         setupTableView()
         setupUI()
+        
+       
+        print(messages)
     }
 
     func setupTableView() {
@@ -41,6 +47,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.register(ChatCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
     }
     
     func setupUI() {
@@ -70,17 +77,36 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: hStack.topAnchor, trailing: view.trailingAnchor, padding: .init(top: topbarHeight, left: 0, bottom: 0, right: 0))
     }
 
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return messages?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)  as! ChatCell
         
+        guard let messages = messages else { return cell }
+        
+        cell.messageView.text = messages[indexPath.row].text
+        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height: CGFloat = 80
+        
+        if let text =  messages?[indexPath.row].text {
+            height = estimateHeightForText(text: text).height + 40
+        }
+        
+        print(height)
+        return height
+    }
 
+    private func estimateHeightForText(text: String) -> CGRect {
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: text).boundingRect(with: CGSize(width: 250, height: 1000), options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22)], context: nil)
+    }
     
     @objc func handleSendMessage() {
         guard let text = messageTF.text, text != "" else {
@@ -99,5 +125,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // RELOAD TB
             
         }
+    }
+    
+    deinit {
+        print("CHAT VC Succcess Deinit     ****************")
     }
 }

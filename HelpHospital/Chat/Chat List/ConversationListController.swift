@@ -17,6 +17,8 @@ class ConversationListController: UITableViewController {
     
     let cellId = "cellId"
     
+    var conversationsAndMessages = [String : [Message]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,7 +28,7 @@ class ConversationListController: UITableViewController {
         
         chat.getConversationMessages(conversationsId: conversationsId) { (conversationsAndMessages) in
             
-            print(conversationsAndMessages)
+            self.conversationsAndMessages = conversationsAndMessages
            
             self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages) { (chatMessagesPreviews) in
                 self.chatMessagesPreviews = chatMessagesPreviews
@@ -49,7 +51,7 @@ class ConversationListController: UITableViewController {
         
         let messagePreview = chatMessagesPreviews[indexPath.row]
         
-        cell.pseudoLabel.text = messagePreview.pseudo
+        cell.pseudoLabel.text = "\(messagePreview.pseudo)  -  \(messagePreview.title)"
         cell.messageLabel.text = messagePreview.text
         cell.timeLabel.text = String(messagePreview.timestamp)
         
@@ -63,5 +65,17 @@ class ConversationListController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let messagesKey = chatMessagesPreviews[indexPath.row].key
+        let messages = conversationsAndMessages[messagesKey]
+         
+        
+        let vc = ChatController()
+        vc.messages = messages?.sorted(by: { $0.timestamp < $1.timestamp })
+        vc.modalPresentationStyle = .fullScreen
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

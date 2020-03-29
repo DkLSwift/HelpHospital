@@ -43,8 +43,6 @@ class HospitalWorkerNeedsCell: UITableViewCell {
     }
     
     func setup() {
-        
-        
         addSubview(titleLabel)
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 200, height: 0))
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
