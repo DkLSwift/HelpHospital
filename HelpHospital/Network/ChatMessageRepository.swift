@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 class ChatMessageRepository {
     
-    
+    let service = Service()
 //    worker id -> need id ->
     
     func postMessage(workerId: String, currentUserId: String, needId: String, message: Message, success: @escaping () -> Void) {
@@ -32,6 +32,7 @@ class ChatMessageRepository {
         childRef.setValue(data)
         
         usersMessagesRef.child(currentUserId).child(needId).child(key).setValue([key: "1"])
+        usersMessagesRef.child(message.toId).child(needId).child(key).setValue([key: "1"])
         
         success()
         
@@ -94,6 +95,40 @@ class ChatMessageRepository {
         dispatchGroup.notify(queue: .main){
             print("notify  -----------")
             success(conversationsAndMessages)
+        }
+    }
+    
+    func getLastMessagesPreviewData(conversations:[String: [Message]], success: @escaping ([ChatMessagePreview]) -> Void) {
+        
+       
+        
+        var chatMessagePreviews = [ChatMessagePreview]()
+        let dispatchGroup = DispatchGroup()
+        
+        conversations.forEach { (arg) in
+            
+            dispatchGroup.enter()
+            var pseudo = ""
+            var lastText = ""
+            var lastTimestamp: Double = 0
+            let (key, value) = arg
+            
+            service.getNeeds(for: [key]) { (need) in
+                
+                pseudo = need[0].pseudo
+                if let text = value.last?.text {
+                    lastText = text
+                }
+                if let timestamp = value.last?.timestamp {
+                    lastTimestamp = timestamp
+                }
+                let chatMessage = ChatMessagePreview(pseudo: pseudo, text: lastText, timestamp: lastTimestamp)
+                chatMessagePreviews.append(chatMessage)
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.notify(queue: .main){
+            success(chatMessagePreviews)
         }
     }
 }

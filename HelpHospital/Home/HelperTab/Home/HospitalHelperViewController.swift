@@ -40,6 +40,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         setup()
         locationManager.setup()
         
+        self.fetchNeedsFromGeofire(currentRequestKeys: nil)
         MemberSession.share.listenTo { _ in
             self.service.fetchCurrentRequestsKeys { (keys) in
                 
@@ -79,7 +80,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         messageBtn.addTarget(self, action: #selector(handleMessageBtn), for: .touchUpInside)
     }
     
-    func fetchNeedsFromGeofire(currentRequestKeys: [String]) {
+    func fetchNeedsFromGeofire(currentRequestKeys: [String]?) {
         
         guard let location = locationManager.location else { return }
         needs = []

@@ -9,16 +9,54 @@
 import UIKit
 
 class ConversationListCell: UITableViewCell {
+    
+    let pseudoLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 28)
+        lbl.minimumScaleFactor = 0.6
+        lbl.adjustsFontSizeToFitWidth = true
+        return lbl
+    }()
+    
+    let messageLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 18)
+        lbl.minimumScaleFactor = 0.6
+        lbl.adjustsFontSizeToFitWidth = true
+        return lbl
+    }()
+    
+    let timeLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 22)
+        lbl.minimumScaleFactor = 0.6
+        lbl.adjustsFontSizeToFitWidth = true
+        return lbl
+    }()
+       
+    
+   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+          super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+          setup()
+      }
+      
+      required init?(coder aDecoder: NSCoder) {
+          fatalError("init(coder:) has not been implemented")
+      }
+      
+    func setup() {
+        
+        pseudoLabel.constrainHeight(constant: 30)
+        let vStack = UIStackView(arrangedSubviews: [pseudoLabel, messageLabel])
+        vStack.axis = .vertical
+        
+        timeLabel.constrainWidth(constant: 70)
+        let hStack = UIStackView(arrangedSubviews: [vStack, timeLabel])
+        
+        
+        addSubview(hStack)
+        hStack.fillSuperview(padding: .init(top: 10, left: 20, bottom: 10, right: 20))
     }
 
 }

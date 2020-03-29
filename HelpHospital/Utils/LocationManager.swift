@@ -27,14 +27,17 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
     
     
     
-    func geoFireRequest(from location: CLLocation,currentRequestsKeys: [String] ,success: @escaping ([String]) -> Void,  error: @escaping (Error) -> Void) {
+    func geoFireRequest(from location: CLLocation,currentRequestsKeys: [String]? ,success: @escaping ([String]) -> Void,  error: @escaping (Error) -> Void) {
         
         var keys = [String]()
         let geoFire = GeoFire(firebaseRef: needsRef)
         let circleQuery = geoFire.query(at: location, withRadius: 1)
         
         let queryHandle = circleQuery.observe(.keyEntered, with: { (key, location) in
-            if !currentRequestsKeys.contains(key) {
+            
+            if currentRequestsKeys == nil {
+                keys.append(key)
+            } else if !currentRequestsKeys!.contains(key) {
                 keys.append(key)
             }
         })

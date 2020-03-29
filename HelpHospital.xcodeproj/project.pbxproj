@@ -23,6 +23,7 @@
 		6E5A0E16242F6CDF00CDE281 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E15242F6CDF00CDE281 /* Message.swift */; };
 		6E5A0E18242FBFC400CDE281 /* ConversationListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E17242FBFC300CDE281 /* ConversationListController.swift */; };
 		6E5A0E1C242FCA1900CDE281 /* ConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E1B242FCA1900CDE281 /* ConversationListCell.swift */; };
+		6E5A0E1E2430DB0E00CDE281 /* ChatMessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E1D2430DB0E00CDE281 /* ChatMessagePreview.swift */; };
 		6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E623D6C242E08950092250D /* WorkerFormViewController.swift */; };
 		6E655AFC242B9E320081BB3B /* MemberSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFB242B9E320081BB3B /* MemberSession.swift */; };
 		6E655AFE242BDB800081BB3B /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFD242BDB800081BB3B /* FormView.swift */; };
@@ -94,6 +95,7 @@
 		6E5A0E15242F6CDF00CDE281 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		6E5A0E17242FBFC300CDE281 /* ConversationListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListController.swift; sourceTree = "<group>"; };
 		6E5A0E1B242FCA1900CDE281 /* ConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListCell.swift; sourceTree = "<group>"; };
+		6E5A0E1D2430DB0E00CDE281 /* ChatMessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagePreview.swift; sourceTree = "<group>"; };
 		6E623D6C242E08950092250D /* WorkerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerFormViewController.swift; sourceTree = "<group>"; };
 		6E655AFB242B9E320081BB3B /* MemberSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSession.swift; sourceTree = "<group>"; };
 		6E655AFD242BDB800081BB3B /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				6E655AFB242B9E320081BB3B /* MemberSession.swift */,
 				6E655B06242C032B0081BB3B /* Need.swift */,
 				6E5A0E15242F6CDF00CDE281 /* Message.swift */,
+				6E5A0E1D2430DB0E00CDE281 /* ChatMessagePreview.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				6ECFAF73242A2D9700D4FDE5 /* Member.swift in Sources */,
 				6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */,
 				6E65CDE6242B7F560067C724 /* HospitalHelperViewController.swift in Sources */,
+				6E5A0E1E2430DB0E00CDE281 /* ChatMessagePreview.swift in Sources */,
 				6E697304242ABB2A0076064A /* TF.swift in Sources */,
 				6E655B11242D0B570081BB3B /* HospitalHelperTableviewCell.swift in Sources */,
 			);
