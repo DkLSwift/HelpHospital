@@ -10,6 +10,6 @@ import Foundation
 
 struct Message {
     
-    let text, fromId, toId, pseudo: String
+    let text, fromId, toId, myPseudo, toPseudo: String
     let timestamp: Double
 }

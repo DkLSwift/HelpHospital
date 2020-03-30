@@ -78,7 +78,7 @@ class HospitalWorkerViewController: UITableViewController {
             let need = needs[indexPath.row]
             cell.needId = need.id
             cell.titleLabel.text = need.title
-        cell.delegate = self
+            cell.delegate = self
             return cell
     }
     

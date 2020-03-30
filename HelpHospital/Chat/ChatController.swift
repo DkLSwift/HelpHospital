@@ -51,6 +51,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func observeLiveChat(id: String) {
         chat.observeLiveChat(conversationId: id) { (message) in
             self.messages.append(message)
+            self.messages = self.messages.sorted(by: { $0.timestamp < $1.timestamp })
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -138,7 +139,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let timestamp = Date().timeIntervalSince1970
         
         
-        let message = Message(text: text, fromId: id, toId: need.workerId, pseudo: pseudo, timestamp: timestamp)
+//        let message = Message(text: text, fromId: id, toId: need.workerId, pseudo: pseudo, timestamp: timestamp)
+        let message = Message(text: text, fromId: id, toId: need.workerId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
         chat.postMessage(workerId: need.workerId, currentUserId: id, needId: need.id, message: message) {
             self.messageTF.text = ""
         }

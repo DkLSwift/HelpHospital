@@ -57,7 +57,7 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
         
         let queryHandle = circleQuery.observe(.keyEntered, with: { (key, location) in
                    
-                   if currentRequestsKeys == nil ||  !currentRequestsKeys!.contains(key) {
+            if currentRequestsKeys == nil ||  (!currentRequestsKeys!.contains(key) && key != MemberSession.share.member?.uuid) {
                       success(key)
                    }
                })

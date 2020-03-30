@@ -96,9 +96,4 @@ class Service {
         
     }
     
-//    func deleteDBRef( ref: DatabaseReference, id: String) {
-//        
-//        ref.child(id).removeValue()
-//    }
-    
 }

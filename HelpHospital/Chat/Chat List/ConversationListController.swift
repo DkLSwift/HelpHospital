@@ -32,7 +32,7 @@ class ConversationListController: UITableViewController {
             self.conversationsAndMessages = conversationsAndMessages
            
             self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages) { (chatMessagesPreviews) in
-                self.chatMessagesPreviews = chatMessagesPreviews
+                self.chatMessagesPreviews = chatMessagesPreviews.sorted(by: { $0.timestamp < $1.timestamp })
                 self.tableView.reloadData()
             }
         }
@@ -44,8 +44,6 @@ class ConversationListController: UITableViewController {
         tableView.register(ConversationListCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
     }
-    
-    // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ConversationListCell
@@ -60,7 +58,6 @@ class ConversationListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return chatMessagesPreviews.count
     }
 

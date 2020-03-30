@@ -34,19 +34,19 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
     }()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
         locationManager.setup()
         
-//        self.fetchNeedsFromGeofire(currentRequestKeys: nil)
         MemberSession.share.listenTo { _ in
+            
             self.service.fetchCurrentRequestsKeys { (keys) in
                 
                 self.fetchNeedsFromGeofire(currentRequestKeys: keys)
             }
+            self.chat.clearOldMessagesReferences()
         }
     }
     
@@ -84,35 +84,17 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
     func fetchNeedsFromGeofire(currentRequestKeys: [String]?) {
         
         guard let location = locationManager.location else { return }
-//        needs = []
-        
-//        locationManager.geoFireRequest(from: location, currentRequestsKeys: currentRequestKeys, success: { (keys) in
-//
-//
-//            self.service.getNeeds(for: keys) { (needs) in
-//                self.needs = needs
-//
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-//
-//            }
-//
-//        }) { (err) in
-//
-//        }
         
         locationManager.observeGeoFireNeeds(from: location, currentRequestsKeys: currentRequestKeys) { (key) in
             self.service.getNeeds(for: [key]) { (needs) in
                 self.needs.append(needs[0])
-                
+                // inclue timestamp to need
+//                self.needs = self.needs.sorted(by: { $0.timestamp < $1.timestamp })
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-                
             }
         }
-        
     }
     
     @objc func handleMessageBtn() {
@@ -125,14 +107,12 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalHelperTableviewCell
-
-         let need = needs[indexPath.row]
-        cell.pseudoLabel.text = "- \(need.pseudo) -"
         
-         
-         cell.titleLabel.text = need.title
-
-         return cell
+        let need = needs[indexPath.row]
+        cell.pseudoLabel.text = "- \(need.pseudo) -"
+        cell.titleLabel.text = need.title
+        
+        return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return needs.count

@@ -12,7 +12,6 @@ import FirebaseDatabase
 class ChatMessageRepository {
     
     let service = Service()
-    //    worker id -> need id ->
     
     func postMessage(workerId: String, currentUserId: String, needId: String, message: Message, success: @escaping () -> Void) {
         
@@ -25,7 +24,8 @@ class ChatMessageRepository {
             "text": message.text,
             "toId": message.toId,
             "fromId": message.fromId,
-            "pseudo": message.pseudo,
+            "myPseudo": message.myPseudo,
+            "toPseudo": message.toPseudo,
             "timestamp": message.timestamp
         ]
         
@@ -75,10 +75,11 @@ class ChatMessageRepository {
                             guard let fromId = dict["fromId"] as? String,
                                 let toId = dict["toId"] as? String,
                                 let text = dict["text"] as? String,
-                                let pseudo = dict["pseudo"] as? String,
+                                let myPseudo = dict["myPseudo"] as? String,
+                                let toPseudo = dict["toPseudo"] as? String,
                                 let timestamp = dict["timestamp"] as? Double else { return }
                             
-                            let message = Message(text: text, fromId: fromId, toId: toId, pseudo: pseudo, timestamp: timestamp)
+                            let message = Message(text: text, fromId: fromId, toId: toId, myPseudo: myPseudo, toPseudo: toPseudo, timestamp: timestamp)
                             
                             messages.append(message)
                         }
@@ -104,15 +105,22 @@ class ChatMessageRepository {
         conversations.forEach { (arg) in
             
             dispatchGroup.enter()
-            var pseudo = ""
+            var toPseudo = ""
             var title = ""
             var lastText = ""
             var lastTimestamp: Double = 0
             let (key, value) = arg
             
+            value.forEach { (message) in
+                if MemberSession.share.member?.pseudo != message.toPseudo {
+                    toPseudo = message.toPseudo
+                } else if MemberSession.share.member?.pseudo != message.myPseudo {
+                    toPseudo = message.myPseudo
+                }
+            }
+            
             service.getNeeds(for: [key]) { (need) in
                 
-                pseudo = need[0].pseudo
                 title = need[0].title
                 if let text = value.last?.text {
                     lastText = text
@@ -120,7 +128,7 @@ class ChatMessageRepository {
                 if let timestamp = value.last?.timestamp {
                     lastTimestamp = timestamp
                 }
-                let chatMessage = ChatMessagePreview(pseudo: pseudo, title: title, text: lastText, key: key, timestamp: lastTimestamp)
+                let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, timestamp: lastTimestamp)
                 chatMessagePreviews.append(chatMessage)
                 dispatchGroup.leave()
             }
@@ -138,14 +146,24 @@ class ChatMessageRepository {
                 guard let fromId = dict["fromId"] as? String,
                     let toId = dict["toId"] as? String,
                     let text = dict["text"] as? String,
-                    let pseudo = dict["pseudo"] as? String,
+                    let myPseudo = dict["myPseudo"] as? String,
+                    let toPseudo = dict["toPseudo"] as? String,
                     let timestamp = dict["timestamp"] as? Double else { return }
                 
-                let message = Message(text: text, fromId: fromId, toId: toId, pseudo: pseudo, timestamp: timestamp)
+                let message = Message(text: text, fromId: fromId, toId: toId, myPseudo: myPseudo, toPseudo: toPseudo, timestamp: timestamp)
                 
                 success(message)
             }
         }
     }
     
+    
+    func clearOldMessagesReferences() {
+        
+        guard let id = MemberSession.share.member?.uuid else { return }
+        
+        usersMessagesRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot)
+        }
+    }
 }
