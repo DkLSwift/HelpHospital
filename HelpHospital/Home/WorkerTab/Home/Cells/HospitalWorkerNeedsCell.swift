@@ -9,6 +9,11 @@
 import UIKit
 
 
+protocol WorkerNeedsCellProtocol: class {
+    func deleteNeedPressed(needId: String)
+}
+
+
 class HospitalWorkerNeedsCell: UITableViewCell {
 
     
@@ -29,7 +34,7 @@ class HospitalWorkerNeedsCell: UITableViewCell {
     }()
     
     var needId: String?
-    var service = Service()
+    var delegate: WorkerNeedsCellProtocol?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,9 +60,9 @@ class HospitalWorkerNeedsCell: UITableViewCell {
     
     @objc func handlePostDeletion() {
         guard let id = needId else { return }
-        service.deleteDBRef(ref: needsRef, id: id)
-        guard let uId = MemberSession.share.member?.uuid else { return }
-        usersRef.child(uId).child(currentRequests).child(id).removeValue()
+        
+        delegate?.deleteNeedPressed(needId: id)
+        
     }
 }
 

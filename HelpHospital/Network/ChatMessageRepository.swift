@@ -12,7 +12,7 @@ import FirebaseDatabase
 class ChatMessageRepository {
     
     let service = Service()
-//    worker id -> need id ->
+    //    worker id -> need id ->
     
     func postMessage(workerId: String, currentUserId: String, needId: String, message: Message, success: @escaping () -> Void) {
         
@@ -59,15 +59,13 @@ class ChatMessageRepository {
         guard let keys = conversationsId else { return }
         
         var conversationsAndMessages = [String: [Message]]()
-        
         let dispatchGroup = DispatchGroup()
         
         keys.forEach({
             dispatchGroup.enter()
             print("enter  ////////////////////")
             let id = $0
-            messagesRef.child(id).observe(.value) { (snapshot) in
-                
+            messagesRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
                 if let dictionary = snapshot.value as? [String: Any] {
                     
                     var messages = [Message]()
@@ -83,14 +81,13 @@ class ChatMessageRepository {
                             let message = Message(text: text, fromId: fromId, toId: toId, pseudo: pseudo, timestamp: timestamp)
                             
                             messages.append(message)
-                            
                         }
                     }
                     conversationsAndMessages[id] = messages
-                    dispatchGroup.leave()
                 }
-               
+                
                 print("leave  *******************")
+                dispatchGroup.leave()
             }
         })
         dispatchGroup.notify(queue: .main){
@@ -100,8 +97,6 @@ class ChatMessageRepository {
     }
     
     func getLastMessagesPreviewData(conversations:[String: [Message]], success: @escaping ([ChatMessagePreview]) -> Void) {
-        
-       
         
         var chatMessagePreviews = [ChatMessagePreview]()
         let dispatchGroup = DispatchGroup()
@@ -134,4 +129,23 @@ class ChatMessageRepository {
             success(chatMessagePreviews)
         }
     }
+    
+    
+    func observeLiveChat(conversationId: String, success: @escaping (Message) -> Void ) {
+        
+        messagesRef.child(conversationId).observe(.childAdded) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any]  {
+                guard let fromId = dict["fromId"] as? String,
+                    let toId = dict["toId"] as? String,
+                    let text = dict["text"] as? String,
+                    let pseudo = dict["pseudo"] as? String,
+                    let timestamp = dict["timestamp"] as? Double else { return }
+                
+                let message = Message(text: text, fromId: fromId, toId: toId, pseudo: pseudo, timestamp: timestamp)
+                
+                success(message)
+            }
+        }
+    }
+    
 }

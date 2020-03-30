@@ -14,11 +14,12 @@ import FirebaseDatabase
 class HospitalWorkerViewController: UITableViewController {
     
     let cellId = "cellId"
-    let disconnectedCellId = "disconnectedCellId"
     
     var needs = [Need]()
     
     let service = Service()
+    let chat = ChatMessageRepository()
+    
     var geoFire: GeoFire?
     
     
@@ -77,7 +78,22 @@ class HospitalWorkerViewController: UITableViewController {
             let need = needs[indexPath.row]
             cell.needId = need.id
             cell.titleLabel.text = need.title
+        cell.delegate = self
             return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+            
+        let key = needs[indexPath.row].id
+        var conversationKeys = [String]()
+        conversationKeys.append(key)
+
+        let vc = ConversationListController()
+        vc.conversationsId = conversationKeys
+        vc.modalPresentationStyle = .fullScreen
+         self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,4 +103,31 @@ class HospitalWorkerViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
     }
+}
+
+
+extension HospitalWorkerViewController: WorkerNeedsCellProtocol {
+    func deleteNeedPressed(needId: String) {
+        
+        let alert = UIAlertController(title: "Attention", message: "Si vous cloturez ce besoin, toutes les discussions sur le sujet seront supprimées.", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Supprimer", style: .destructive) { (_ ) in
+            
+            needsRef.child(needId).removeValue()
+            guard let uId = MemberSession.share.member?.uuid else { return }
+            usersRef.child(uId).child(currentRequests).child(needId).removeValue()
+            messagesRef.child(needId).removeValue()
+            usersMessagesRef.child(uId).child(needId).removeValue()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Garder", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        self.present(alert, animated: true)
+       
+    }
+    
+    
+    
 }

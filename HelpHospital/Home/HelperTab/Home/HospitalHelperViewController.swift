@@ -84,26 +84,37 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
     func fetchNeedsFromGeofire(currentRequestKeys: [String]?) {
         
         guard let location = locationManager.location else { return }
-        needs = []
+//        needs = []
         
-        locationManager.geoFireRequest(from: location, currentRequestsKeys: currentRequestKeys, success: { (keys) in
-            
-           
-            self.service.getNeeds(for: keys) { (needs) in
-                self.needs = needs
+//        locationManager.geoFireRequest(from: location, currentRequestsKeys: currentRequestKeys, success: { (keys) in
+//
+//
+//            self.service.getNeeds(for: keys) { (needs) in
+//                self.needs = needs
+//
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//
+//            }
+//
+//        }) { (err) in
+//
+//        }
+        
+        locationManager.observeGeoFireNeeds(from: location, currentRequestsKeys: currentRequestKeys) { (key) in
+            self.service.getNeeds(for: [key]) { (needs) in
+                self.needs.append(needs[0])
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                 
             }
-            
-        }) { (err) in
-            
         }
         
     }
-  
+    
     @objc func handleMessageBtn() {
         let vc = ConversationListController()
         vc.conversationsId = conversationKeys

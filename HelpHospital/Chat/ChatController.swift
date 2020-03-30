@@ -14,7 +14,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var giverId: String?
     let chat = ChatMessageRepository()
     
-    var messages: [Message]?
+    var messages = [Message]()
+    var conversationId: String?
     
     let messageTF: TF = {
         let tf = TF(placeholder: "Envoyer un message")
@@ -37,8 +38,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupTableView()
         setupUI()
         
-       
-        print(messages)
+        
+        if let convId = conversationId {
+             observeLiveChat(id: convId)
+        } else if let needId = need?.id {
+            observeLiveChat(id: needId)
+        }
+        
+        
+    }
+    
+    func observeLiveChat(id: String) {
+        chat.observeLiveChat(conversationId: id) { (message) in
+            self.messages.append(message)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }
     }
 
     func setupTableView() {
@@ -78,27 +95,30 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages?.count ?? 0
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)  as! ChatCell
         
-        guard let messages = messages else { return cell }
+        let message = messages[indexPath.row]
         
-        cell.messageView.text = messages[indexPath.row].text
-        
+        if MemberSession.share.member?.uuid == message.fromId {
+            cell.setupRightBubble()
+        } else {
+            cell.setupLeftBubble()
+        }
+         cell.messageView.text = message.text
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 80
         
-        if let text =  messages?[indexPath.row].text {
+        let text =  messages[indexPath.row].text 
             height = estimateHeightForText(text: text).height + 40
-        }
         
-        print(height)
+        
         return height
     }
 
@@ -121,9 +141,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let message = Message(text: text, fromId: id, toId: need.workerId, pseudo: pseudo, timestamp: timestamp)
         chat.postMessage(workerId: need.workerId, currentUserId: id, needId: need.id, message: message) {
             self.messageTF.text = ""
-            
-            // RELOAD TB
-            
         }
     }
     

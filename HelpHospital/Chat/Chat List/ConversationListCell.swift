@@ -21,8 +21,9 @@ class ConversationListCell: UITableViewCell {
     let messageLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 18)
-        lbl.minimumScaleFactor = 0.6
-        lbl.adjustsFontSizeToFitWidth = true
+        lbl.textColor = .lightGray
+//        lbl.minimumScaleFactor = 0.6
+//        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     

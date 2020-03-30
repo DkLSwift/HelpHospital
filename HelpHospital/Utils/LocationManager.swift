@@ -42,11 +42,25 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
             }
         })
         
-        _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
-            
-            circleQuery.removeObserver(withFirebaseHandle: queryHandle)
+//        _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
+//
+//            circleQuery.removeObserver(withFirebaseHandle: queryHandle)
             success(keys)
-        })
+//        })
+    }
+    
+    
+    func observeGeoFireNeeds(from location: CLLocation,currentRequestsKeys: [String]? ,success: @escaping (String) -> Void) {
+        
+        let geoFire = GeoFire(firebaseRef: needsRef)
+               let circleQuery = geoFire.query(at: location, withRadius: 1)
+        
+        let queryHandle = circleQuery.observe(.keyEntered, with: { (key, location) in
+                   
+                   if currentRequestsKeys == nil ||  !currentRequestsKeys!.contains(key) {
+                      success(key)
+                   }
+               })
     }
     
     func postNeed(from location: CLLocation, key: String, id: String, title: String, desc: String?, time: String?) {
