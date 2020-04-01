@@ -9,13 +9,12 @@
 import UIKit
 import CoreLocation
 
-class WorkerFormViewController: UIViewController {
+class WorkerFormViewController: UIViewController, UITextFieldDelegate {
 
-    
     let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
-        lbl.text = "Vos Besoins"
+        lbl.text = "Vos Besoins seront visibles 1 kilomètre autour de la position à laquelle vous l'enregistrez."
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
         return lbl
@@ -45,7 +44,6 @@ class WorkerFormViewController: UIViewController {
         return btn
     }()
     
-    
     var locationManager = LocationManager()
     var mainVC: HospitalWorkerViewController?
     
@@ -53,6 +51,9 @@ class WorkerFormViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        
+        self.hideKeyboardWhenTapOutsideTextField()
+        [titleTF, descTF, timeTF].forEach({ $0.delegate = self })
         
         locationManager.setup()
         setupUI()
@@ -93,12 +94,15 @@ class WorkerFormViewController: UIViewController {
                 Utils.callAlert(vc: self, title: "Erreur", message: "Vous devez renseigner un titre", action: "Ok")
                 return
             }
-            
-            
             locationManager.postNeed(from: location, key: key, id: id, title: title, desc: desc, time: time)
             mainVC?.fetchCurrentUserNeedsAndReloadTVData()
             self.dismiss(animated: true, completion: nil)
         }
-       
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
 }

@@ -10,7 +10,6 @@ import UIKit
 
 class HospitalHelperTableviewCell: UITableViewCell {
 
-    
     let pseudoLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
@@ -24,8 +23,6 @@ class HospitalHelperTableviewCell: UITableViewCell {
         lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
-    
-   
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

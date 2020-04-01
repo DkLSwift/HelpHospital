@@ -21,6 +21,9 @@ pod 'FacebookShare'
 pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+pod 'Fabric', '~> 1.10.2'
+pod 'Crashlytics', '~> 3.14.0'
+pod 'Firebase/Analytics'
 
   target 'HelpHospitalTests' do
     inherit! :search_paths

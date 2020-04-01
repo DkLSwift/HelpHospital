@@ -20,12 +20,18 @@ class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        loginRepository.requestAutologin()
-        
-        
+        loginRepository.requestAutologin {
             let vc = HomeTabController()
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
+        }
+        
+        
+//        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
+//            
+//        })
+        
+            
         
         
         

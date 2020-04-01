@@ -66,15 +66,18 @@ class ConversationListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let title = chatMessagesPreviews[indexPath.row].pseudo
         let messagesKey = chatMessagesPreviews[indexPath.row].key
         let messages = conversationsAndMessages[messagesKey]
-         
+        let toId = chatMessagesPreviews[indexPath.row].toId
         service.getNeeds(for: [messagesKey]) { (needs) in
             
             let vc = ChatController()
-//            vc.messages = messages?.sorted(by: { $0.timestamp < $1.timestamp })
             vc.need = needs[0]
+            vc.toId = toId
             vc.conversationId = messagesKey
+            vc.title = title
             vc.modalPresentationStyle = .fullScreen
             self.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)

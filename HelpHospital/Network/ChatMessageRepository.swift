@@ -108,15 +108,23 @@ class ChatMessageRepository {
             var toPseudo = ""
             var title = ""
             var lastText = ""
+            var toId = ""
             var lastTimestamp: Double = 0
+            
             let (key, value) = arg
             
             value.forEach { (message) in
                 if MemberSession.share.member?.pseudo != message.toPseudo {
                     toPseudo = message.toPseudo
-                } else if MemberSession.share.member?.pseudo != message.myPseudo {
+                }else if MemberSession.share.member?.pseudo != message.myPseudo {
                     toPseudo = message.myPseudo
                 }
+                if MemberSession.share.member?.uuid != message.toId {
+                    toId = message.toId
+                } else if MemberSession.share.member?.uuid != message.fromId {
+                    toId = message.fromId
+                }
+                
             }
             
             service.getNeeds(for: [key]) { (need) in
@@ -128,7 +136,7 @@ class ChatMessageRepository {
                 if let timestamp = value.last?.timestamp {
                     lastTimestamp = timestamp
                 }
-                let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, timestamp: lastTimestamp)
+                let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
                 chatMessagePreviews.append(chatMessage)
                 dispatchGroup.leave()
             }

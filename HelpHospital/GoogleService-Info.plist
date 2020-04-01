@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>870693894196-3nvsogp9tdrjo6l0a2201k664knmoqja.apps.googleusercontent.com</string>
+	<string>870693894196-ldihu9vobflb5ubod48i28rfebv0mms4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.870693894196-3nvsogp9tdrjo6l0a2201k664knmoqja</string>
+	<string>com.googleusercontent.apps.870693894196-ldihu9vobflb5ubod48i28rfebv0mms4</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBplDnbCVjkOytcgZtyM0RKhdv_UxNnj4g</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.requena.HelpHospital</string>
+	<string>com.requena.HelpyHospital</string>
 	<key>PROJECT_ID</key>
 	<string>help-hospital</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:870693894196:ios:f01c3143b4c71c2f8bf261</string>
+	<string>1:870693894196:ios:d8a011f66d1a25448bf261</string>
 	<key>DATABASE_URL</key>
 	<string>https://help-hospital.firebaseio.com</string>
 </dict>

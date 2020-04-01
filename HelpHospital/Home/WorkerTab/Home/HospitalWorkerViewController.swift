@@ -60,7 +60,7 @@ class HospitalWorkerViewController: UITableViewController {
              self.tableView.reloadData()
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
-       
+        self.tableView.reloadData()
     }
     
     @objc func handleAdd() {
@@ -75,6 +75,7 @@ class HospitalWorkerViewController: UITableViewController {
         
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalWorkerNeedsCell
             
+        // a voir crash
             let need = needs[indexPath.row]
             cell.needId = need.id
             cell.titleLabel.text = need.title
@@ -107,6 +108,7 @@ class HospitalWorkerViewController: UITableViewController {
 
 
 extension HospitalWorkerViewController: WorkerNeedsCellProtocol {
+    
     func deleteNeedPressed(needId: String) {
         
         let alert = UIAlertController(title: "Attention", message: "Si vous cloturez ce besoin, toutes les discussions sur le sujet seront supprimées.", preferredStyle: .alert)
@@ -118,6 +120,9 @@ extension HospitalWorkerViewController: WorkerNeedsCellProtocol {
             usersRef.child(uId).child(currentRequests).child(needId).removeValue()
             messagesRef.child(needId).removeValue()
             usersMessagesRef.child(uId).child(needId).removeValue()
+            
+            self.needs.removeAll { $0.id == needId }
+            self.tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Garder", style: .cancel, handler: nil)

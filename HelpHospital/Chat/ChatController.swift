@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
-class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var need: Need?
-    var giverId: String?
+    var toId: String?
     let chat = ChatMessageRepository()
     
     var messages = [Message]()
     var conversationId: String?
+    
+    var textfiedStackBottomAnchor: NSLayoutConstraint?
+    
     
     let messageTF: TF = {
         let tf = TF(placeholder: "Envoyer un message")
@@ -31,13 +35,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellId = "cellId"
     let tableView = UITableView()
     
+    
+    var safeTopAnchor: NSLayoutYAxisAnchor?
+    var safeBottomAnchor: NSLayoutYAxisAnchor?
+    var botPadding: CGFloat = 0
+    var hStack: UIStackView?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
         setupTableView()
         setupUI()
-        
         
         if let convId = conversationId {
              observeLiveChat(id: convId)
@@ -45,8 +54,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             observeLiveChat(id: needId)
         }
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handle(keyboardShowNotification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handle(keyboardHideNotification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     
     func observeLiveChat(id: String) {
         chat.observeLiveChat(conversationId: id) { (message) in
@@ -55,7 +66,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
         }
     }
 
@@ -67,32 +77,41 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
     }
-    
+   
     func setupUI() {
         
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        IQKeyboardManager.shared.enable = false
+        
+        self.messageTF.delegate = self
         view.backgroundColor = .white
         
-        var safeTopAnchor = view.topAnchor
-        var safeBottomAnchor = view.bottomAnchor
+        
         if #available(iOS 11.0, *) {
+            botPadding = -10
             safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            
+            safeTopAnchor = view.topAnchor
+            safeBottomAnchor = view.bottomAnchor
         }
         
         [messageTF, sendBtn].forEach( { $0.constrainHeight(constant: 44)})
         sendBtn.constrainWidth(constant: 44)
         
-        let hStack = UIStackView(arrangedSubviews: [messageTF, sendBtn])
-        hStack.spacing = 20
-        view.addSubview(hStack)
-        hStack.anchor(top: nil, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 30, bottom: 30, right: 30))
+        hStack = UIStackView(arrangedSubviews: [messageTF, sendBtn])
+        hStack?.spacing = 20
+        view.addSubview(hStack!)
+        hStack?.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 30, bottom: 30, right: 30))
+        textfiedStackBottomAnchor = hStack?.bottomAnchor.constraint(equalTo: safeBottomAnchor!, constant: botPadding)
+        textfiedStackBottomAnchor?.isActive = true
         
         sendBtn.addTarget(self, action: #selector(handleSendMessage), for: .touchUpInside)
         
         view.addSubview(tableView)
         let topBarHeight = self.topbarHeight
-        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: hStack.topAnchor, trailing: view.trailingAnchor, padding: .init(top: topbarHeight, left: 0, bottom: 0, right: 0))
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: hStack?.topAnchor, trailing: view.trailingAnchor, padding: .init(top: topbarHeight, left: 0, bottom: 0, right: 0))
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,7 +138,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let text =  messages[indexPath.row].text 
             height = estimateHeightForText(text: text).height + 40
         
-        
         return height
     }
 
@@ -139,8 +157,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let timestamp = Date().timeIntervalSince1970
         
         
+        
 //        let message = Message(text: text, fromId: id, toId: need.workerId, pseudo: pseudo, timestamp: timestamp)
-        let message = Message(text: text, fromId: id, toId: need.workerId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
+        let message = Message(text: text, fromId: id, toId: toId ?? need.workerId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
         chat.postMessage(workerId: need.workerId, currentUserId: id, needId: need.id, message: message) {
             self.messageTF.text = ""
         }
@@ -149,4 +168,41 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     deinit {
         print("CHAT VC Succcess Deinit     ****************")
     }
+}
+
+extension ChatController: UITextFieldDelegate {
+    
+    
+    @objc func handle(keyboardShowNotification notification: Notification) {
+       
+        if let userInfo = notification.userInfo, let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+             self.textfiedStackBottomAnchor?.constant = -(keyboardRect.height - botPadding)
+
+            UIView.animate(withDuration: duration ?? 0) {
+               
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    @objc func handle(keyboardHideNotification notification: Notification) {
+        print("keyboard hide notification")
+        
+        if let userInfo = notification.userInfo, let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+            self.textfiedStackBottomAnchor?.constant = botPadding
+            
+            UIView.animate(withDuration: duration ?? 0) {
+                
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
 }

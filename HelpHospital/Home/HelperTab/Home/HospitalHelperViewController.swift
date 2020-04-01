@@ -40,18 +40,29 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         setup()
         locationManager.setup()
         
+        self.fetchNeedsFromGeofire(currentRequestKeys: nil)
+        
         MemberSession.share.listenTo { _ in
-            
-            self.service.fetchCurrentRequestsKeys { (keys) in
+            self.needs = []
+            if MemberSession.share.isLogged {
                 
-                self.fetchNeedsFromGeofire(currentRequestKeys: keys)
+                self.service.fetchCurrentRequestsKeys { (keys) in
+                    
+                    self.fetchNeedsFromGeofire(currentRequestKeys: keys)
+                }
+                self.chat.clearOldMessagesReferences()
+            } else {
+                 self.fetchNeedsFromGeofire(currentRequestKeys: nil)
             }
-            self.chat.clearOldMessagesReferences()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        if MemberSession.share.isLogged {
+            messageBtn.isHidden = false
+        } else {
+            messageBtn.isHidden = true
+        }
         chat.observeRegistredTopic { keys in
             self.conversationKeys = keys
         }
@@ -87,8 +98,11 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         
         locationManager.observeGeoFireNeeds(from: location, currentRequestsKeys: currentRequestKeys) { (key) in
             self.service.getNeeds(for: [key]) { (needs) in
-                self.needs.append(needs[0])
-                // inclue timestamp to need
+                if needs[0].workerId != MemberSession.share.member?.uuid {
+                    self.needs.append(needs[0])
+                }
+                
+                // include timestamp to need for sorting
 //                self.needs = self.needs.sorted(by: { $0.timestamp < $1.timestamp })
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

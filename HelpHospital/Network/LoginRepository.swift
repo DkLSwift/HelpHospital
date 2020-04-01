@@ -113,7 +113,7 @@ class LoginRepository: LoginRepositoryProtocol {
     }
     
     
-    func requestAutologin() {
+    func requestAutologin(success: @escaping () -> Void) {
         if let id = Auth.auth().currentUser?.uid {
             
             usersRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
@@ -122,9 +122,11 @@ class LoginRepository: LoginRepositoryProtocol {
                 let value = snapshot.value as? NSDictionary
                 member.pseudo = value?["pseudo"] as? String ?? ""
                 MemberSession.share.member = member
+                success()
             }
         } else {
             MemberSession.share.member = nil
+            success()
         }
     }
 }

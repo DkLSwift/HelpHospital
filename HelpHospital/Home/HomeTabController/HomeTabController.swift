@@ -14,12 +14,12 @@ class HomeTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎") : createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "☣︎")
+        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "doctor") : createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "doctor")
         
         viewControllers = [
             vc1,
-            createNavController(viewController: HospitalHelperViewController(), title: "Donner", imageName: "⚉"),
-            createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "✿")
+            createNavController(viewController: HospitalHelperViewController(), title: "Donner", imageName: "team"),
+            createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "settings")
         ]
         MemberSession.share.listenTo { member in
             self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "☣︎")

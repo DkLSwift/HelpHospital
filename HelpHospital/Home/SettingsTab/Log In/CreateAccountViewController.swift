@@ -10,9 +10,6 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-protocol CreateAccountViewProtocol: class {
-    func didCreateAccount()
-}
 
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
 
@@ -57,7 +54,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         return btn
     }()
     
-    weak var delegate: CreateAccountViewProtocol?
     let loginRepository = LoginRepository()
     
     
@@ -65,6 +61,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        self.hideKeyboardWhenTapOutsideTextField()
+        
         setup()
     }
     
@@ -110,7 +108,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         }
         loginRepository.requestAccountCreation(mail: mail, password: password, pseudo: pseudo, success: {
             
-            self.delegate?.didCreateAccount()
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }) { (err) in
             Utils.callAlert(vc: self, title: "Erreur", message: err.localizedDescription, action: "Ok")

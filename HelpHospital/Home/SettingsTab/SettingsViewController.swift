@@ -64,7 +64,7 @@ class SettingsViewController: UIViewController {
             if !MemberSession.share.isLogged {
                 self.setupConnect()
             } else {
-                self.setupUI()
+                self.changeUI()
             }
         }
         
@@ -74,7 +74,7 @@ class SettingsViewController: UIViewController {
         if !MemberSession.share.isLogged {
                   self.setupConnect()
               } else {
-                  self.setupUI()
+                  self.changeUI()
               }
     }
     func setupConnect() {
@@ -88,7 +88,6 @@ class SettingsViewController: UIViewController {
         let hStack = UIStackView(arrangedSubviews: [pseudoLabel, UIView(), changePseudoBtn])
         view.addSubview(hStack)
         hStack.axis = .horizontal
-//        hStack.distribution = .fillEqually
         hStack.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 200, left: 30, bottom: 0, right: 30))
         if MemberSession.share.member?.pseudo != "" {
             pseudoLabel.text = MemberSession.share.member?.pseudo
@@ -153,16 +152,16 @@ class SettingsViewController: UIViewController {
     }
 }
 
-extension SettingsViewController: CreateAccountViewProtocol, SignInViewProtocol {
+extension SettingsViewController: SignInViewProtocol {
     
     
     func didSignInAccount() {
         changeUI()
     }
-    
-    func didCreateAccount() {
-        changeUI()
-    }
+//    
+//    func didCreateAccount() {
+//        changeUI()
+//    }
     
     func changeUI() {
         connectButton.removeFromSuperview()
