@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class WorkerFormViewController: UIViewController, UITextFieldDelegate {
+class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     let titleLabel: UILabel = {
         let lbl = UILabel()
@@ -24,11 +24,18 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate {
         let tf = TF(placeholder: "Titre")
         return tf
     }()
-    let descTF: TF = {
-        let tf = TF(placeholder: "Description")
-        
-        return tf
+    let descTV: UITextView = {
+        let tv = UITextView()
+        tv.layer.borderColor = UIColor.lightGray.cgColor
+        tv.layer.borderWidth = 1
+        tv.text = "Description..."
+        tv.textColor = .lightGray
+        tv.font = UIFont.systemFont(ofSize: 17)
+        return tv
     }()
+    
+    
+    
     let timeTF: TF = {
         let tf = TF(placeholder: "Heure approximative")
         return tf
@@ -53,7 +60,8 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = .white
         
         self.hideKeyboardWhenTapOutsideTextField()
-        [titleTF, descTF, timeTF].forEach({ $0.delegate = self })
+        [titleTF, timeTF].forEach({ $0.delegate = self })
+        descTV.delegate = self
         
         locationManager.setup()
         setupUI()
@@ -65,12 +73,12 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate {
         
         
         [titleTF, timeTF, acceptButton].forEach( { $0.constrainHeight(constant: 44)} )
-        descTF.constrainHeight(constant: 150)
+        descTV.constrainHeight(constant: 150)
         acceptButton.constrainWidth(constant: 200)
         
         acceptButton.addTarget(self, action: #selector(handleAccept), for: .touchUpInside)
         
-        let tfStack = UIStackView(arrangedSubviews: [titleTF, descTF, timeTF,])
+        let tfStack = UIStackView(arrangedSubviews: [titleTF, descTV, timeTF,])
         tfStack.axis = .vertical
         tfStack.spacing = 20
         
@@ -87,7 +95,7 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate {
         guard let location = locationManager.location, let id = MemberSession.share.member?.uuid, let key = needsRef.childByAutoId().key else { return }
         
         if let title = titleTF.text {
-            let desc = descTF.text
+            let desc = descTV.text
             let time = timeTF.text
             
             guard title != "" else {
@@ -105,4 +113,16 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate {
         return false
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .lightGray {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Description..."
+            textView.textColor = .lightGray
+        }
+    }
 }
