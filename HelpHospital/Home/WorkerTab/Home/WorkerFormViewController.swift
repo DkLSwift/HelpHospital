@@ -95,7 +95,10 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
     
     @objc func handleAccept() {
         
-        guard let location = locationManager.location, let id = MemberSession.share.member?.uuid, let key = needsRef.childByAutoId().key else { return }
+        guard let location = locationManager.location, let id = MemberSession.share.member?.uuid, let key = needsRef.childByAutoId().key else {
+            Utils.callAlert(vc: self, title: "Erreur", message: "Vérifiez votre réseau ou les autorisations d'accès à la géolocalisation de votre téléphone", action: "Ok")
+            return
+        }
         
         if let title = titleTF.text {
             let desc = descTV.text
@@ -117,9 +120,9 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .lightGray {
+        if textView.textColor == seaWhite {
             textView.text = nil
-            textView.textColor = .black
+            textView.textColor = .white
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
