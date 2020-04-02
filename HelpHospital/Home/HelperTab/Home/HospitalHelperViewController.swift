@@ -24,10 +24,10 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         let btn = UIButton()
         btn.setImage(UIImage(named: "speak"), for: .normal)
         btn.layer.borderWidth = 1
-        btn.backgroundColor = .white
+        btn.backgroundColor = seaWhite
         btn.layer.borderColor = dark.cgColor
-        btn.layer.shadowColor = UIColor.lightGray.cgColor
-        btn.layer.shadowOffset = .init(width: -2, height: 2)
+        btn.layer.shadowColor = UIColor.white.cgColor
+        btn.layer.shadowOffset = .init(width: -1, height: 1)
         btn.layer.shadowRadius = 4
         btn.layer.shadowOpacity = 1
         return btn
@@ -73,17 +73,18 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         tableView.delegate = self
         tableView.register(HospitalHelperTableviewCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = seaDarkBlue
         
         view .addSubview(tableView)
-        let topBarHeight = self.topbarHeight
         let tabBarHeight = self.tabBarHeight
         var safeTopAnchor = view.topAnchor
         var safeBottomAnchor = view.bottomAnchor
+        
         if #available(iOS 11.0, *) {
             safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
-        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: topBarHeight, left: 0, bottom: tabBarHeight, right: 0))
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: tabBarHeight, right: 0))
         
         view.addSubview(messageBtn)
         messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
@@ -132,7 +133,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         return needs.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 110
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if MemberSession.share.isLogged {

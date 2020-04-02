@@ -10,9 +10,21 @@ import UIKit
 
 class HospitalHelperTableviewCell: UITableViewCell {
 
+    let containerView: UIView = {
+        let v = UIView()
+        v.backgroundColor = seaLightBlue
+        return v
+    }()
+    let insetView: UIView = {
+        let v = UIView()
+        v.backgroundColor = seaDarkBlue
+        return v
+    }()
+    
     let pseudoLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
+        lbl.textColor = seaWhite
         return lbl
     }()
     
@@ -21,6 +33,7 @@ class HospitalHelperTableviewCell: UITableViewCell {
         lbl.font = UIFont.systemFont(ofSize: 28)
         lbl.minimumScaleFactor = 0.6
         lbl.adjustsFontSizeToFitWidth = true
+        lbl.textColor = seaWhite
         return lbl
     }()
     
@@ -35,6 +48,12 @@ class HospitalHelperTableviewCell: UITableViewCell {
     }
     
     func setup() {
+        
+        addSubview(containerView)
+        containerView.fillSuperview()
+        
+        containerView.addSubview(insetView)
+        insetView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 2, right: 0))
         
         let hStack = UIStackView(arrangedSubviews: [pseudoLabel, titleLabel])
         addSubview(hStack)

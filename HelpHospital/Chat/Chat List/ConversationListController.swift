@@ -19,12 +19,14 @@ class ConversationListController: UITableViewController {
     let cellId = "cellId"
     
     var conversationsAndMessages = [String : [Message]]()
+    let dateformatter = DateFormatter()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        
+        dateformatter.dateFormat = "HH:mm"
         setup()
         
         chat.getConversationMessages(conversationsId: conversationsId) { (conversationsAndMessages) in
@@ -39,6 +41,7 @@ class ConversationListController: UITableViewController {
     }
 
     func setup() {
+        tableView.backgroundColor = seaDarkBlue
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ConversationListCell.self, forCellReuseIdentifier: cellId)
@@ -50,9 +53,13 @@ class ConversationListController: UITableViewController {
         
         let messagePreview = chatMessagesPreviews[indexPath.row]
         
+        let previewDate = Date(timeIntervalSince1970: messagePreview.timestamp)
+        let time = dateformatter.string(from: previewDate)
+        let displayTime = time.replacingOccurrences(of: ":", with: "h")
+        
         cell.pseudoLabel.text = "\(messagePreview.pseudo)  -  \(messagePreview.title)"
         cell.messageLabel.text = messagePreview.text
-        cell.timeLabel.text = String(messagePreview.timestamp)
+        cell.timeLabel.text = String(displayTime)
         
         return cell
     }
@@ -62,7 +69,7 @@ class ConversationListController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 90
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

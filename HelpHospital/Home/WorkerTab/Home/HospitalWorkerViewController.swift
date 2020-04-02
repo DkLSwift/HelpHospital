@@ -11,9 +11,10 @@ import GeoFire
 import CoreLocation
 import FirebaseDatabase
 
-class HospitalWorkerViewController: UITableViewController {
+class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellId = "cellId"
+    let tableView = UITableView()
     
     var needs = [Need]()
     
@@ -28,6 +29,7 @@ class HospitalWorkerViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
         
+        
         MemberSession.share.listenTo { _ in
             self.fetchCurrentUserNeedsAndReloadTVData()
         }
@@ -40,10 +42,25 @@ class HospitalWorkerViewController: UITableViewController {
     }
     
     func setupTableview() {
+//        tableView.backgroundView?.backgroundColor = seaDarkBlue
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HospitalWorkerNeedsCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = seaDarkBlue
+        view.backgroundColor = seaDarkBlue
+        
+        view .addSubview(tableView)
+        let tabBarHeight = self.tabBarHeight
+        var safeTopAnchor = view.topAnchor
+        var safeBottomAnchor = view.bottomAnchor
+        
+        if #available(iOS 11.0, *) {
+            safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
+            safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
+        }
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: tabBarHeight, right: 0))
     }
     
     func fetchCurrentUserNeedsAndReloadTVData() {
@@ -71,19 +88,18 @@ class HospitalWorkerViewController: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalWorkerNeedsCell
             
-        // a voir crash
             let need = needs[indexPath.row]
             cell.needId = need.id
             cell.titleLabel.text = need.title
-            cell.delegate = self
+//            cell.delegate = self
             return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
             
         let key = needs[indexPath.row].id
@@ -97,19 +113,47 @@ class HospitalWorkerViewController: UITableViewController {
         
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return needs.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in
+            print("magical delete")
+//            self.needs.remove(at: indexPath.row)
+            self.deleteNeedPressed(needId: self.needs[indexPath.row].id, success: ({
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                complete(true)
+            }))
+           
+        }
+//        deleteAction.image = UIImage(named: "bin")
+        deleteAction.title = "Supprimer"
+        
+        deleteAction.backgroundColor = seaLightBlue
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        
+        return configuration
+        
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("delete")
+        }
     }
 }
 
 
-extension HospitalWorkerViewController: WorkerNeedsCellProtocol {
+extension HospitalWorkerViewController {
     
-    func deleteNeedPressed(needId: String) {
+    func deleteNeedPressed(needId: String, success: @escaping () -> Void) {
         
         let alert = UIAlertController(title: "Attention", message: "Si vous cloturez ce besoin, toutes les discussions sur le sujet seront supprimées.", preferredStyle: .alert)
         
@@ -122,7 +166,8 @@ extension HospitalWorkerViewController: WorkerNeedsCellProtocol {
             usersMessagesRef.child(uId).child(needId).removeValue()
             
             self.needs.removeAll { $0.id == needId }
-            self.tableView.reloadData()
+            success()
+//            self.tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Garder", style: .cancel, handler: nil)

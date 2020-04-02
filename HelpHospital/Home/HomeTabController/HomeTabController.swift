@@ -10,6 +10,10 @@ import UIKit
 
 class HomeTabController: UITabBarController {
     
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,11 @@ class HomeTabController: UITabBarController {
         MemberSession.share.listenTo { member in
             self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "☣︎")
         }
+        
+        tabBar.barTintColor = seaDarkBlue
+        tabBar.isTranslucent = false
+        tabBar.unselectedItemTintColor = seaWhite
+        tabBar.tintColor = seaLightBlue
     }
     
     fileprivate func createNavController(viewController: UIViewController, title: String, imageName: String) -> UIViewController {
@@ -34,7 +43,10 @@ class HomeTabController: UITabBarController {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = UIImage(named: imageName)
         navController.navigationBar.prefersLargeTitles = true
-        
+        navController.navigationBar.barStyle = .black
+//        navController.navigationBar.barTintColor = seaDarkBlue
+//        navController.navigationBar.titleTextAttributes = [.foregroundColor: seaWhite]
+       
         return navController
     }
 }

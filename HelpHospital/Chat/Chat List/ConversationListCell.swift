@@ -10,18 +10,30 @@ import UIKit
 
 class ConversationListCell: UITableViewCell {
     
+    let containerView: UIView = {
+        let v = UIView()
+        v.backgroundColor = seaLightBlue
+        return v
+    }()
+    let insetView: UIView = {
+        let v = UIView()
+        v.backgroundColor = seaDarkBlue
+        return v
+    }()
+    
     let pseudoLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
         lbl.minimumScaleFactor = 0.6
         lbl.adjustsFontSizeToFitWidth = true
+        lbl.textColor = seaWhite
         return lbl
     }()
     
     let messageLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 18)
-        lbl.textColor = .lightGray
+        lbl.textColor = seaWhite
 //        lbl.minimumScaleFactor = 0.6
 //        lbl.adjustsFontSizeToFitWidth = true
         return lbl
@@ -30,8 +42,9 @@ class ConversationListCell: UITableViewCell {
     let timeLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 22)
-        lbl.minimumScaleFactor = 0.6
-        lbl.adjustsFontSizeToFitWidth = true
+        lbl.textColor = seaWhite
+//        lbl.minimumScaleFactor = 0.6
+//        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
        
@@ -47,6 +60,11 @@ class ConversationListCell: UITableViewCell {
       }
       
     func setup() {
+        addSubview(containerView)
+        containerView.fillSuperview()
+        
+        containerView.addSubview(insetView)
+        insetView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 2, right: 0))
         
         pseudoLabel.constrainHeight(constant: 30)
         let vStack = UIStackView(arrangedSubviews: [pseudoLabel, messageLabel])
