@@ -18,7 +18,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         lbl.text = "Création de compte"
         lbl.font = UIFont.systemFont(ofSize: 36)
         lbl.numberOfLines = 0
-        lbl.textColor = dark
+        lbl.textColor = seaWhite
         lbl.textAlignment = NSTextAlignment.center
         return lbl
     }()
@@ -44,13 +44,13 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }()
     let createAccountButton: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .white
+        btn.backgroundColor = seaDarkBlue
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Créer", for: .normal)
-        btn.setTitleColor(dark, for: .normal)
+        btn.setTitleColor(seaWhite, for: .normal)
         btn.layer.cornerRadius = 16
         btn.layer.borderWidth = 1
-        btn.layer.borderColor = dark.cgColor
+        btn.layer.borderColor = seaWhite.cgColor
         return btn
     }()
     
@@ -60,7 +60,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = seaDarkBlue
         self.hideKeyboardWhenTapOutsideTextField()
         
         setup()

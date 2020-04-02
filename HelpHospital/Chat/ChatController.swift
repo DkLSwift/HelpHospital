@@ -72,6 +72,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = seaDarkBlue
         tableView.register(ChatCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -80,11 +81,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
    
     func setupUI() {
         
+        view.backgroundColor = seaDarkBlue
         self.navigationController?.navigationBar.prefersLargeTitles = false
         IQKeyboardManager.shared.enable = false
         
         self.messageTF.delegate = self
-        view.backgroundColor = .white
         
         
         if #available(iOS 11.0, *) {

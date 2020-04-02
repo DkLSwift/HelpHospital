@@ -53,7 +53,7 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
     func observeGeoFireNeeds(from location: CLLocation,currentRequestsKeys: [String]? ,success: @escaping (String) -> Void) {
         
         let geoFire = GeoFire(firebaseRef: needsRef)
-               let circleQuery = geoFire.query(at: location, withRadius: 1)
+               let circleQuery = geoFire.query(at: location, withRadius: 20)
         
         let queryHandle = circleQuery.observe(.keyEntered, with: { (key, location) in
                    

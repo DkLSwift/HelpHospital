@@ -29,9 +29,9 @@ class SplashViewController: UIViewController {
         
         view.backgroundColor = seaDarkBlue
            loginRepository.requestAutologin {
-               let vc = HomeTabController()
-               vc.modalPresentationStyle = .fullScreen
-               self.present(vc, animated: true, completion: nil)
+//               let vc = HomeTabController()
+//               vc.modalPresentationStyle = .fullScreen
+//               self.present(vc, animated: true, completion: nil)
            }
            
         
@@ -40,9 +40,11 @@ class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
    
         
-//        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
-//            
-//        })
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
+            let vc = HomeTabController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        })
         
             
         

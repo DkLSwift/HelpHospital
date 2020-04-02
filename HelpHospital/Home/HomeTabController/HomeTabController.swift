@@ -26,7 +26,7 @@ class HomeTabController: UITabBarController {
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "settings")
         ]
         MemberSession.share.listenTo { member in
-            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "☣︎") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "☣︎")
+            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "doctor") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "doctor")
         }
         
         tabBar.barTintColor = seaDarkBlue
@@ -38,9 +38,8 @@ class HomeTabController: UITabBarController {
     fileprivate func createNavController(viewController: UIViewController, title: String, imageName: String) -> UIViewController {
         let navController = UINavigationController(rootViewController: viewController)
         
-        viewController.view.backgroundColor = .white
         viewController.navigationItem.title = title
-        navController.tabBarItem.title = title
+        navController.tabBarItem.title = title.capitalized
         navController.tabBarItem.image = UIImage(named: imageName)
         navController.navigationBar.prefersLargeTitles = true
         navController.navigationBar.barStyle = .black

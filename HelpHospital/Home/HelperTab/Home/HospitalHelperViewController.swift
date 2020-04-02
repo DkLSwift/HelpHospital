@@ -69,6 +69,9 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func setup() {
+        
+        view.backgroundColor = seaDarkBlue
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HospitalHelperTableviewCell.self, forCellReuseIdentifier: cellId)
@@ -88,7 +91,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         
         view.addSubview(messageBtn)
         messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-        messageBtn.anchor(top: nil, leading: nil, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: tabBarHeight + 40, right: 40), size: .init(width: 60, height: 60))
+        messageBtn.anchor(top: nil, leading: nil, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: tabBarHeight + 20, right: 40), size: .init(width: 60, height: 60))
         messageBtn.layer.cornerRadius = 30
         messageBtn.addTarget(self, action: #selector(handleMessageBtn), for: .touchUpInside)
     }

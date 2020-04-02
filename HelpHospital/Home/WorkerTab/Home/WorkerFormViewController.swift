@@ -15,6 +15,7 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
         lbl.text = "Vos Besoins seront visibles 1 kilomètre autour de la position à laquelle vous l'enregistrez."
+        lbl.textColor = seaWhite
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
         return lbl
@@ -26,15 +27,14 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
     }()
     let descTV: UITextView = {
         let tv = UITextView()
-        tv.layer.borderColor = UIColor.lightGray.cgColor
+        tv.backgroundColor = seaDarkBlue
+        tv.layer.borderColor = seaWhite.cgColor
         tv.layer.borderWidth = 1
-        tv.text = "Description..."
-        tv.textColor = .lightGray
+        tv.text = "  Description..."
+        tv.textColor = seaWhite
         tv.font = UIFont.systemFont(ofSize: 17)
         return tv
     }()
-    
-    
     
     let timeTF: TF = {
         let tf = TF(placeholder: "Heure approximative")
@@ -43,10 +43,14 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
     
     let acceptButton: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = dark
+        btn.backgroundColor = seaDarkBlue
+        btn.layer.borderColor = seaWhite.cgColor
+        btn.constrainHeight(constant: 50)
+        btn.constrainWidth(constant: 200)
+        btn.layer.borderWidth = 1
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         btn.setTitleColor(.white, for: .normal)
-        btn.setTitle("VALIDER", for: .normal)
+        btn.setTitle("Valider", for: .normal)
         btn.layer.cornerRadius = 15
         return btn
     }()
@@ -57,7 +61,7 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = seaDarkBlue
         
         self.hideKeyboardWhenTapOutsideTextField()
         [titleTF, timeTF].forEach({ $0.delegate = self })
@@ -74,7 +78,6 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
         
         [titleTF, timeTF, acceptButton].forEach( { $0.constrainHeight(constant: 44)} )
         descTV.constrainHeight(constant: 150)
-        acceptButton.constrainWidth(constant: 200)
         
         acceptButton.addTarget(self, action: #selector(handleAccept), for: .touchUpInside)
         
@@ -121,7 +124,7 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Description..."
+            textView.text = "  Description..."
             textView.textColor = .lightGray
         }
     }

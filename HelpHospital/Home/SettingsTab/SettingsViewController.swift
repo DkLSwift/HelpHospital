@@ -25,40 +25,47 @@ class SettingsViewController: UIViewController {
     
     let connectButton: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .white
+        btn.backgroundColor = seaDarkBlue
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Se connecter", for: .normal)
-        btn.setTitleColor(.blue, for: .normal)
+        btn.setTitleColor(seaWhite, for: .normal)
+        btn.constrainHeight(constant: 50)
+        btn.constrainWidth(constant: 200)
+        btn.layer.borderColor = seaWhite.cgColor
+        btn.layer.borderWidth = 1
+        btn.layer.cornerRadius = 25
         return btn
     }()
     
     let pseudoLabel: UILabel = {
            let lbl = UILabel()
            lbl.font = UIFont.systemFont(ofSize: 30)
-           lbl.textColor = dark
+           lbl.textColor = seaWhite
            lbl.textAlignment = NSTextAlignment.center
            return lbl
        }()
     let changePseudoBtn: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .white
+        btn.backgroundColor = seaDarkBlue
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Changer", for: .normal)
-        btn.setTitleColor(.blue, for: .normal)
+        btn.setTitleColor(seaWhite, for: .normal)
         return btn
     }()
     
     let disconnectBtn: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .white
+        btn.backgroundColor = seaDarkBlue
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         btn.setTitle("Se déconnecter", for: .normal)
-        btn.setTitleColor(.blue, for: .normal)
+        btn.setTitleColor(seaWhite, for: .normal)
         return btn
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = seaDarkBlue
         
         MemberSession.share.listenTo { _ in
             if !MemberSession.share.isLogged {
@@ -79,7 +86,11 @@ class SettingsViewController: UIViewController {
     }
     func setupConnect() {
         view.addSubview(connectButton)
-        connectButton.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 200, left: 30, bottom: 0, right: 0), size: .init(width: 150, height: 44))
+//        connectButton.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 150, height: 44))
+        
+        connectButton.translatesAutoresizingMaskIntoConstraints = false
+        connectButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -140).isActive = true
+        connectButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         connectButton.addTarget(self, action: #selector(handleConnection), for: .touchUpInside)
     }
     
@@ -158,10 +169,6 @@ extension SettingsViewController: SignInViewProtocol {
     func didSignInAccount() {
         changeUI()
     }
-//    
-//    func didCreateAccount() {
-//        changeUI()
-//    }
     
     func changeUI() {
         connectButton.removeFromSuperview()
