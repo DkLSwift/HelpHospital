@@ -15,11 +15,13 @@ class NeedDetailViewController: UIViewController {
     let pseudoLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 34)
+        lbl.textColor = seaWhite
         lbl.textAlignment = .center
         return lbl
     }()
     let titleLabel: UILabel = {
         let lbl = UILabel()
+        lbl.textColor = seaWhite
         lbl.font = UIFont.systemFont(ofSize: 28)
         return lbl
     }()
@@ -27,6 +29,7 @@ class NeedDetailViewController: UIViewController {
     let descLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 20)
+        lbl.textColor = seaWhite
         lbl.numberOfLines = 0
         lbl.minimumScaleFactor = 0.8
         lbl.adjustsFontSizeToFitWidth = true
@@ -36,15 +39,18 @@ class NeedDetailViewController: UIViewController {
     let timeLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 24)
+        lbl.textColor = seaWhite
         return lbl
     }()
     
     let contactBtn: UIButton = {
         let btn = UIButton()
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        btn.setTitleColor(.white, for: .normal)
+        btn.layer.borderColor = seaWhite.cgColor
+        btn.layer.borderWidth = 1
         btn.setTitle("Contacter", for: .normal)
-        btn.backgroundColor = dark
+        btn.setTitleColor(seaWhite, for: .normal)
+        btn.backgroundColor = seaDarkBlue
         btn.layer.cornerRadius = 16
         return btn
     }()
@@ -52,11 +58,19 @@ class NeedDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = seaDarkBlue
         setup()
     }
     
     func setup() {
+        var safeTopAnchor = view.topAnchor
+        var safeBottomAnchor = view.bottomAnchor
+        
+        if #available(iOS 11.0, *) {
+            safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
+            safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
+        }
+        
         [pseudoLabel, titleLabel, timeLabel, contactBtn].forEach({$0.constrainHeight(constant: 44)})
         contactBtn.constrainWidth(constant: 200)
         
@@ -73,7 +87,7 @@ class NeedDetailViewController: UIViewController {
         vStack.spacing = 20
         
         view.addSubview(vStack)
-        vStack.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: contactBtn.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 120, left: 20, bottom: 40, right: 20))
+        vStack.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: contactBtn.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 40, left: 20, bottom: 40, right: 20))
         
         contactBtn.addTarget(self, action: #selector(handleContact), for: .touchUpInside)
         

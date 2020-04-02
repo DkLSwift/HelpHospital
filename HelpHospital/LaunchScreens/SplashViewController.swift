@@ -21,11 +21,20 @@ class SplashViewController: UIViewController {
         
         
         let logo = UIImageView()
-        logo.image = UIImage(named: "owl-2")
+        logo.image = UIImage(named: "white-owl")
         view.addSubview(logo)
         logo.centerInSuperview()
         logo.constrainWidth(constant: 300)
         logo.constrainHeight(constant: 200)
+        
+        
+        let HelpyLbl = UILabel()
+        HelpyLbl.textColor = seaWhite
+        HelpyLbl.text = "HELPY"
+        HelpyLbl.textAlignment = .center
+        HelpyLbl.font = .systemFont(ofSize: 60)
+        view.addSubview(HelpyLbl)
+        HelpyLbl.anchor(top: logo.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: 60))
         
         view.backgroundColor = seaDarkBlue
            loginRepository.requestAutologin {
