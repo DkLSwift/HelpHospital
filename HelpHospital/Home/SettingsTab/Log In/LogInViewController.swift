@@ -19,13 +19,11 @@ protocol SignInViewProtocol: class {
 
 
 class LogInViewController: UIViewController, LoginViewProtocol {
-    
-
+  
     let loginRepository = LoginRepository()
     
     let loginView = LoginView()
     weak var delegate: SignInViewProtocol?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,5 +60,9 @@ class LogInViewController: UIViewController, LoginViewProtocol {
         self.delegate?.didSignInAccount()
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func fbDidNotLogin(err: String) {
+        Utils.callAlert(vc: self, title: "Erreur", message: err, action: "Ok")
+      }
 }
 

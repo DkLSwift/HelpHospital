@@ -25,6 +25,8 @@
 		6E5A0E1C242FCA1900CDE281 /* ConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E1B242FCA1900CDE281 /* ConversationListCell.swift */; };
 		6E5A0E1E2430DB0E00CDE281 /* ChatMessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E1D2430DB0E00CDE281 /* ChatMessagePreview.swift */; };
 		6E5A0E212433E1D000CDE281 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E5A0E202433E1D000CDE281 /* GoogleService-Info.plist */; };
+		6E5A0E2424368AF000CDE281 /* HelpyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E2324368AF000CDE281 /* HelpyButton.swift */; };
+		6E5A0E2624368C2800CDE281 /* HelpyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E2524368C2800CDE281 /* HelpyLabel.swift */; };
 		6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E623D6C242E08950092250D /* WorkerFormViewController.swift */; };
 		6E655AFC242B9E320081BB3B /* MemberSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFB242B9E320081BB3B /* MemberSession.swift */; };
 		6E655B00242BFA3B0081BB3B /* UIViewController_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */; };
@@ -93,6 +95,8 @@
 		6E5A0E1B242FCA1900CDE281 /* ConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListCell.swift; sourceTree = "<group>"; };
 		6E5A0E1D2430DB0E00CDE281 /* ChatMessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagePreview.swift; sourceTree = "<group>"; };
 		6E5A0E202433E1D000CDE281 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6E5A0E2324368AF000CDE281 /* HelpyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpyButton.swift; sourceTree = "<group>"; };
+		6E5A0E2524368C2800CDE281 /* HelpyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpyLabel.swift; sourceTree = "<group>"; };
 		6E623D6C242E08950092250D /* WorkerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerFormViewController.swift; sourceTree = "<group>"; };
 		6E655AFB242B9E320081BB3B /* MemberSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSession.swift; sourceTree = "<group>"; };
 		6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_ext.swift; sourceTree = "<group>"; };
@@ -206,7 +210,6 @@
 				6E5902362429008000E3F3C2 /* Info.plist */,
 				6E5A0E202433E1D000CDE281 /* GoogleService-Info.plist */,
 				6E59022E2429007C00E3F3C2 /* HelpHospital.xcdatamodeld */,
-				6E697303242ABB2A0076064A /* TF.swift */,
 			);
 			path = HelpHospital;
 			sourceTree = "<group>";
@@ -282,6 +285,16 @@
 				6E5A0E1B242FCA1900CDE281 /* ConversationListCell.swift */,
 			);
 			path = "Chat List";
+			sourceTree = "<group>";
+		};
+		6E5A0E2224368AA100CDE281 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				6E697303242ABB2A0076064A /* TF.swift */,
+				6E5A0E2324368AF000CDE281 /* HelpyButton.swift */,
+				6E5A0E2524368C2800CDE281 /* HelpyLabel.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		6E655B01242BFB7A0081BB3B /* Cells */ = {
@@ -387,6 +400,7 @@
 		6ECFAF6F242A2CA900D4FDE5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6E5A0E2224368AA100CDE281 /* Theme */,
 				6ECFAF6D242A2C8300D4FDE5 /* UIView+Layout.swift */,
 				6ECFAF70242A2CCF00D4FDE5 /* Utils.swift */,
 				6ECFAF79242A320100D4FDE5 /* Constants.swift */,
@@ -725,6 +739,7 @@
 				6E655B13242D11A40081BB3B /* Service.swift in Sources */,
 				6E655B05242BFC410081BB3B /* HospitalWorkerNeedsCell.swift in Sources */,
 				6E655B07242C032B0081BB3B /* Need.swift in Sources */,
+				6E5A0E2624368C2800CDE281 /* HelpyLabel.swift in Sources */,
 				6E678D6D242A6672007CA125 /* CreateAccountViewController.swift in Sources */,
 				6E5902262429007C00E3F3C2 /* AppDelegate.swift in Sources */,
 				6E5902302429007C00E3F3C2 /* HelpHospital.xcdatamodeld in Sources */,
@@ -732,6 +747,7 @@
 				6E65CDE0242B7E3A0067C724 /* HomeTabController.swift in Sources */,
 				6ECFAF78242A30D100D4FDE5 /* LoginView.swift in Sources */,
 				6ECFAF6B242A22F800D4FDE5 /* SplashViewController.swift in Sources */,
+				6E5A0E2424368AF000CDE281 /* HelpyButton.swift in Sources */,
 				6ECFAF7A242A320100D4FDE5 /* Constants.swift in Sources */,
 				6E5A0E1C242FCA1900CDE281 /* ConversationListCell.swift in Sources */,
 				6ECFAF76242A2FEC00D4FDE5 /* LogInViewController.swift in Sources */,
@@ -920,14 +936,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
 				INFOPLIST_FILE = HelpHospital/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.requena.HelpyHospital;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -942,14 +958,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
 				INFOPLIST_FILE = HelpHospital/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.requena.HelpyHospital;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

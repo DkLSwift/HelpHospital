@@ -20,7 +20,6 @@ protocol SettingsViewProtocol: class {
 
 class SettingsViewController: UIViewController {
 
-    
     weak var delegate: SignInViewProtocol?
     
     let connectButton: UIButton = {
@@ -79,14 +78,13 @@ class SettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if !MemberSession.share.isLogged {
-                  self.setupConnect()
-              } else {
-                  self.changeUI()
-              }
+            self.setupConnect()
+        } else {
+            self.changeUI()
+        }
     }
     func setupConnect() {
         view.addSubview(connectButton)
-//        connectButton.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 150, height: 44))
         
         connectButton.translatesAutoresizingMaskIntoConstraints = false
         connectButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -140).isActive = true

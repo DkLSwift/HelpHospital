@@ -12,4 +12,5 @@ struct Need: Decodable {
     
     let title, id, pseudo, workerId: String
     let time, desc: String?
+    let timestamp: Double
 }

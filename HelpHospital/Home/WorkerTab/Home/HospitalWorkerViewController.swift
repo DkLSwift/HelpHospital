@@ -30,6 +30,24 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
         return btn
     }()
     
+    let postHelpButton: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = seaDarkBlue
+        btn.setTitle("Proposer", for: .normal)
+        btn.layer.borderColor = seaWhite.cgColor
+        return btn
+    }()
+    
+    let postNeedButton: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = seaDarkBlue
+        btn.setTitle("Besoins", for: .normal)
+        btn.setTitleColor(seaWhite, for: .normal)
+        btn.layer.masksToBounds = true
+        
+        return btn
+    }()
+    
     var needs = [Need]()
     
     let service = Service()
@@ -37,12 +55,8 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
     
     var geoFire: GeoFire?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
-        
         
         MemberSession.share.listenTo { _ in
             self.fetchCurrentUserNeedsAndReloadTVData()
@@ -50,13 +64,11 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
         setupUI()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
             self.fetchCurrentUserNeedsAndReloadTVData()
     }
     
     func setupUI() {
-//        tableView.backgroundView?.backgroundColor = seaDarkBlue
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -65,7 +77,6 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
         tableView.backgroundColor = seaDarkBlue
         view.backgroundColor = seaDarkBlue
         
-        view .addSubview(tableView)
         let tabBarHeight = self.tabBarHeight
         var safeTopAnchor = view.topAnchor
         var safeBottomAnchor = view.bottomAnchor
@@ -74,14 +85,25 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
             safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
-        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: tabBarHeight, right: 0))
+        
+        let buttonStack = UIStackView(arrangedSubviews: [postNeedButton, postHelpButton])
+        postNeedButton.constrainHeight(constant: 40)
+        postHelpButton.constrainHeight(constant: 40)
+        buttonStack.distribution = .fillEqually
+        
+        view.addSubview(buttonStack)
+        buttonStack.anchor(top: nil, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 0), size: .init(width: 0, height: 40))
+        
+        view .addSubview(tableView)
+        
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: buttonStack.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 44, right: 0))
         
         view.addSubview(addNeedBtn)
         addNeedBtn.constrainWidth(constant: 60)
         addNeedBtn.constrainHeight(constant: 60)
         addNeedBtn.contentEdgeInsets = .init(top: 12, left: 12, bottom: 12, right: 12)
         addNeedBtn.translatesAutoresizingMaskIntoConstraints = false
-        addNeedBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(tabBarHeight + 20)).isActive = true
+        addNeedBtn.bottomAnchor.constraint(equalTo: buttonStack.topAnchor, constant: -40).isActive = true
         addNeedBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         addNeedBtn.addTarget(self, action: #selector(handleAdd), for: .touchUpInside)
     }
@@ -92,7 +114,9 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
         if MemberSession.share.isLogged {
              guard let id = MemberSession.share.member?.uuid else { return }
             service.fetchCurrentUserNeeds(id: id) { (needs) in
+                
                 self.needs = needs
+//                    .sorted(by: { $0.timestamp < $1.timestamp })
                  self.tableView.reloadData()
             }
             self.navigationItem.rightBarButtonItem?.isEnabled = true
@@ -118,7 +142,6 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
             let need = needs[indexPath.row]
             cell.needId = need.id
             cell.titleLabel.text = need.title
-//            cell.delegate = self
             return cell
     }
     
@@ -146,7 +169,6 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in
-            print("magical delete")
 //            self.needs.remove(at: indexPath.row)
             self.deleteNeedPressed(needId: self.needs[indexPath.row].id, success: ({
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -154,7 +176,6 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
             }))
            
         }
-//        deleteAction.image = UIImage(named: "bin")
         deleteAction.title = "Supprimer"
         
         deleteAction.backgroundColor = seaLightBlue

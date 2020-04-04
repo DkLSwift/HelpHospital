@@ -63,7 +63,7 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
                })
     }
     
-    func postNeed(from location: CLLocation, key: String, id: String, title: String, desc: String?, time: String?) {
+    func postNeed(from location: CLLocation, key: String, id: String, title: String, desc: String?, time: String?, timestamp: Double) {
         
         let geoFire = GeoFire(firebaseRef: needsRef)
         
@@ -74,7 +74,8 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
             "time": time ?? "",
             "pseudo": MemberSession.share.member?.pseudo ?? "",
             "workerId": id,
-            "id": key
+            "id": key,
+            "timestamp": timestamp
         ])
         
         usersRef.child(id).child(currentRequests).updateChildValues([key : key])

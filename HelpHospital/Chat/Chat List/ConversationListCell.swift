@@ -34,8 +34,6 @@ class ConversationListCell: UITableViewCell {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 18)
         lbl.textColor = seaWhite
-//        lbl.minimumScaleFactor = 0.6
-//        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     
@@ -43,8 +41,6 @@ class ConversationListCell: UITableViewCell {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 22)
         lbl.textColor = seaWhite
-//        lbl.minimumScaleFactor = 0.6
-//        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
        

@@ -17,6 +17,7 @@ protocol LoginViewProtocol {
     func createAccount()
     func connect(mail: String, password: String)
     func fbLogin()
+    func fbDidNotLogin(err: String)
 }
 
 class LoginView: UIView, UITextFieldDelegate {
@@ -160,7 +161,7 @@ extension LoginView: LoginButtonDelegate {
                 
                 self.delegate?.fbLogin()
             }) { ( err ) in
-                
+                self.delegate?.fbDidNotLogin(err: err.localizedDescription)
             }
             
             

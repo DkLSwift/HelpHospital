@@ -11,16 +11,22 @@ import CoreLocation
 
 class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
-    let titleLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 28)
-        lbl.text = "Vos Besoins seront visibles 1 kilomètre autour de la position à laquelle vous l'enregistrez."
-        lbl.textColor = seaWhite
+    
+    let titleLabel: HelpyLabel = {
+        let lbl = HelpyLabel(text: "Vos Besoins seront visibles 1 kilomètre autour de la position à laquelle vous l'enregistrez.", fontSize: 28, alignment: .center)
         lbl.numberOfLines = 0
-        lbl.textAlignment = .center
         return lbl
     }()
-    
+//    let titleLabel: UILabel = {
+//        let lbl = UILabel()
+//        lbl.font = UIFont.systemFont(ofSize: 28)
+//        lbl.text = "Vos Besoins seront visibles 1 kilomètre autour de la position à laquelle vous l'enregistrez."
+//        lbl.textColor = seaWhite
+//        lbl.numberOfLines = 0
+//        lbl.textAlignment = .center
+//        return lbl
+//    }()
+//
     let titleTF: TF = {
         let tf = TF(placeholder: "Titre")
         return tf
@@ -41,20 +47,22 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
         return tf
     }()
     
-    let acceptButton: UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
-        btn.layer.borderColor = seaWhite.cgColor
-        btn.constrainHeight(constant: 50)
-        btn.constrainWidth(constant: 200)
-        btn.layer.borderWidth = 1
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitle("Valider", for: .normal)
-        btn.layer.cornerRadius = 15
-        return btn
-    }()
+    let acceptButton = HelpyButton(title: "VALIDER")
     
+//    let acceptButton: UIButton = {
+//        let btn = UIButton()
+//        btn.backgroundColor = seaDarkBlue
+//        btn.layer.borderColor = seaWhite.cgColor
+//        btn.constrainHeight(constant: 50)
+//        btn.constrainWidth(constant: 200)
+//        btn.layer.borderWidth = 1
+//        btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+//        btn.setTitleColor(.white, for: .normal)
+//        btn.setTitle("Valider", for: .normal)
+//        btn.layer.cornerRadius = 15
+//        return btn
+//    }()
+//    
     var locationManager = LocationManager()
     var mainVC: HospitalWorkerViewController?
     
@@ -108,7 +116,9 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
                 Utils.callAlert(vc: self, title: "Erreur", message: "Vous devez renseigner un titre", action: "Ok")
                 return
             }
-            locationManager.postNeed(from: location, key: key, id: id, title: title, desc: desc, time: time)
+            
+            let timestamp = Double(Date().timeIntervalSince1970)
+            locationManager.postNeed(from: location, key: key, id: id, title: title, desc: desc, time: time, timestamp: timestamp)
             mainVC?.fetchCurrentUserNeedsAndReloadTVData()
             self.dismiss(animated: true, completion: nil)
         }

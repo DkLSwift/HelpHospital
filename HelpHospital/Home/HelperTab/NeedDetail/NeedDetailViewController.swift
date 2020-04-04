@@ -6,6 +6,13 @@
 //  Copyright © 2020 Eric DkL. All rights reserved.
 //
 
+// long 2,348581  st ouen
+// lat 48,892523 st ouen
+
+// long 44,415541  jsp
+// lat 4,759605 jps
+
+
 import UIKit
 
 class NeedDetailViewController: UIViewController {

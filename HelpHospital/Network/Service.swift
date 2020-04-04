@@ -25,11 +25,12 @@ class Service {
             needsRef.child(key).observe(.value) { (snapshot) in
                 
                 if let value = snapshot.value as? NSDictionary {
-                    guard let title = value["title"] as? String, let id = value["id"] as? String, let workerId = value["workerId"] as? String, let pseudo = value["pseudo"] as? String else { return }
+                    guard let title = value["title"] as? String, let id = value["id"] as? String, let workerId = value["workerId"] as? String, let pseudo = value["pseudo"] as? String, let timestamp = value["timestamp"] as? Double else { return }
                     let desc = value["desc"] as? String
                     let time = value["time"] as? String
                     
-                    let need = Need(title: title, id: id, pseudo: pseudo, workerId: workerId, time: time, desc: desc)
+                    
+                    let need = Need(title: title, id: id, pseudo: pseudo, workerId: workerId, time: time, desc: desc, timestamp: timestamp)
                     needs.append(need)
                     dispatchGroup.leave()
                 }
@@ -62,11 +63,11 @@ class Service {
                     needsRef.child(key).observeSingleEvent(of: .value) { (snapshot) in
                         
                         if let value = snapshot.value as? NSDictionary {
-                            guard let title = value["title"] as? String, let id = value["id"] as? String, let workerId = value["workerId"] as? String, let pseudo = value["pseudo"] as? String else { return }
+                            guard let title = value["title"] as? String, let id = value["id"] as? String, let workerId = value["workerId"] as? String, let pseudo = value["pseudo"] as? String, let timestamp = value["timestamp"] as? Double else { return }
                             let desc = value["desc"] as? String
                             let time = value["time"] as? String
                             
-                            let need = Need(title: title, id: id, pseudo: pseudo, workerId: workerId, time: time, desc: desc)
+                            let need = Need(title: title, id: id, pseudo: pseudo, workerId: workerId, time: time, desc: desc, timestamp: timestamp)
                             needs.append(need)
                             dispatchGroup.leave()
                         }

@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="owl-2" translatesAutoresizingMaskIntoConstraints="NO" id="Zs1-b8-Tru">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white-owl" translatesAutoresizingMaskIntoConstraints="NO" id="Zs1-b8-Tru">
                                 <rect key="frame" x="57" y="348" width="300" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Cv8-iB-6PL"/>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="owl-2" width="640" height="359"/>
+        <image name="white-owl" width="640" height="359"/>
     </resources>
 </document>

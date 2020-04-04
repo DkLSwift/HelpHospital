@@ -22,6 +22,7 @@ class SplashViewController: UIViewController {
         
         let logo = UIImageView()
         logo.image = UIImage(named: "white-owl")
+        logo.contentMode = .scaleAspectFit
         view.addSubview(logo)
         logo.centerInSuperview()
         logo.constrainWidth(constant: 300)

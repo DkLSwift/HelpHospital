@@ -20,7 +20,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var textfiedStackBottomAnchor: NSLayoutConstraint?
     
-    
     let messageTF: TF = {
         let tf = TF(placeholder: "Envoyer un message")
         return tf
@@ -34,7 +33,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let cellId = "cellId"
     let tableView = UITableView()
-    
     
     var safeTopAnchor: NSLayoutYAxisAnchor?
     var safeBottomAnchor: NSLayoutYAxisAnchor?
@@ -87,13 +85,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.messageTF.delegate = self
         
-        
         if #available(iOS 11.0, *) {
             botPadding = -10
             safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         } else {
-            
             safeTopAnchor = view.topAnchor
             safeBottomAnchor = view.bottomAnchor
         }
@@ -155,11 +151,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         guard let id = MemberSession.share.member?.uuid, let pseudo = MemberSession.share.member?.pseudo , let need = need else { return }
-        let timestamp = Date().timeIntervalSince1970
+        let timestamp = Double(Date().timeIntervalSince1970)
         
-        
-        
-//        let message = Message(text: text, fromId: id, toId: need.workerId, pseudo: pseudo, timestamp: timestamp)
         let message = Message(text: text, fromId: id, toId: toId ?? need.workerId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
         chat.postMessage(workerId: need.workerId, currentUserId: id, needId: need.id, message: message) {
             self.messageTF.text = ""
@@ -181,21 +174,18 @@ extension ChatController: UITextFieldDelegate {
              self.textfiedStackBottomAnchor?.constant = -(keyboardRect.height - botPadding)
 
             UIView.animate(withDuration: duration ?? 0) {
-               
                 self.view.layoutIfNeeded()
             }
         }
     }
     
     @objc func handle(keyboardHideNotification notification: Notification) {
-        print("keyboard hide notification")
         
         if let userInfo = notification.userInfo, let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
             self.textfiedStackBottomAnchor?.constant = botPadding
             
             UIView.animate(withDuration: duration ?? 0) {
-                
                 self.view.layoutIfNeeded()
             }
         }
