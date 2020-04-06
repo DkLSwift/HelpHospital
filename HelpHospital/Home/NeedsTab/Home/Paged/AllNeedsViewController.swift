@@ -95,7 +95,7 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
             safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
-        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: tabBarHeight, right: 0))
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         
         view.addSubview(messageBtn)
         messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
