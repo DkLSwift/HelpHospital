@@ -30,14 +30,13 @@ class SplashViewController: UIViewController {
         
         
         let HelpyLbl = UILabel()
-        HelpyLbl.textColor = seaWhite
+        HelpyLbl.textColor = blue
         HelpyLbl.text = "HELPY"
         HelpyLbl.textAlignment = .center
         HelpyLbl.font = .systemFont(ofSize: 60)
         view.addSubview(HelpyLbl)
         HelpyLbl.anchor(top: logo.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: 60))
         
-        view.backgroundColor = seaDarkBlue
            loginRepository.requestAutologin {
 //               let vc = HomeTabController()
 //               vc.modalPresentationStyle = .fullScreen

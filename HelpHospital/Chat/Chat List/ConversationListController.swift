@@ -25,28 +25,34 @@ class ConversationListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
         dateformatter.dateFormat = "HH:mm"
         setup()
         
-        chat.getConversationMessages(conversationsId: conversationsId) { (conversationsAndMessages) in
-            
-            self.conversationsAndMessages = conversationsAndMessages
-           
-            self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages) { (chatMessagesPreviews) in
-                self.chatMessagesPreviews = chatMessagesPreviews.sorted(by: { $0.timestamp < $1.timestamp })
-                self.tableView.reloadData()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        chat.observeRegistredTopic { keys in
+            self.chat.getConversationMessages(conversationsId: keys) { (conversationsAndMessages) in
+                
+                self.conversationsAndMessages = conversationsAndMessages
+               
+                self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages) { (chatMessagesPreviews) in
+                    self.chatMessagesPreviews = chatMessagesPreviews.sorted(by: { $0.timestamp < $1.timestamp })
+                    self.tableView.reloadData()
+                }
             }
         }
     }
 
     func setup() {
         view.backgroundColor = .white
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ConversationListCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

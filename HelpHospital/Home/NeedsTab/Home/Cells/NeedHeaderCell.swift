@@ -33,15 +33,6 @@ class NeedHeaderCell: UITableViewHeaderFooterView {
         lbl.text = "Poster vos besoins."
         return lbl
     }()
-//    let label: UILabel = {
-//        let lbl = UILabel()
-//        lbl.textAlignment = .center
-//        lbl.font = UIFont.boldSystemFont(ofSize: 20)
-//        lbl.textColor = bluePlus
-//        lbl.text = "Ou consulter les contributions"
-//        return lbl
-//    }()
-
     let addBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "plus"), for: .normal)

@@ -27,22 +27,6 @@ class AllNeedsHeaderCell: UITableViewHeaderFooterView {
         lbl.text = "Parcourir les besoins alentours"
         return lbl
     }()
-//    let label: UILabel = {
-//        let lbl = UILabel()
-//        lbl.textAlignment = .center
-//        lbl.font = UIFont.boldSystemFont(ofSize: 20)
-//        lbl.textColor = bluePlus
-//        lbl.text = "Ou proposer des contributions"
-//        return lbl
-//    }()
-//
-//    let btn: UIButton = {
-//        let btn = UIButton()
-//        btn.setTitleColor(bluePlus, for: .normal)
-//        btn.setTitle(">>", for: .normal)
-//        return btn
-//    }()
-    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setup()
@@ -60,14 +44,6 @@ class AllNeedsHeaderCell: UITableViewHeaderFooterView {
         
         container.addSubview(desc)
         desc.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))
-//        btn.constrainWidth(constant: 44)
-//        btn.constrainHeight(constant: 44)
-//
-//        let hStack = UIStackView(arrangedSubviews: [label, btn])
-//        let vStack = UIStackView(arrangedSubviews: [desc, hStack])
-//        vStack.axis = .vertical
-//
-//        container.addSubview(vStack)
-//        vStack.fillSuperview(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+
     }
 }

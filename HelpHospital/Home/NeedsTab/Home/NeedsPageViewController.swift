@@ -44,6 +44,10 @@ class NeedsPageViewController: UIPageViewController, UIPageViewControllerDelegat
         self.dataSource = self
         self.delegate = self
         
+        
+//        if let myView = view?.subviews.first as? UIScrollView {
+//            myView.canCancelContentTouches = false
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

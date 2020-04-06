@@ -10,11 +10,6 @@ import UIKit
 
 class AllNeedsCell: UITableViewCell {
 
-//    let containerView: UIView = {
-//        let v = UIView()
-//        v.backgroundColor = seaLightBlue
-//        return v
-//    }()
     let insetView: UIView = {
         let v = UIView()
         v.backgroundColor = .white

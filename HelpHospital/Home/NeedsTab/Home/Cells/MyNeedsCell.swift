@@ -10,11 +10,7 @@ import UIKit
 
 class MyNeedsCell: UITableViewCell {
 
-//       let containerView: UIView = {
-//           let v = UIView()
-//        v.backgroundColor = .white
-//           return v
-//       }()
+//       let containerView: UIVi
        let insetView: UIView = {
            let v = UIView()
         v.layer.cornerRadius = 16
@@ -29,8 +25,6 @@ class MyNeedsCell: UITableViewCell {
     let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
-//        lbl.minimumScaleFactor = 0.6
-//        lbl.adjustsFontSizeToFitWidth = true
         lbl.textColor = bluePlus
         return lbl
     }()
@@ -38,13 +32,12 @@ class MyNeedsCell: UITableViewCell {
     let leftArrow: UIButton = {
         let btn = UIButton()
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        btn.tintColor = seaWhite
+        btn.tintColor = bluePlus
         btn.setImage(UIImage(named: "left-arrow"), for: .normal)
         return btn
     }()
     
     var needId: String?
-//    var delegate: WorkerNeedsCellProtocol?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -58,9 +51,6 @@ class MyNeedsCell: UITableViewCell {
     }
     
     func setup() {
-//        addSubview(containerView)
-//        containerView.fillSuperview(padding: .init(top: 3, left: 6, bottom: 3, right: 6))
-        
         addSubview(insetView)
         insetView.fillSuperview(padding: .init(top: 3, left: 12, bottom: 3, right: 12))
         

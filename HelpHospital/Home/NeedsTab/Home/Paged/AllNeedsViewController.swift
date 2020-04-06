@@ -21,18 +21,18 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let tableView = UITableView(frame: .zero, style: .grouped)
     
-    let messageBtn: UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "speak"), for: .normal)
-        btn.layer.borderWidth = 1
-        btn.backgroundColor = seaWhite
-        btn.layer.borderColor = dark.cgColor
-        btn.layer.shadowColor = UIColor.white.cgColor
-        btn.layer.shadowOffset = .init(width: -1, height: 1)
-        btn.layer.shadowRadius = 4
-        btn.layer.shadowOpacity = 1
-        return btn
-    }()
+//    let messageBtn: UIButton = {
+//        let btn = UIButton()
+//        btn.setImage(UIImage(named: "speak"), for: .normal)
+//        btn.layer.borderWidth = 1
+//        btn.backgroundColor = seaWhite
+//        btn.layer.borderColor = dark.cgColor
+//        btn.layer.shadowColor = UIColor.white.cgColor
+//        btn.layer.shadowOffset = .init(width: -1, height: 1)
+//        btn.layer.shadowRadius = 4
+//        btn.layer.shadowOpacity = 1
+//        return btn
+//    }()
     
     
     override func viewDidLoad() {
@@ -59,11 +59,11 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if MemberSession.share.isLogged {
-            messageBtn.isHidden = false
-        } else {
-            messageBtn.isHidden = true
-        }
+//        if MemberSession.share.isLogged {
+//            messageBtn.isHidden = false
+//        } else {
+//            messageBtn.isHidden = true
+//        }
         chat.observeRegistredTopic { keys in
             self.conversationKeys = keys
         }
@@ -97,11 +97,11 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         
-        view.addSubview(messageBtn)
-        messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-        messageBtn.anchor(top: nil, leading: nil, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 40, right: 40), size: .init(width: 60, height: 60))
-        messageBtn.layer.cornerRadius = 30
-        messageBtn.addTarget(self, action: #selector(handleMessageBtn), for: .touchUpInside)
+//        view.addSubview(messageBtn)
+//        messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+//        messageBtn.anchor(top: nil, leading: nil, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 40, right: 40), size: .init(width: 60, height: 60))
+//        messageBtn.layer.cornerRadius = 30
+//        messageBtn.addTarget(self, action: #selector(handleMessageBtn), for: .touchUpInside)
     }
     
     func fetchNeedsFromGeofire(currentRequestKeys: [String]?) {
@@ -124,10 +124,10 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func handleMessageBtn() {
-        let vc = ConversationListController()
-        vc.conversationsId = conversationKeys
-        vc.modalPresentationStyle = .fullScreen
-         self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = ConversationListController()
+//        vc.conversationsId = conversationKeys
+//        vc.modalPresentationStyle = .fullScreen
+//         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

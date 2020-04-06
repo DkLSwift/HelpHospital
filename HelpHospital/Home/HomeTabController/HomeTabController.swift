@@ -21,8 +21,8 @@ class HomeTabController: UITabBarController {
         
         viewControllers = [
             vc1,
-            createNavController(viewController: AllNeedsViewController(), title: "Contributions", imageName: "team"),
-            createNavController(viewController: UIViewController(), title: "Messages", imageName: "messages"),
+            createNavController(viewController: UIViewController(), title: "Contributions", imageName: "team"),
+            createNavController(viewController: ConversationListController(), title: "Messages", imageName: "messages"),
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "settings")
         ]
         MemberSession.share.listenTo { member in
@@ -31,8 +31,8 @@ class HomeTabController: UITabBarController {
         
         tabBar.barTintColor = bluePlus
         tabBar.isTranslucent = false
-        tabBar.unselectedItemTintColor = blueMinus
-        tabBar.tintColor = .white
+        tabBar.unselectedItemTintColor = .white
+        tabBar.tintColor = blueMinus
     }
     
     fileprivate func createNavController(viewController: UIViewController, title: String, imageName: String) -> UIViewController {

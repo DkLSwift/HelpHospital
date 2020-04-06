@@ -83,6 +83,7 @@ import FirebaseDatabase
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
+        tableView.delaysContentTouches = false
         view.backgroundColor = .white
         
         let tabBarHeight = self.tabBarHeight
