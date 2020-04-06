@@ -41,7 +41,8 @@ class ConversationListController: UITableViewController {
     }
 
     func setup() {
-        tableView.backgroundColor = seaDarkBlue
+        view.backgroundColor = .white
+        tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ConversationListCell.self, forCellReuseIdentifier: cellId)

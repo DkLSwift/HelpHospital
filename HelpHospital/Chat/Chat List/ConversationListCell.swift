@@ -10,14 +10,14 @@ import UIKit
 
 class ConversationListCell: UITableViewCell {
     
-    let containerView: UIView = {
-        let v = UIView()
-        v.backgroundColor = seaLightBlue
-        return v
-    }()
+//    let containerView: UIView = {
+//        let v = UIView()
+//        v.backgroundColor = seaLightBlue
+//        return v
+//    }()
     let insetView: UIView = {
         let v = UIView()
-        v.backgroundColor = seaDarkBlue
+        v.backgroundColor = .white
         return v
     }()
     
@@ -26,28 +26,28 @@ class ConversationListCell: UITableViewCell {
         lbl.font = UIFont.systemFont(ofSize: 28)
         lbl.minimumScaleFactor = 0.6
         lbl.adjustsFontSizeToFitWidth = true
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         return lbl
     }()
     
     let messageLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 18)
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         return lbl
     }()
     
     let timeLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 22)
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         return lbl
     }()
        
     
    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+    backgroundColor = blueMinus
           setup()
       }
       
@@ -56,10 +56,10 @@ class ConversationListCell: UITableViewCell {
       }
       
     func setup() {
-        addSubview(containerView)
-        containerView.fillSuperview()
+//        addSubview(containerView)
+//        containerView.fillSuperview()
         
-        containerView.addSubview(insetView)
+        addSubview(insetView)
         insetView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 2, right: 0))
         
         pseudoLabel.constrainHeight(constant: 30)

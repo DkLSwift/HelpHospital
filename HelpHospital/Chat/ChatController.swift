@@ -70,7 +70,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = seaDarkBlue
+        tableView.backgroundColor = .clear
         tableView.register(ChatCell.self, forCellReuseIdentifier: cellId)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -79,7 +79,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
    
     func setupUI() {
         
-        view.backgroundColor = seaDarkBlue
+        view.backgroundColor = .white
         self.navigationController?.navigationBar.prefersLargeTitles = false
         IQKeyboardManager.shared.enable = false
         
@@ -108,7 +108,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         view.addSubview(tableView)
         let topBarHeight = self.topbarHeight
-        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: hStack?.topAnchor, trailing: view.trailingAnchor, padding: .init(top: topbarHeight, left: 0, bottom: 0, right: 0))
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: hStack?.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

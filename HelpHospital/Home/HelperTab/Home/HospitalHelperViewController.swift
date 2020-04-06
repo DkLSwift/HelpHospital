@@ -12,13 +12,14 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
 
     var needs = [Need]()
     let cellId = "cellId"
+    let headerId = "headerId"
     
     let locationManager = LocationManager()
     let service = Service()
     let chat = ChatMessageRepository()
     var conversationKeys = [String]()
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
     
     let messageBtn: UIButton = {
         let btn = UIButton()
@@ -70,13 +71,20 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
     
     func setup() {
         
-        view.backgroundColor = seaDarkBlue
+        view.backgroundColor = .white
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HospitalHelperTableviewCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ContributionHeaderCell.self, forHeaderFooterViewReuseIdentifier: headerId)
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = seaDarkBlue
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        
+        let headerView = UIView()
+               headerView.backgroundColor = blue
+               view.addSubview(headerView)
+               headerView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 350))
         
         view .addSubview(tableView)
         let tabBarHeight = self.tabBarHeight
@@ -91,7 +99,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         
         view.addSubview(messageBtn)
         messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-        messageBtn.anchor(top: nil, leading: nil, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: tabBarHeight + 20, right: 40), size: .init(width: 60, height: 60))
+        messageBtn.anchor(top: nil, leading: nil, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 40, right: 40), size: .init(width: 60, height: 60))
         messageBtn.layer.cornerRadius = 30
         messageBtn.addTarget(self, action: #selector(handleMessageBtn), for: .touchUpInside)
     }
@@ -132,11 +140,19 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         
         return cell
     }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! ContributionHeaderCell
+        
+        return view
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return needs.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 200
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if MemberSession.share.isLogged {

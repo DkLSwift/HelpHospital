@@ -16,7 +16,7 @@ class HelpyLabel: UILabel {
         
         self.text = text
         font = UIFont.systemFont(ofSize: fontSize)
-        textColor = seaWhite
+        textColor = bluePlus
         textAlignment = alignment
         
         

@@ -11,18 +11,21 @@ import GeoFire
 import CoreLocation
 import FirebaseDatabase
 
-class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NeedHeaderCellProtocol {
+  
+    
     
     let cellId = "cellId"
-    let tableView = UITableView()
+    let headerId = "headerId"
+    let tableView = UITableView(frame: .zero, style: .grouped)
     
     let addNeedBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "plus"), for: .normal)
         btn.layer.borderWidth = 1
         btn.layer.cornerRadius = 30
-        btn.backgroundColor = seaDarkBlue
-        btn.layer.borderColor = seaLightBlue.cgColor
+        btn.backgroundColor = blue
+        btn.layer.borderColor = bluePlus.cgColor
         btn.layer.shadowColor = seaWhite.cgColor
         btn.layer.shadowOffset = .init(width: -1, height: 1)
         btn.layer.shadowRadius = 4
@@ -30,23 +33,38 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
         return btn
     }()
     
-    let postHelpButton: UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
-        btn.setTitle("Proposer", for: .normal)
-        btn.layer.borderColor = seaWhite.cgColor
-        return btn
-    }()
+//    let postHelpButton: UIButton = {
+//        let btn = UIButton()
+//        btn.backgroundColor = seaDarkBlue
+//        btn.setTitle("Proposer", for: .normal)
+//        btn.layer.borderColor = seaWhite.cgColor
+//        return btn
+//    }()
+//
+//    let postNeedButton: UIButton = {
+//        let btn = UIButton()
+//        btn.backgroundColor = seaDarkBlue
+//        btn.setTitle("Besoins", for: .normal)
+//        btn.setTitleColor(seaWhite, for: .normal)
+//        btn.layer.masksToBounds = true
+//
+//        return btn
+//    }()
     
-    let postNeedButton: UIButton = {
+    let myNeedButton: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
-        btn.setTitle("Besoins", for: .normal)
-        btn.setTitleColor(seaWhite, for: .normal)
-        btn.layer.masksToBounds = true
-        
+        btn.backgroundColor = blue
+        btn.setTitle("Mes Besoins", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
         return btn
     }()
+    let allNeedsButton: UIButton = {
+           let btn = UIButton()
+           btn.backgroundColor = blue
+           btn.setTitle("Tous les Besoins", for: .normal)
+           btn.setTitleColor(.white, for: .normal)
+           return btn
+       }()
     
     var needs = [Need]()
     
@@ -70,12 +88,16 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
     
     func setupUI() {
         
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HospitalWorkerNeedsCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(NeedHeaderCell.self, forHeaderFooterViewReuseIdentifier: headerId)
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = seaDarkBlue
-        view.backgroundColor = seaDarkBlue
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        view.backgroundColor = .white
         
         let tabBarHeight = self.tabBarHeight
         var safeTopAnchor = view.topAnchor
@@ -86,26 +108,46 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
         
-        let buttonStack = UIStackView(arrangedSubviews: [postNeedButton, postHelpButton])
-        postNeedButton.constrainHeight(constant: 40)
-        postHelpButton.constrainHeight(constant: 40)
-        buttonStack.distribution = .fillEqually
+        let headerView = UIView()
+        headerView.backgroundColor = blue
+        view.addSubview(headerView)
+        headerView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 350))
         
-        view.addSubview(buttonStack)
-        buttonStack.anchor(top: nil, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 0), size: .init(width: 0, height: 40))
+//        let buttonStack = UIStackView(arrangedSubviews: [postNeedButton, postHelpButton])
+//        postNeedButton.constrainHeight(constant: 40)
+//        postHelpButton.constrainHeight(constant: 40)
+//        buttonStack.distribution = .fillEqually
         
-        view .addSubview(tableView)
+//        view.addSubview(buttonStack)
+//        buttonStack.anchor(top: nil, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 0), size: .init(width: 0, height: 40))
         
-        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: buttonStack.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 44, right: 0))
+        myNeedButton.constrainHeight(constant: 50)
+        allNeedsButton.constrainHeight(constant: 50)
+        let hStack = UIStackView(arrangedSubviews: [myNeedButton, allNeedsButton])
+        hStack.distribution = .fillEqually
+        view.addSubview(hStack)
+        hStack.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 50))
         
-        view.addSubview(addNeedBtn)
-        addNeedBtn.constrainWidth(constant: 60)
-        addNeedBtn.constrainHeight(constant: 60)
-        addNeedBtn.contentEdgeInsets = .init(top: 12, left: 12, bottom: 12, right: 12)
-        addNeedBtn.translatesAutoresizingMaskIntoConstraints = false
-        addNeedBtn.bottomAnchor.constraint(equalTo: buttonStack.topAnchor, constant: -40).isActive = true
-        addNeedBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        addNeedBtn.addTarget(self, action: #selector(handleAdd), for: .touchUpInside)
+        let separator = UIView()
+        separator.backgroundColor = .white
+        separator.constrainHeight(constant: 1)
+        
+        view.addSubview(separator)
+        separator.anchor(top: hStack.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
+        
+        
+        view.addSubview(tableView)
+        
+        tableView.anchor(top: separator.bottomAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        
+//        view.addSubview(addNeedBtn)
+//        addNeedBtn.constrainWidth(constant: 60)
+//        addNeedBtn.constrainHeight(constant: 60)
+//        addNeedBtn.contentEdgeInsets = .init(top: 12, left: 12, bottom: 12, right: 12)
+//        addNeedBtn.translatesAutoresizingMaskIntoConstraints = false
+//        addNeedBtn.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: -40).isActive = true
+//        addNeedBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        addNeedBtn.addTarget(self, action: #selector(handleAdd), for: .touchUpInside)
     }
     
     func fetchCurrentUserNeedsAndReloadTVData() {
@@ -127,12 +169,17 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
         self.tableView.reloadData()
     }
     
-    @objc func handleAdd() {
-        
+    func addNeedButtonPressed() {
         let vc = WorkerFormViewController()
         vc.mainVC = self
         present(vc, animated: true, completion: nil)
     }
+//    @objc func handleAdd() {
+//
+//        let vc = WorkerFormViewController()
+//        vc.mainVC = self
+//        present(vc, animated: true, completion: nil)
+//    }
     
     
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -143,6 +190,12 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
             cell.needId = need.id
             cell.titleLabel.text = need.title
             return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! NeedHeaderCell
+        view.delegate = self
+        return view
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -166,7 +219,9 @@ class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
     }
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 200
+    }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in
 //            self.needs.remove(at: indexPath.row)

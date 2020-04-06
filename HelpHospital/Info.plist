@@ -52,9 +52,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Nous avons besoin de connaître vos coordonnées actuelles afin de filtrer l'utilisation de l'application et respecter les règles de confinement</string>
+	<string>Nous avons besoin de connaître vos coordonnées actuelles afin de filtrer l&apos;utilisation de l&apos;application et respecter les règles de confinement</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Nous avons besoin de connaître vos coordonnées actuelles afin de filtrer l'utilisation de l'application et respecter les règles de confinement</string>
+	<string>Nous avons besoin de connaître vos coordonnées actuelles afin de filtrer l&apos;utilisation de l&apos;application et respecter les règles de confinement</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

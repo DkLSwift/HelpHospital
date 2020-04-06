@@ -20,14 +20,14 @@ class ChatCell: UITableViewCell {
     
     let containerView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 16
         return view
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = seaDarkBlue
+        backgroundColor = .clear
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,19 +37,18 @@ class ChatCell: UITableViewCell {
     func setupLeftBubble() {
         
         addSubview(containerView)
-        containerView.backgroundColor = seaLightBlue
+        containerView.backgroundColor = bluePlus
         containerView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 10, left: 20, bottom: 10, right: 0), size: .init(width: 270, height: 0))
         
         addSubview(messageView)
-        messageView.textColor = seaWhite
+        messageView.textColor = .white
         messageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 10, left: 30, bottom: 10, right: 0), size: .init(width: 250, height: 0))
     }
     
     func setupRightBubble() {
         
         addSubview(containerView)
-        
-        containerView.backgroundColor = seaWhite
+        containerView.backgroundColor = blueMinus
         containerView.anchor(top: topAnchor, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 10, right: 20), size: .init(width: 270, height: 0))
         
         addSubview(messageView)

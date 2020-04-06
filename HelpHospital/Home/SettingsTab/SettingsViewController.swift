@@ -24,13 +24,13 @@ class SettingsViewController: UIViewController {
     
     let connectButton: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
+        btn.backgroundColor = .clear
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Se connecter", for: .normal)
         btn.setTitleColor(seaWhite, for: .normal)
         btn.constrainHeight(constant: 50)
         btn.constrainWidth(constant: 200)
-        btn.layer.borderColor = seaWhite.cgColor
+        btn.layer.borderColor = bluePlus.cgColor
         btn.layer.borderWidth = 1
         btn.layer.cornerRadius = 25
         return btn
@@ -39,32 +39,32 @@ class SettingsViewController: UIViewController {
     let pseudoLabel: UILabel = {
            let lbl = UILabel()
            lbl.font = UIFont.systemFont(ofSize: 30)
-           lbl.textColor = seaWhite
+           lbl.textColor = bluePlus
            lbl.textAlignment = NSTextAlignment.center
            return lbl
        }()
     let changePseudoBtn: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
+        btn.backgroundColor = .clear
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Changer", for: .normal)
-        btn.setTitleColor(seaWhite, for: .normal)
+        btn.setTitleColor(bluePlus, for: .normal)
         return btn
     }()
     
     let disconnectBtn: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
+        btn.backgroundColor = .clear
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         btn.setTitle("Se déconnecter", for: .normal)
-        btn.setTitleColor(seaWhite, for: .normal)
+        btn.setTitleColor(bluePlus, for: .normal)
         return btn
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = seaDarkBlue
+        view.backgroundColor = .white
         
         MemberSession.share.listenTo { _ in
             if !MemberSession.share.isLogged {

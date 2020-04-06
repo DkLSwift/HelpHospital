@@ -35,29 +35,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        navBar.largeTitleTextAttributes = [.foregroundColor: seaWhite]
 //
 //        UIBarButtonItem.appearance().tintColor = seaWhite
-        setNavBarAppearance()
+//        setNavBarAppearance()
         
         return true
     }
     
-    private func setNavBarAppearance() {
-        if #available(iOS 13.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = seaDarkBlue
-            appearance.titleTextAttributes = [.foregroundColor: seaWhite]
-            appearance.largeTitleTextAttributes = [.foregroundColor: seaWhite]
-
-            UINavigationBar.appearance().tintColor = seaWhite
-            UINavigationBar.appearance().standardAppearance = appearance
-            UINavigationBar.appearance().compactAppearance = appearance
-            UINavigationBar.appearance().scrollEdgeAppearance = appearance
-            
-        } else {
-            UINavigationBar.appearance().tintColor = seaWhite
-            UINavigationBar.appearance().barTintColor = seaDarkBlue
-            UINavigationBar.appearance().isTranslucent = false
-        }
-    }
+//    private func setNavBarAppearance() {
+//        if #available(iOS 13.0, *) {
+//            let appearance = UINavigationBarAppearance()
+//            appearance.backgroundColor = seaDarkBlue
+//            appearance.titleTextAttributes = [.foregroundColor: seaWhite]
+//            appearance.largeTitleTextAttributes = [.foregroundColor: seaWhite]
+//
+//            UINavigationBar.appearance().tintColor = seaWhite
+//            UINavigationBar.appearance().standardAppearance = appearance
+//            UINavigationBar.appearance().compactAppearance = appearance
+//            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//            
+//        } else {
+//            UINavigationBar.appearance().tintColor = seaWhite
+//            UINavigationBar.appearance().barTintColor = seaDarkBlue
+//            UINavigationBar.appearance().isTranslucent = false
+//        }
+//    }
     
     // FACEBOOK LOGIN
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

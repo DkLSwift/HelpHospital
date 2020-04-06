@@ -27,6 +27,8 @@
 		6E5A0E212433E1D000CDE281 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E5A0E202433E1D000CDE281 /* GoogleService-Info.plist */; };
 		6E5A0E2424368AF000CDE281 /* HelpyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E2324368AF000CDE281 /* HelpyButton.swift */; };
 		6E5A0E2624368C2800CDE281 /* HelpyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E2524368C2800CDE281 /* HelpyLabel.swift */; };
+		6E5A0E4E24392D1700CDE281 /* NeedHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E4D24392D1700CDE281 /* NeedHeaderCell.swift */; };
+		6E5A0E502439F75E00CDE281 /* ContributionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E4F2439F75E00CDE281 /* ContributionHeaderCell.swift */; };
 		6E623D6D242E08950092250D /* WorkerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E623D6C242E08950092250D /* WorkerFormViewController.swift */; };
 		6E655AFC242B9E320081BB3B /* MemberSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFB242B9E320081BB3B /* MemberSession.swift */; };
 		6E655B00242BFA3B0081BB3B /* UIViewController_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */; };
@@ -97,6 +99,8 @@
 		6E5A0E202433E1D000CDE281 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E5A0E2324368AF000CDE281 /* HelpyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpyButton.swift; sourceTree = "<group>"; };
 		6E5A0E2524368C2800CDE281 /* HelpyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpyLabel.swift; sourceTree = "<group>"; };
+		6E5A0E4D24392D1700CDE281 /* NeedHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedHeaderCell.swift; sourceTree = "<group>"; };
+		6E5A0E4F2439F75E00CDE281 /* ContributionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionHeaderCell.swift; sourceTree = "<group>"; };
 		6E623D6C242E08950092250D /* WorkerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerFormViewController.swift; sourceTree = "<group>"; };
 		6E655AFB242B9E320081BB3B /* MemberSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSession.swift; sourceTree = "<group>"; };
 		6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_ext.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 			children = (
 				6E655B10242D0B570081BB3B /* HospitalHelperTableviewCell.swift */,
 				6E65CDE5242B7F560067C724 /* HospitalHelperViewController.swift */,
+				6E5A0E4F2439F75E00CDE281 /* ContributionHeaderCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				6E655B04242BFC410081BB3B /* HospitalWorkerNeedsCell.swift */,
+				6E5A0E4D24392D1700CDE281 /* NeedHeaderCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -748,7 +754,9 @@
 				6ECFAF78242A30D100D4FDE5 /* LoginView.swift in Sources */,
 				6ECFAF6B242A22F800D4FDE5 /* SplashViewController.swift in Sources */,
 				6E5A0E2424368AF000CDE281 /* HelpyButton.swift in Sources */,
+				6E5A0E4E24392D1700CDE281 /* NeedHeaderCell.swift in Sources */,
 				6ECFAF7A242A320100D4FDE5 /* Constants.swift in Sources */,
+				6E5A0E502439F75E00CDE281 /* ContributionHeaderCell.swift in Sources */,
 				6E5A0E1C242FCA1900CDE281 /* ConversationListCell.swift in Sources */,
 				6ECFAF76242A2FEC00D4FDE5 /* LogInViewController.swift in Sources */,
 				6E655B0F242D012C0081BB3B /* LocationManager.swift in Sources */,

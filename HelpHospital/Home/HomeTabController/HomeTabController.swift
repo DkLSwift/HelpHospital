@@ -10,7 +10,6 @@ import UIKit
 
 class HomeTabController: UITabBarController {
     
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -18,34 +17,35 @@ class HomeTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "doctor") : createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "doctor")
+        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: HospitalWorkerViewController(), title: "Besoins", imageName: "doctor") : createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Besoins", imageName: "doctor")
         
         viewControllers = [
             vc1,
-            createNavController(viewController: HospitalHelperViewController(), title: "Donner", imageName: "team"),
+            createNavController(viewController: HospitalHelperViewController(), title: "Contributions", imageName: "team"),
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "settings")
         ]
         MemberSession.share.listenTo { member in
-            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Santé", imageName: "doctor") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Santé", imageName: "doctor")
+            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Besoins", imageName: "doctor") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Besoins", imageName: "doctor")
         }
         
-        tabBar.barTintColor = seaDarkBlue
+        tabBar.barTintColor = bluePlus
         tabBar.isTranslucent = false
-        tabBar.unselectedItemTintColor = seaWhite
-        tabBar.tintColor = seaLightBlue
+        tabBar.unselectedItemTintColor = blueMinus
+        tabBar.tintColor = .white
     }
     
     fileprivate func createNavController(viewController: UIViewController, title: String, imageName: String) -> UIViewController {
         let navController = UINavigationController(rootViewController: viewController)
         
         viewController.navigationItem.title = title
-        navController.tabBarItem.title = title.capitalized
+        navController.tabBarItem.title = title
         navController.tabBarItem.image = UIImage(named: imageName)
-        navController.navigationBar.prefersLargeTitles = true
+//        navController.navigationBar.prefersLargeTitles = true
         navController.navigationBar.barStyle = .black
-//        navController.navigationBar.barTintColor = seaDarkBlue
-//        navController.navigationBar.titleTextAttributes = [.foregroundColor: seaWhite]
-       
+        navController.navigationBar.barTintColor = blue
+//        navController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+        navController.navigationBar.tintColor = .white
+        
         return navController
     }
 }
