@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class NeedsFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     
     let titleLabel: HelpyLabel = {
@@ -64,7 +64,7 @@ class WorkerFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 //    }()
 //    
     var locationManager = LocationManager()
-    var mainVC: HospitalWorkerViewController?
+    var mainVC: MyNeedsViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()

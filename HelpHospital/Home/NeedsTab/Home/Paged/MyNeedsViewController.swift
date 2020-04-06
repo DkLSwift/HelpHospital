@@ -11,7 +11,7 @@ import GeoFire
 import CoreLocation
 import FirebaseDatabase
 
- class HospitalWorkerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NeedHeaderCellProtocol {
+ class MyNeedsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NeedHeaderCellProtocol {
   
     
     
@@ -51,21 +51,7 @@ import FirebaseDatabase
 //        return btn
 //    }()
     
-    let myNeedButton: UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = blue
-        btn.setTitle("Mes Besoins", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        return btn
-    }()
-    let allNeedsButton: UIButton = {
-           let btn = UIButton()
-           btn.backgroundColor = blue
-           btn.setTitle("Tous les Besoins", for: .normal)
-           btn.setTitleColor(.white, for: .normal)
-           return btn
-       }()
-    
+   
     var needs = [Need]()
     
     let service = Service()
@@ -92,7 +78,7 @@ import FirebaseDatabase
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(HospitalWorkerNeedsCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(MyNeedsCell.self, forCellReuseIdentifier: cellId)
         tableView.register(NeedHeaderCell.self, forHeaderFooterViewReuseIdentifier: headerId)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -112,7 +98,7 @@ import FirebaseDatabase
         headerView.backgroundColor = blue
         view.addSubview(headerView)
         headerView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 350))
-        
+//        
 //        let buttonStack = UIStackView(arrangedSubviews: [postNeedButton, postHelpButton])
 //        postNeedButton.constrainHeight(constant: 40)
 //        postHelpButton.constrainHeight(constant: 40)
@@ -121,24 +107,24 @@ import FirebaseDatabase
 //        view.addSubview(buttonStack)
 //        buttonStack.anchor(top: nil, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 0), size: .init(width: 0, height: 40))
         
-        myNeedButton.constrainHeight(constant: 50)
-        allNeedsButton.constrainHeight(constant: 50)
-        let hStack = UIStackView(arrangedSubviews: [myNeedButton, allNeedsButton])
-        hStack.distribution = .fillEqually
-        view.addSubview(hStack)
-        hStack.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 50))
+//        myNeedButton.constrainHeight(constant: 50)
+//        allNeedsButton.constrainHeight(constant: 50)
+//        let hStack = UIStackView(arrangedSubviews: [myNeedButton, allNeedsButton])
+//        hStack.distribution = .fillEqually
+//        view.addSubview(hStack)
+//        hStack.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 50))
         
-        let separator = UIView()
-        separator.backgroundColor = .white
-        separator.constrainHeight(constant: 1)
-        
-        view.addSubview(separator)
-        separator.anchor(top: hStack.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
-        
-        
+//        let separator = UIView()
+//        separator.backgroundColor = .white
+//        separator.constrainHeight(constant: 1)
+//        
+//        view.addSubview(separator)
+//        separator.anchor(top: hStack.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
+//        
+//        
         view.addSubview(tableView)
         
-        tableView.anchor(top: separator.bottomAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         
 //        view.addSubview(addNeedBtn)
 //        addNeedBtn.constrainWidth(constant: 60)
@@ -170,7 +156,7 @@ import FirebaseDatabase
     }
     
     func addNeedButtonPressed() {
-        let vc = WorkerFormViewController()
+        let vc = NeedsFormViewController()
         vc.mainVC = self
         present(vc, animated: true, completion: nil)
     }
@@ -184,7 +170,7 @@ import FirebaseDatabase
     
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalWorkerNeedsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! MyNeedsCell
             
             let need = needs[indexPath.row]
             cell.needId = need.id
@@ -250,7 +236,7 @@ import FirebaseDatabase
 }
 
 
-extension HospitalWorkerViewController {
+extension MyNeedsViewController {
     
     func deleteNeedPressed(needId: String, success: @escaping () -> Void) {
         

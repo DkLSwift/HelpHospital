@@ -17,15 +17,16 @@ class HomeTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: HospitalWorkerViewController(), title: "Besoins", imageName: "doctor") : createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Besoins", imageName: "doctor")
+        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: NeedsPageViewController(), title: "Besoins", imageName: "doctor") : createNavController(viewController: NeedsDisconnectedViewController(), title: "Besoins", imageName: "doctor")
         
         viewControllers = [
             vc1,
-            createNavController(viewController: HospitalHelperViewController(), title: "Contributions", imageName: "team"),
+            createNavController(viewController: AllNeedsViewController(), title: "Contributions", imageName: "team"),
+            createNavController(viewController: UIViewController(), title: "Messages", imageName: "messages"),
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "settings")
         ]
         MemberSession.share.listenTo { member in
-            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: HospitalWorkerViewController(), title: "Besoins", imageName: "doctor") : self.createNavController(viewController: HospitalWorkerDisconnectedViewController(), title: "Besoins", imageName: "doctor")
+            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: NeedsPageViewController(), title: "Besoins", imageName: "doctor") : self.createNavController(viewController: NeedsDisconnectedViewController(), title: "Besoins", imageName: "doctor")
         }
         
         tabBar.barTintColor = bluePlus

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HospitalHelperViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var needs = [Need]()
     let cellId = "cellId"
@@ -75,8 +75,8 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(HospitalHelperTableviewCell.self, forCellReuseIdentifier: cellId)
-        tableView.register(ContributionHeaderCell.self, forHeaderFooterViewReuseIdentifier: headerId)
+        tableView.register(AllNeedsCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(AllNeedsHeaderCell.self, forHeaderFooterViewReuseIdentifier: headerId)
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -95,7 +95,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
             safeTopAnchor = view.safeAreaLayoutGuide.topAnchor
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
-        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: tabBarHeight, right: 0))
+        tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: tabBarHeight, right: 0))
         
         view.addSubview(messageBtn)
         messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
@@ -132,7 +132,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HospitalHelperTableviewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! AllNeedsCell
         
         let need = needs[indexPath.row]
         cell.pseudoLabel.text = "- \(need.pseudo) -"
@@ -141,7 +141,7 @@ class HospitalHelperViewController: UIViewController, UITableViewDataSource, UIT
         return cell
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! ContributionHeaderCell
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! AllNeedsHeaderCell
         
         return view
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HospitalWorkerDisconnectedViewController: UIViewController {
+class NeedsDisconnectedViewController: UIViewController {
     
     
     let messageLabel: UILabel = {

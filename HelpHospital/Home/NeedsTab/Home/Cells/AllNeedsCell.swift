@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HospitalHelperTableviewCell: UITableViewCell {
+class AllNeedsCell: UITableViewCell {
 
 //    let containerView: UIView = {
 //        let v = UIView()
@@ -56,10 +56,6 @@ class HospitalHelperTableviewCell: UITableViewCell {
     }
     
     func setup() {
-//        
-//        addSubview(containerView)
-//        containerView.fillSuperview()
-        
         addSubview(insetView)
         insetView.fillSuperview(padding: .init(top: 3, left: 12, bottom: 3, right: 12))
         
