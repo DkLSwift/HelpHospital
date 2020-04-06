@@ -8,6 +8,11 @@
 
 import UIKit
 
+
+protocol AllNeedsCellProtocol {
+    func favButtonPressed(id: String)
+}
+
 class AllNeedsCell: UITableViewCell {
 
     let insetView: UIView = {
@@ -38,6 +43,18 @@ class AllNeedsCell: UITableViewCell {
         return lbl
     }()
     
+    let fullStar = UIImage(named: "full-star")
+    let emptyStar = UIImage(named: "empty-star")
+    
+    let favButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "empty-star"), for: .normal)
+        return btn
+    }()
+    
+    var delegate: AllNeedsCellProtocol?
+    var id: String!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -54,14 +71,32 @@ class AllNeedsCell: UITableViewCell {
         addSubview(insetView)
         insetView.fillSuperview(padding: .init(top: 3, left: 12, bottom: 3, right: 12))
         
+    
+        addSubview(favButton)
+        favButton.constrainWidth(constant: 40)
+        favButton.constrainHeight(constant: 40)
+        favButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        favButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        favButton.addTarget(self, action: #selector(handleFavButton), for: .touchUpInside)
+        
         let hStack = UIStackView(arrangedSubviews: [pseudoLabel, titleLabel])
         addSubview(hStack)
         hStack.backgroundColor = clearBlue
         hStack.distribution = .fillEqually
-        hStack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 30, bottom: 0, right: 30), size: .init(width: 200, height: 0))
+        hStack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: favButton.leadingAnchor, padding: .init(top: 0, left: 30, bottom: 0, right: 30), size: .init(width: 200, height: 0))
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
        
     }
     
+    @objc func handleFavButton() {
+        if favButton.imageView?.image == emptyStar {
+              favButton.setImage(fullStar, for: .normal)
+        } else {
+            favButton.setImage(emptyStar, for: .normal)
+        }
+      
+//        check subscribe
+        delegate?.favButtonPressed(id: id)
+    }
     
 }

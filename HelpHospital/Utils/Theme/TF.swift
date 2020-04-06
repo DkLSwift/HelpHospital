@@ -17,10 +17,10 @@ class TF: UITextField {
         keyboardType = UIKeyboardType.default
         returnKeyType = UIReturnKeyType.done
         contentVerticalAlignment = .center
-        textColor = .white
-        layer.borderColor = seaWhite.cgColor
+        textColor = bluePlus
+        layer.borderColor = bluePlus.cgColor
         layer.borderWidth = 1
-        attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: seaWhite])
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: blueMinus])
         setLeftPaddingPoints(10)
     }
     

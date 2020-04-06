@@ -44,6 +44,11 @@ class NeedsPageViewController: UIPageViewController, UIPageViewControllerDelegat
         self.dataSource = self
         self.delegate = self
         
+        if let firstVC = vcs.first {
+            setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+        }
+        
+        setupUI()
         
 //        if let myView = view?.subviews.first as? UIScrollView {
 //            myView.canCancelContentTouches = false
@@ -51,11 +56,7 @@ class NeedsPageViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let firstVC = vcs.first {
-            setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
-        }
         
-        setupUI()
     }
     
     func setupUI() {

@@ -22,13 +22,13 @@ class NeedDetailViewController: UIViewController {
     let pseudoLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 34)
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         lbl.textAlignment = .center
         return lbl
     }()
     let titleLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         lbl.font = UIFont.systemFont(ofSize: 28)
         return lbl
     }()
@@ -36,7 +36,7 @@ class NeedDetailViewController: UIViewController {
     let descLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 20)
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         lbl.numberOfLines = 0
         lbl.minimumScaleFactor = 0.8
         lbl.adjustsFontSizeToFitWidth = true
@@ -46,18 +46,18 @@ class NeedDetailViewController: UIViewController {
     let timeLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 24)
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         return lbl
     }()
     
     let contactBtn: UIButton = {
         let btn = UIButton()
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        btn.layer.borderColor = seaWhite.cgColor
+        btn.layer.borderColor = bluePlus.cgColor
         btn.layer.borderWidth = 1
         btn.setTitle("Contacter", for: .normal)
-        btn.setTitleColor(seaWhite, for: .normal)
-        btn.backgroundColor = seaDarkBlue
+        btn.setTitleColor(bluePlus, for: .normal)
+        btn.backgroundColor = .white
         btn.layer.cornerRadius = 16
         return btn
     }()
@@ -65,7 +65,7 @@ class NeedDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = seaDarkBlue
+        view.backgroundColor = .white
         setup()
     }
     
@@ -101,14 +101,12 @@ class NeedDetailViewController: UIViewController {
         guard let need = need else { return }
         
         pseudoLabel.text = need.pseudo
-        titleLabel.text = "Besoin : " + need.title
+        titleLabel.text = "Son Besoin : " + need.title
         
         if need.desc != "" {
             descLabel.text = need.desc
         }
-        if need.time != "" {
-            timeLabel.text = " Vers \(need.time!)"
-        }
+        
     }
     
     @objc func handleContact() {

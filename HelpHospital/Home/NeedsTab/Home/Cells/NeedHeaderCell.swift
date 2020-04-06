@@ -71,9 +71,13 @@ class NeedHeaderCell: UITableViewHeaderFooterView {
 //        vStack.axis = .vertical
         addBtn.translatesAutoresizingMaskIntoConstraints = false
         addBtn.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
-        addBtn.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20).isActive = true
-        
+        addBtn.topAnchor.constraint(equalTo: container.topAnchor, constant: 30).isActive = true
+        addBtn.addTarget(self, action: #selector(handleAddPressed), for: .touchUpInside)
         container.addSubview(desc)
-        desc.anchor(top: container.topAnchor, leading: container.leadingAnchor, bottom: addBtn.topAnchor, trailing: container.trailingAnchor, padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+        desc.anchor(top: addBtn.bottomAnchor, leading: container.leadingAnchor, bottom: container.bottomAnchor, trailing: container.trailingAnchor, padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+    }
+    
+    @objc func handleAddPressed() {
+        delegate?.addNeedButtonPressed()
     }
 }

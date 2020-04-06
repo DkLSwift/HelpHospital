@@ -56,6 +56,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NotificationCenter.default.addObserver(self, selector: #selector(handle(keyboardHideNotification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+//        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     
     func observeLiveChat(id: String) {
         chat.observeLiveChat(conversationId: id) { (message) in

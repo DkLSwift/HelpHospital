@@ -135,8 +135,9 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! AllNeedsCell
         
         let need = needs[indexPath.row]
-        cell.pseudoLabel.text = "- \(need.pseudo) -"
+        cell.pseudoLabel.text = "\(need.pseudo) -"
         cell.titleLabel.text = need.title
+        cell.id = need.id
         
         return cell
     }
@@ -152,7 +153,7 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
         return 110
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 200
+        return 170
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if MemberSession.share.isLogged {

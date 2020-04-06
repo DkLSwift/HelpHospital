@@ -32,25 +32,6 @@ import FirebaseDatabase
         btn.layer.shadowOpacity = 1
         return btn
     }()
-    
-//    let postHelpButton: UIButton = {
-//        let btn = UIButton()
-//        btn.backgroundColor = seaDarkBlue
-//        btn.setTitle("Proposer", for: .normal)
-//        btn.layer.borderColor = seaWhite.cgColor
-//        return btn
-//    }()
-//
-//    let postNeedButton: UIButton = {
-//        let btn = UIButton()
-//        btn.backgroundColor = seaDarkBlue
-//        btn.setTitle("Besoins", for: .normal)
-//        btn.setTitleColor(seaWhite, for: .normal)
-//        btn.layer.masksToBounds = true
-//
-//        return btn
-//    }()
-    
    
     var needs = [Need]()
     
@@ -99,42 +80,11 @@ import FirebaseDatabase
         headerView.backgroundColor = blue
         view.addSubview(headerView)
         headerView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 350))
-//        
-//        let buttonStack = UIStackView(arrangedSubviews: [postNeedButton, postHelpButton])
-//        postNeedButton.constrainHeight(constant: 40)
-//        postHelpButton.constrainHeight(constant: 40)
-//        buttonStack.distribution = .fillEqually
         
-//        view.addSubview(buttonStack)
-//        buttonStack.anchor(top: nil, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 0), size: .init(width: 0, height: 40))
-        
-//        myNeedButton.constrainHeight(constant: 50)
-//        allNeedsButton.constrainHeight(constant: 50)
-//        let hStack = UIStackView(arrangedSubviews: [myNeedButton, allNeedsButton])
-//        hStack.distribution = .fillEqually
-//        view.addSubview(hStack)
-//        hStack.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 50))
-        
-//        let separator = UIView()
-//        separator.backgroundColor = .white
-//        separator.constrainHeight(constant: 1)
-//        
-//        view.addSubview(separator)
-//        separator.anchor(top: hStack.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
-//        
-//        
         view.addSubview(tableView)
         
         tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         
-//        view.addSubview(addNeedBtn)
-//        addNeedBtn.constrainWidth(constant: 60)
-//        addNeedBtn.constrainHeight(constant: 60)
-//        addNeedBtn.contentEdgeInsets = .init(top: 12, left: 12, bottom: 12, right: 12)
-//        addNeedBtn.translatesAutoresizingMaskIntoConstraints = false
-//        addNeedBtn.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: -40).isActive = true
-//        addNeedBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        addNeedBtn.addTarget(self, action: #selector(handleAdd), for: .touchUpInside)
     }
     
     func fetchCurrentUserNeedsAndReloadTVData() {
@@ -161,13 +111,6 @@ import FirebaseDatabase
         vc.mainVC = self
         present(vc, animated: true, completion: nil)
     }
-//    @objc func handleAdd() {
-//
-//        let vc = WorkerFormViewController()
-//        vc.mainVC = self
-//        present(vc, animated: true, completion: nil)
-//    }
-    
     
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -194,6 +137,7 @@ import FirebaseDatabase
 
         let vc = ConversationListController()
         vc.conversationsId = conversationKeys
+        vc.isSingleTopic = true
         vc.modalPresentationStyle = .fullScreen
          self.navigationController?.pushViewController(vc, animated: true)
         
@@ -207,7 +151,7 @@ import FirebaseDatabase
         return 110
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 200
+        return 170
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in

@@ -28,16 +28,16 @@ class NeedsFormViewController: UIViewController, UITextFieldDelegate, UITextView
 //    }()
 //
     let titleTF: TF = {
-        let tf = TF(placeholder: "Titre")
+        let tf = TF(placeholder: "Nourriture, chambre, service...")
         return tf
     }()
     let descTV: UITextView = {
         let tv = UITextView()
-        tv.backgroundColor = seaDarkBlue
-        tv.layer.borderColor = seaWhite.cgColor
+//        tv.backgroundColor = seaDarkBlue
+        tv.layer.borderColor = bluePlus.cgColor
         tv.layer.borderWidth = 1
-        tv.text = "  Description..."
-        tv.textColor = seaWhite
+        tv.text = " J'ai besoin d'..."
+        tv.textColor = blueMinus
         tv.font = UIFont.systemFont(ofSize: 17)
         return tv
     }()
@@ -69,7 +69,7 @@ class NeedsFormViewController: UIViewController, UITextFieldDelegate, UITextView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = seaDarkBlue
+        view.backgroundColor = .white
         
         self.hideKeyboardWhenTapOutsideTextField()
         [titleTF, timeTF].forEach({ $0.delegate = self })
@@ -89,7 +89,7 @@ class NeedsFormViewController: UIViewController, UITextFieldDelegate, UITextView
         
         acceptButton.addTarget(self, action: #selector(handleAccept), for: .touchUpInside)
         
-        let tfStack = UIStackView(arrangedSubviews: [titleTF, descTV, timeTF,])
+        let tfStack = UIStackView(arrangedSubviews: [titleTF, descTV,])
         tfStack.axis = .vertical
         tfStack.spacing = 20
         
@@ -130,15 +130,15 @@ class NeedsFormViewController: UIViewController, UITextFieldDelegate, UITextView
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == seaWhite {
+        if textView.textColor == blueMinus {
             textView.text = nil
-            textView.textColor = .white
+            textView.textColor = bluePlus
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "  Description..."
-            textView.textColor = .lightGray
+            textView.text = " J'ai besoin d'..."
+            textView.textColor = blueMinus
         }
     }
 }

@@ -14,6 +14,7 @@ class ConversationListController: UITableViewController {
     let service = Service()
     
     var conversationsId: [String]? = []
+    var isSingleTopic = false
     var chatMessagesPreviews = [ChatMessagePreview]()
     
     let cellId = "cellId"
@@ -32,15 +33,29 @@ class ConversationListController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        chat.observeRegistredTopic { keys in
-            self.chat.getConversationMessages(conversationsId: keys) { (conversationsAndMessages) in
-                
-                self.conversationsAndMessages = conversationsAndMessages
-               
-                self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages) { (chatMessagesPreviews) in
-                    self.chatMessagesPreviews = chatMessagesPreviews.sorted(by: { $0.timestamp < $1.timestamp })
-                    self.tableView.reloadData()
-                }
+        self.tabBarController?.tabBar.isHidden = false
+        
+        
+        if isSingleTopic {
+            guard let id = conversationsId else { return }
+            self.getConvFor(keys: id)
+        } else {
+            chat.observeRegistredTopic { keys in
+                self.getConvFor(keys: keys)
+            }
+        }
+        
+        
+    }
+    
+    func getConvFor(keys: [String]) {
+        self.chat.getConversationMessages(conversationsId: keys) { (conversationsAndMessages) in
+            
+            self.conversationsAndMessages = conversationsAndMessages
+           
+            self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages) { (chatMessagesPreviews) in
+                self.chatMessagesPreviews = chatMessagesPreviews.sorted(by: { $0.timestamp < $1.timestamp })
+                self.tableView.reloadData()
             }
         }
     }
@@ -91,11 +106,17 @@ class ConversationListController: UITableViewController {
             vc.need = needs[0]
             vc.toId = toId
             vc.conversationId = messagesKey
+            
             vc.title = title
             vc.modalPresentationStyle = .fullScreen
-            self.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }
+    
+    
+    deinit {
+        print("ConversationList VC Deinit Success /////////////////////")
+    }
+    
 }
