@@ -13,5 +13,5 @@ struct ChatMessagePreview {
     
     let pseudo, title, text, key, toId: String
     let timestamp: Double
-//    let isContribution: bool
+    let isContribution: Bool
 }

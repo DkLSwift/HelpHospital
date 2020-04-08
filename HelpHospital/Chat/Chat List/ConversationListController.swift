@@ -103,7 +103,8 @@ class ConversationListController: UITableViewController {
         let toId = chatMessagesPreviews[indexPath.row].toId
         
         
-        if isNeed {
+//        if isNeed {
+        if !chatMessagesPreviews[indexPath.row].isContribution {
             service.getNeeds(for: [messagesKey]) { (needs) in
                 
                 let vc = ChatController()

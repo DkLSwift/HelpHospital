@@ -139,7 +139,7 @@ class ChatMessageRepository {
                         if let timestamp = value.last?.timestamp {
                             lastTimestamp = timestamp
                         }
-                        let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                        let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp, isContribution: false)
                         chatMessagePreviews.append(chatMessage)
                         dispatchGroup.leave()
                     }
@@ -153,7 +153,7 @@ class ChatMessageRepository {
                         if let timestamp = value.last?.timestamp {
                             lastTimestamp = timestamp
                         }
-                        let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                        let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp, isContribution: true)
                         chatMessagePreviews.append(chatMessage)
                         dispatchGroup.leave()
                     }
@@ -168,7 +168,7 @@ class ChatMessageRepository {
                     if let timestamp = value.last?.timestamp {
                         lastTimestamp = timestamp
                     }
-                    let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                    let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp, isContribution: false)
                     chatMessagePreviews.append(chatMessage)
                     dispatchGroup.leave()
                 }
@@ -181,7 +181,7 @@ class ChatMessageRepository {
                     if let timestamp = value.last?.timestamp {
                         lastTimestamp = timestamp
                     }
-                    let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                    let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp, isContribution: true)
                     chatMessagePreviews.append(chatMessage)
                     dispatchGroup.leave()
                 }
