@@ -27,7 +27,7 @@ class SettingsViewController: UIViewController {
         btn.backgroundColor = .clear
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Se connecter", for: .normal)
-        btn.setTitleColor(seaWhite, for: .normal)
+        btn.setTitleColor(bluePlus, for: .normal)
         btn.constrainHeight(constant: 50)
         btn.constrainWidth(constant: 200)
         btn.layer.borderColor = bluePlus.cgColor

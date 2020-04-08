@@ -137,6 +137,7 @@ extension MyNeedsViewController: UITableViewDataSource, UITableViewDelegate {
             let vc = ConversationListController()
             vc.conversationsId = conversationKeys
             vc.isSingleTopic = true
+            vc.isNeed = true
             vc.modalPresentationStyle = .fullScreen
              self.navigationController?.pushViewController(vc, animated: true)
             

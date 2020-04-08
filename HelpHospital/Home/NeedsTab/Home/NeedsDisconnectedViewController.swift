@@ -19,15 +19,15 @@ class NeedsDisconnectedViewController: UIViewController {
         lbl.numberOfLines = 0
         lbl.minimumScaleFactor = 0.6
         lbl.adjustsFontSizeToFitWidth = true
-        lbl.textColor = seaWhite
-        lbl.backgroundColor = seaDarkBlue
+        lbl.textColor = bluePlus
+        lbl.backgroundColor = .white
         return lbl
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = seaDarkBlue
+        view.backgroundColor = .white
         
         view.addSubview(messageLabel)
         messageLabel.fillSuperview(padding: .init(top: 0, left: 30, bottom: 0, right: 30))

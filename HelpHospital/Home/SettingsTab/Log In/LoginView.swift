@@ -29,7 +29,7 @@ class LoginView: UIView, UITextFieldDelegate {
         lbl.numberOfLines = 0
         lbl.minimumScaleFactor = 0.6
         lbl.adjustsFontSizeToFitWidth = true
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         lbl.textAlignment = NSTextAlignment.center
         return lbl
     }()
@@ -38,7 +38,7 @@ class LoginView: UIView, UITextFieldDelegate {
         let lbl = UILabel()
         lbl.text = "Se connecter"
         lbl.font = UIFont.systemFont(ofSize: 30)
-        lbl.textColor = seaWhite
+        lbl.textColor = bluePlus
         lbl.textAlignment = NSTextAlignment.center
         return lbl
     }()
@@ -55,25 +55,25 @@ class LoginView: UIView, UITextFieldDelegate {
     }()
     let connectButton: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
+        btn.backgroundColor = .white
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Connexion", for: .normal)
-        btn.setTitleColor(seaWhite, for: .normal)
+        btn.setTitleColor(bluePlus, for: .normal)
         btn.layer.cornerRadius = 16
         btn.layer.borderWidth = 1
-        btn.layer.borderColor = seaWhite.cgColor
+        btn.layer.borderColor = bluePlus.cgColor
         return btn
     }()
     
     let createAccountButton: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = seaDarkBlue
+        btn.backgroundColor = .white
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Créer un compte", for: .normal)
-        btn.setTitleColor(seaWhite, for: .normal)
+        btn.setTitleColor(bluePlus, for: .normal)
         btn.layer.cornerRadius = 16
         btn.layer.borderWidth = 1
-        btn.layer.borderColor = seaWhite.cgColor
+        btn.layer.borderColor = bluePlus.cgColor
         return btn
     }()
     
@@ -84,7 +84,7 @@ class LoginView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = seaDarkBlue
+        backgroundColor = .white
         setup()
     }
     
@@ -118,7 +118,7 @@ class LoginView: UIView, UITextFieldDelegate {
         connectButton.addTarget(self, action: #selector(handleConnect), for: .touchUpInside)
         
         let separator = UIView()
-        separator.backgroundColor = seaWhite
+        separator.backgroundColor = bluePlus
         addSubview(separator)
         separator.anchor(top: vStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 30, left: 60, bottom: 0, right: 60), size: .init(width: 0, height: 1))
         

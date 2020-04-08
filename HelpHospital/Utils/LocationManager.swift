@@ -45,6 +45,7 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
         success(keys)
     }
     
+     // MARK: - Needs
     
     func observeGeoFireNeeds(from location: CLLocation,currentRequestsKeys: [String]? ,success: @escaping (String) -> Void) {
         
@@ -75,6 +76,21 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
         
         usersRef.child(id).child(currentRequests).updateChildValues([key : key])
         
+    }
+    
+    // MARK: - Contributions
+    
+    func observeGeoFireContributions(from location: CLLocation,currentRequestsKeys: [String]? ,success: @escaping (String) -> Void) {
+        
+        let geoFire = GeoFire(firebaseRef: contributionsRef)
+               let circleQuery = geoFire.query(at: location, withRadius: 20)
+        
+        let queryHandle = circleQuery.observe(.keyEntered, with: { (key, location) in
+                   
+            if currentRequestsKeys == nil || !currentRequestsKeys!.contains(key) {
+                      success(key)
+                   }
+               })
     }
     
     func postContribution(from location: CLLocation, key: String, id: String, title: String, desc: String?, timestamp: Double) {

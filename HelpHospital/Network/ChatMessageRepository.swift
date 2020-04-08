@@ -13,10 +13,10 @@ class ChatMessageRepository {
     
     let service = Service()
     
-    func postMessage(senderId: String, currentUserId: String, needId: String, message: Message, success: @escaping () -> Void) {
+    func postMessage(senderId: String, currentUserId: String, topicId: String, message: Message, success: @escaping () -> Void) {
         
         
-        let ref = messagesRef.child(needId)
+        let ref = messagesRef.child(topicId)
         let childRef = ref.childByAutoId()
         guard let key = childRef.key else { return }
         
@@ -31,8 +31,8 @@ class ChatMessageRepository {
         
         childRef.setValue(data)
         
-        usersMessagesRef.child(currentUserId).child(needId).child(key).setValue([key: "1"])
-        usersMessagesRef.child(message.toId).child(needId).child(key).setValue([key: "1"])
+        usersMessagesRef.child(currentUserId).child(topicId).child(key).setValue([key: "1"])
+        usersMessagesRef.child(message.toId).child(topicId).child(key).setValue([key: "1"])
         
         success()
         
@@ -97,7 +97,7 @@ class ChatMessageRepository {
         }
     }
     
-    func getLastMessagesPreviewData(conversations:[String: [Message]], success: @escaping ([ChatMessagePreview]) -> Void) {
+    func getLastMessagesPreviewData(conversations:[String: [Message]], isNeed: Bool, isSingleTopic: Bool, success: @escaping ([ChatMessagePreview]) -> Void) {
         
         var chatMessagePreviews = [ChatMessagePreview]()
         let dispatchGroup = DispatchGroup()
@@ -127,19 +127,67 @@ class ChatMessageRepository {
                 
             }
             
-            service.getNeeds(for: [key]) { (need) in
-                
-                title = need[0].title
-                if let text = value.last?.text {
-                    lastText = text
+            
+            if isSingleTopic {
+                if isNeed {
+                    service.getNeeds(for: [key]) { (need) in
+                        
+                        title = need[0].title
+                        if let text = value.last?.text {
+                            lastText = text
+                        }
+                        if let timestamp = value.last?.timestamp {
+                            lastTimestamp = timestamp
+                        }
+                        let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                        chatMessagePreviews.append(chatMessage)
+                        dispatchGroup.leave()
+                    }
+                } else {
+                    service.getContributions(for: [key]) { (contrib) in
+                        
+                        title = contrib[0].title
+                        if let text = value.last?.text {
+                            lastText = text
+                        }
+                        if let timestamp = value.last?.timestamp {
+                            lastTimestamp = timestamp
+                        }
+                        let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                        chatMessagePreviews.append(chatMessage)
+                        dispatchGroup.leave()
+                    }
                 }
-                if let timestamp = value.last?.timestamp {
-                    lastTimestamp = timestamp
+            } else {
+                service.getNeeds(for: [key]) { (need) in
+                    
+                    title = need[0].title
+                    if let text = value.last?.text {
+                        lastText = text
+                    }
+                    if let timestamp = value.last?.timestamp {
+                        lastTimestamp = timestamp
+                    }
+                    let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                    chatMessagePreviews.append(chatMessage)
+                    dispatchGroup.leave()
                 }
-                let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
-                chatMessagePreviews.append(chatMessage)
-                dispatchGroup.leave()
+                service.getContributions(for: [key]) { (contrib) in
+                    
+                    title = contrib[0].title
+                    if let text = value.last?.text {
+                        lastText = text
+                    }
+                    if let timestamp = value.last?.timestamp {
+                        lastTimestamp = timestamp
+                    }
+                    let chatMessage = ChatMessagePreview(pseudo: toPseudo, title: title, text: lastText, key: key, toId: toId, timestamp: lastTimestamp)
+                    chatMessagePreviews.append(chatMessage)
+                    dispatchGroup.leave()
+                }
             }
+            
+            
         }
         dispatchGroup.notify(queue: .main){
             success(chatMessagePreviews)
@@ -168,10 +216,10 @@ class ChatMessageRepository {
     
     func clearOldMessagesReferences() {
         
-        guard let id = MemberSession.share.member?.uuid else { return }
-        
-        usersMessagesRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot)
-        }
+        //        guard let id = MemberSession.share.member?.uuid else { return }
+        //
+        //        usersMessagesRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
+        //            print(snapshot)
+        //        }
     }
 }

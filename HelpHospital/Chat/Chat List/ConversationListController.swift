@@ -22,6 +22,7 @@ class ConversationListController: UITableViewController {
     var conversationsAndMessages = [String : [Message]]()
     let dateformatter = DateFormatter()
     
+    var isNeed: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,27 +34,27 @@ class ConversationListController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
+//        self.tabBarController?.tabBar.isHidden = false
         
         
         if isSingleTopic {
             guard let id = conversationsId else { return }
-            self.getConvFor(keys: id)
+            self.getConvFor(keys: id, isSingleTopic: isSingleTopic)
         } else {
             chat.observeRegistredTopic { keys in
-                self.getConvFor(keys: keys)
+                self.getConvFor(keys: keys, isSingleTopic: self.isSingleTopic)
             }
         }
         
         
     }
     
-    func getConvFor(keys: [String]) {
+    func getConvFor(keys: [String], isSingleTopic: Bool) {
         self.chat.getConversationMessages(conversationsId: keys) { (conversationsAndMessages) in
             
             self.conversationsAndMessages = conversationsAndMessages
            
-            self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages) { (chatMessagesPreviews) in
+            self.chat.getLastMessagesPreviewData(conversations: conversationsAndMessages, isNeed: self.isNeed, isSingleTopic: self.isSingleTopic) { (chatMessagesPreviews) in
                 self.chatMessagesPreviews = chatMessagesPreviews.sorted(by: { $0.timestamp < $1.timestamp })
                 self.tableView.reloadData()
             }
@@ -100,17 +101,33 @@ class ConversationListController: UITableViewController {
         let messagesKey = chatMessagesPreviews[indexPath.row].key
         let messages = conversationsAndMessages[messagesKey]
         let toId = chatMessagesPreviews[indexPath.row].toId
-        service.getNeeds(for: [messagesKey]) { (needs) in
-            
-            let vc = ChatController()
-            vc.need = needs[0]
-            vc.toId = toId
-            vc.conversationId = messagesKey
-            
-            vc.title = title
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+        if isNeed {
+            service.getNeeds(for: [messagesKey]) { (needs) in
+                
+                let vc = ChatController()
+                vc.need = needs[0]
+                vc.toId = toId
+                vc.conversationId = messagesKey
+                
+                vc.title = title
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        } else {
+            service.getContributions(for: [messagesKey]) { (contrib) in
+                let vc = ChatController()
+                vc.contribution = contrib[0]
+                vc.toId = toId
+                vc.conversationId = messagesKey
+                
+                vc.title = title
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
+        
         
     }
     

@@ -12,6 +12,8 @@ import IQKeyboardManagerSwift
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var need: Need?
+    var contribution: Contribution?
+    
     var toId: String?
     let chat = ChatMessageRepository()
     
@@ -50,6 +52,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
              observeLiveChat(id: convId)
         } else if let needId = need?.id {
             observeLiveChat(id: needId)
+        } else if let contribId = contribution?.id {
+            observeLiveChat(id: contribId)
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handle(keyboardShowNotification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -154,13 +158,23 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         
-        guard let id = MemberSession.share.member?.uuid, let pseudo = MemberSession.share.member?.pseudo , let need = need else { return }
+        guard let id = MemberSession.share.member?.uuid, let pseudo = MemberSession.share.member?.pseudo else { return }
         let timestamp = Double(Date().timeIntervalSince1970)
         
-        let message = Message(text: text, fromId: id, toId: toId ?? need.senderId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
-        chat.postMessage(senderId: need.senderId, currentUserId: id, needId: need.id, message: message) {
-            self.messageTF.text = ""
+        
+        if let need = self.need {
+            let message = Message(text: text, fromId: id, toId: toId ?? need.senderId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
+            chat.postMessage(senderId: need.senderId, currentUserId: id, topicId: need.id, message: message) {
+                self.messageTF.text = ""
+            }
+        } else if let contribution = self.contribution {
+            let message = Message(text: text, fromId: id, toId: toId ?? contribution.senderId, myPseudo: pseudo, toPseudo: contribution.pseudo, timestamp: timestamp)
+            chat.postMessage(senderId: contribution.senderId, currentUserId: id, topicId: contribution.id, message: message) {
+                self.messageTF.text = ""
+            }
         }
+        
+        
     }
     
     deinit {
@@ -175,7 +189,7 @@ extension ChatController: UITextFieldDelegate {
        
         if let userInfo = notification.userInfo, let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
-             self.textfiedStackBottomAnchor?.constant = -(keyboardRect.height - botPadding)
+             self.textfiedStackBottomAnchor?.constant = -keyboardRect.height - botPadding
 
             UIView.animate(withDuration: duration ?? 0) {
                 self.view.layoutIfNeeded()

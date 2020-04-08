@@ -1,23 +1,17 @@
 //
-//  NeedDetailViewController.swift
+//  ContributionDetailViewController.swift
 //  HelpHospital
 //
-//  Created by Eric DkL on 27/03/2020.
+//  Created by Eric DkL on 08/04/2020.
 //  Copyright © 2020 Eric DkL. All rights reserved.
 //
-
-// long 2,348581  st ouen
-// lat 48,892523 st ouen
-
-// long 44,415541  jsp
-// lat 4,759605 jps
 
 
 import UIKit
 
-class NeedDetailViewController: UIViewController {
+class ContributionDetailViewController: UIViewController {
 
-    var need: Need!
+    var contribution: Contribution!
     
     let pseudoLabel: UILabel = {
         let lbl = UILabel()
@@ -97,21 +91,21 @@ class NeedDetailViewController: UIViewController {
         
         contactBtn.addTarget(self, action: #selector(handleContact), for: .touchUpInside)
         
-        guard let need = need else { return }
+        guard let contribution = contribution else { return }
         
-        pseudoLabel.text = need.pseudo
-        titleLabel.text = "Son Besoin : " + need.title
+        pseudoLabel.text = contribution.pseudo
+        titleLabel.text = "Sa contribution: " + contribution.title
         
-        if need.desc != "" {
-            descLabel.text = need.desc
+        if contribution.desc != "" {
+            descLabel.text = contribution.desc
         }
         
     }
     
     @objc func handleContact() {
         let vc = ChatController()
-        vc.title = need.pseudo
-        vc.need = need
+        vc.title = contribution.pseudo
+        vc.contribution = contribution
 //        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

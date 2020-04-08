@@ -23,27 +23,12 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let tableView = UITableView(frame: .zero, style: .grouped)
     
-//    let messageBtn: UIButton = {
-//        let btn = UIButton()
-//        btn.setImage(UIImage(named: "speak"), for: .normal)
-//        btn.layer.borderWidth = 1
-//        btn.backgroundColor = seaWhite
-//        btn.layer.borderColor = dark.cgColor
-//        btn.layer.shadowColor = UIColor.white.cgColor
-//        btn.layer.shadowOffset = .init(width: -1, height: 1)
-//        btn.layer.shadowRadius = 4
-//        btn.layer.shadowOpacity = 1
-//        return btn
-//    }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
         locationManager.setup()
-        
-        
         
         service.fetchMySubs { (subs) in
             self.mySubs = subs
@@ -68,11 +53,6 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        if MemberSession.share.isLogged {
-//            messageBtn.isHidden = false
-//        } else {
-//            messageBtn.isHidden = true
-//        }
         chat.observeRegistredTopic { keys in
             self.conversationKeys = keys
         }
@@ -189,9 +169,9 @@ extension AllNeedsViewController: AllNeedsCellProtocol {
     func favButtonPressed(id: String, doSub: Bool) {
       
         if doSub {
-            service.subscribeToNeed(needId: id)
+            service.subscribeToTopic(needId: id)
         } else {
-            service.unSubscribeToNeed(needId: id)
+            service.unSubscribeToTopic(needId: id)
         }
     }
     

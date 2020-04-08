@@ -39,6 +39,8 @@
 		6E5A0E68243D0CF000CDE281 /* AllContributionsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E67243D0CF000CDE281 /* AllContributionsHeaderCell.swift */; };
 		6E5A0E6A243D277300CDE281 /* ContributionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E69243D277300CDE281 /* ContributionFormViewController.swift */; };
 		6E5A0E6C243DD2D300CDE281 /* MyContributionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E6B243DD2D300CDE281 /* MyContributionsCell.swift */; };
+		6E5A0E71243DE67500CDE281 /* AllContributionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E70243DE67500CDE281 /* AllContributionsCell.swift */; };
+		6E5A0E73243E0A5E00CDE281 /* ContributionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A0E72243E0A5E00CDE281 /* ContributionDetailViewController.swift */; };
 		6E623D6D242E08950092250D /* NeedsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E623D6C242E08950092250D /* NeedsFormViewController.swift */; };
 		6E655AFC242B9E320081BB3B /* MemberSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFB242B9E320081BB3B /* MemberSession.swift */; };
 		6E655B00242BFA3B0081BB3B /* UIViewController_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */; };
@@ -121,6 +123,8 @@
 		6E5A0E67243D0CF000CDE281 /* AllContributionsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContributionsHeaderCell.swift; sourceTree = "<group>"; };
 		6E5A0E69243D277300CDE281 /* ContributionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionFormViewController.swift; sourceTree = "<group>"; };
 		6E5A0E6B243DD2D300CDE281 /* MyContributionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContributionsCell.swift; sourceTree = "<group>"; };
+		6E5A0E70243DE67500CDE281 /* AllContributionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContributionsCell.swift; sourceTree = "<group>"; };
+		6E5A0E72243E0A5E00CDE281 /* ContributionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionDetailViewController.swift; sourceTree = "<group>"; };
 		6E623D6C242E08950092250D /* NeedsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedsFormViewController.swift; sourceTree = "<group>"; };
 		6E655AFB242B9E320081BB3B /* MemberSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSession.swift; sourceTree = "<group>"; };
 		6E655AFF242BFA3B0081BB3B /* UIViewController_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_ext.swift; sourceTree = "<group>"; };
@@ -289,8 +293,6 @@
 			children = (
 				6E5A0E1A242FC92F00CDE281 /* Chat List */,
 				6E5A0E19242FC91C00CDE281 /* Chat Controller */,
-				6E5A0E0F242EC2FB00CDE281 /* ChatController.swift */,
-				6E5A0E11242EC38700CDE281 /* ChatCell.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -298,6 +300,8 @@
 		6E5A0E19242FC91C00CDE281 /* Chat Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6E5A0E0F242EC2FB00CDE281 /* ChatController.swift */,
+				6E5A0E11242EC38700CDE281 /* ChatCell.swift */,
 			);
 			path = "Chat Controller";
 			sourceTree = "<group>";
@@ -349,20 +353,37 @@
 		6E5A0E64243D0B5A00CDE281 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				6E5A0E65243D0B7300CDE281 /* MyContributionHeaderCell.swift */,
-				6E5A0E67243D0CF000CDE281 /* AllContributionsHeaderCell.swift */,
+				6E5A0E6E243DD61D00CDE281 /* Header */,
 				6E5A0E6B243DD2D300CDE281 /* MyContributionsCell.swift */,
+				6E5A0E70243DE67500CDE281 /* AllContributionsCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		6E5A0E6E243DD61D00CDE281 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				6E5A0E65243D0B7300CDE281 /* MyContributionHeaderCell.swift */,
+				6E5A0E67243D0CF000CDE281 /* AllContributionsHeaderCell.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		6E5A0E6F243DD62800CDE281 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				6E5A0E4D24392D1700CDE281 /* NeedHeaderCell.swift */,
+				6E5A0E4F2439F75E00CDE281 /* AllNeedsHeaderCell.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		6E655B01242BFB7A0081BB3B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				6E5A0E6F243DD62800CDE281 /* Header */,
 				6E655B04242BFC410081BB3B /* MyNeedsCell.swift */,
 				6E655B10242D0B570081BB3B /* AllNeedsCell.swift */,
-				6E5A0E4D24392D1700CDE281 /* NeedHeaderCell.swift */,
-				6E5A0E4F2439F75E00CDE281 /* AllNeedsHeaderCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -405,6 +426,7 @@
 			children = (
 				6E5A0E08242E2C6500CDE281 /* NeedDetail */,
 				6E5A0E07242E2C0800CDE281 /* Home */,
+				6E5A0E72243E0A5E00CDE281 /* ContributionDetailViewController.swift */,
 			);
 			path = ContributionsTab;
 			sourceTree = "<group>";
@@ -801,8 +823,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E5A0E0A242E2C8900CDE281 /* NeedDetailViewController.swift in Sources */,
+				6E5A0E71243DE67500CDE281 /* AllContributionsCell.swift in Sources */,
 				6E655B0D242CD4A20081BB3B /* LoginRepository.swift in Sources */,
 				6E5A0E12242EC38700CDE281 /* ChatCell.swift in Sources */,
+				6E5A0E73243E0A5E00CDE281 /* ContributionDetailViewController.swift in Sources */,
 				6E5A0E54243B406C00CDE281 /* NeedsPageViewController.swift in Sources */,
 				6E5A0E14242F662400CDE281 /* ChatMessageRepository.swift in Sources */,
 				6E655B13242D11A40081BB3B /* Service.swift in Sources */,

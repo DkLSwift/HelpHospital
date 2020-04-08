@@ -99,6 +99,33 @@ class Service {
     
     // MARK: - Contributions
     
+    func getContributions(for keys: [String], success: @escaping ([Contribution]) -> Void) {
+        
+        var contributions = [Contribution]()
+        
+        let dispatchGroup = DispatchGroup()
+        
+        keys.forEach { key in
+            
+            dispatchGroup.enter()
+            contributionsRef.child(key).observe(.value) { (snapshot) in
+                
+                if let value = snapshot.value as? NSDictionary {
+                    guard let title = value["title"] as? String, let id = value["id"] as? String, let senderId = value["senderId"] as? String, let pseudo = value["pseudo"] as? String, let timestamp = value["timestamp"] as? Double else { return }
+                    let desc = value["desc"] as? String
+                    
+                    let contribution = Contribution(title: title, id: id, pseudo: pseudo, senderId: senderId, desc: desc, timestamp: timestamp)
+                    contributions.append(contribution)
+                    dispatchGroup.leave()
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main){
+            success(contributions)
+        }
+    }
+    
     func fetchCurrentUserContributions(id: String, success: @escaping ([Contribution]) -> Void) {
         
         var contributions = [Contribution]()
@@ -136,7 +163,22 @@ class Service {
     }
     
     
-    
+    func fetchCurrentContributionsKeys(success: @escaping ([String]) -> Void) {
+           guard let id = MemberSession.share.member?.uuid else { return }
+           
+           var keys = [String]()
+           usersRef.child(id).child(currentContributions).observe(.value) { (snapshot) in
+               
+               let value = snapshot.value as? [String: Any]
+               
+               value?.forEach({ (val) in
+                   keys.append(val.key)
+               })
+               
+               success(keys)
+           }
+           
+       }
     
     
     
@@ -161,13 +203,13 @@ class Service {
         
     }
     
-    func subscribeToNeed(needId: String) {
+    func subscribeToTopic(needId: String) {
          guard let id = MemberSession.share.member?.uuid else { return }
         
         usersRef.child(id).child(sub).updateChildValues([needId: needId])
     }
     
-    func unSubscribeToNeed(needId: String) {
+    func unSubscribeToTopic(needId: String) {
         guard let id = MemberSession.share.member?.uuid else { return }
         
         usersRef.child(id).child(sub).child(needId).removeValue()
