@@ -21,7 +21,7 @@ class HomeTabController: UITabBarController {
         
         viewControllers = [
             vc1,
-            createNavController(viewController: UIViewController(), title: "Contributions", imageName: "team"),
+            createNavController(viewController: ContributionPageViewController(), title: "Contributions", imageName: "team"),
             createNavController(viewController: ConversationListController(), title: "Messages", imageName: "messages"),
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "settings")
         ]

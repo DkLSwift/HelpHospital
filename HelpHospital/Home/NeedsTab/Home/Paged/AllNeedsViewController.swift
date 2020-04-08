@@ -19,6 +19,8 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
     let chat = ChatMessageRepository()
     var conversationKeys = [String]()
     
+    var mySubs = [String]()
+    
     let tableView = UITableView(frame: .zero, style: .grouped)
     
 //    let messageBtn: UIButton = {
@@ -40,6 +42,13 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         setup()
         locationManager.setup()
+        
+        
+        
+        service.fetchMySubs { (subs) in
+            self.mySubs = subs
+        }
+        
         
         self.fetchNeedsFromGeofire(currentRequestKeys: nil)
         
@@ -97,11 +106,6 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         tableView.anchor(top: safeTopAnchor, leading: view.leadingAnchor, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         
-//        view.addSubview(messageBtn)
-//        messageBtn.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-//        messageBtn.anchor(top: nil, leading: nil, bottom: safeBottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 40, right: 40), size: .init(width: 60, height: 60))
-//        messageBtn.layer.cornerRadius = 30
-//        messageBtn.addTarget(self, action: #selector(handleMessageBtn), for: .touchUpInside)
     }
     
     func fetchNeedsFromGeofire(currentRequestKeys: [String]?) {
@@ -110,13 +114,21 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         locationManager.observeGeoFireNeeds(from: location, currentRequestsKeys: currentRequestKeys) { (key) in
             self.service.getNeeds(for: [key]) { (needs) in
-                if needs[0].workerId != MemberSession.share.member?.uuid {
-                    self.needs.append(needs[0])
+                if needs[0].senderId != MemberSession.share.member?.uuid {
+                    
+                    var need = needs[0]
+                    if self.mySubs.contains(needs[0].id) {
+                        need.iSub = true
+                    }
+                    
+                    self.needs.append(need)
                 }
                 
-                // include timestamp to need for sorting
-//                self.needs = self.needs.sorted(by: { $0.timestamp < $1.timestamp })
                 DispatchQueue.main.async {
+                    
+                     self.needs = self.needs.sorted(by: { $0.timestamp < $1.timestamp })
+//                    let notSubNeeds = self.needs.filter({ $0.iSub == false })
+//                    self.needs.append(contentsOf: notSubNeeds)
                     self.tableView.reloadData()
                 }
             }
@@ -138,6 +150,8 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.pseudoLabel.text = "\(need.pseudo) -"
         cell.titleLabel.text = need.title
         cell.id = need.id
+        cell.delegate = self
+        cell.sub = need.iSub
         
         return cell
     }
@@ -166,4 +180,20 @@ class AllNeedsViewController: UIViewController, UITableViewDataSource, UITableVi
             Utils.callAlert(vc: self, title: "Attention", message: "Vous devez être connecté pour voir les détails et communiquer.", action: "Ok")
         }
     }
+}
+
+
+extension AllNeedsViewController: AllNeedsCellProtocol {
+    
+    
+    func favButtonPressed(id: String, doSub: Bool) {
+      
+        if doSub {
+            service.subscribeToNeed(needId: id)
+        } else {
+            service.unSubscribeToNeed(needId: id)
+        }
+    }
+    
+    
 }

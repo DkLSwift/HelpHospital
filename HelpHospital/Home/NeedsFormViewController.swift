@@ -118,7 +118,7 @@ class NeedsFormViewController: UIViewController, UITextFieldDelegate, UITextView
             }
             
             let timestamp = Double(Date().timeIntervalSince1970)
-            locationManager.postNeed(from: location, key: key, id: id, title: title, desc: desc, time: time, timestamp: timestamp)
+            locationManager.postNeed(from: location, key: key, id: id, title: title, desc: desc, timestamp: timestamp)
             mainVC?.fetchCurrentUserNeedsAndReloadTVData()
             self.dismiss(animated: true, completion: nil)
         }

@@ -29,6 +29,9 @@ class NeedDetailViewController: UIViewController {
     let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = bluePlus
+        lbl.numberOfLines = 2
+        lbl.minimumScaleFactor = 0.8
+        lbl.adjustsFontSizeToFitWidth = true
         lbl.font = UIFont.systemFont(ofSize: 28)
         return lbl
     }()
@@ -43,12 +46,7 @@ class NeedDetailViewController: UIViewController {
         lbl.numberOfLines = 0
         return lbl
     }()
-    let timeLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 24)
-        lbl.textColor = bluePlus
-        return lbl
-    }()
+   
     
     let contactBtn: UIButton = {
         let btn = UIButton()
@@ -78,14 +76,15 @@ class NeedDetailViewController: UIViewController {
             safeBottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         }
         
-        [pseudoLabel, titleLabel, timeLabel, contactBtn].forEach({$0.constrainHeight(constant: 44)})
+        titleLabel.constrainHeight(constant: 100)
+        [pseudoLabel, contactBtn].forEach({$0.constrainHeight(constant: 44)})
         contactBtn.constrainWidth(constant: 200)
         
         view.addSubview(contactBtn)
         contactBtn.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 120, right: 0))
         contactBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        let lStack = UIStackView(arrangedSubviews: [pseudoLabel, titleLabel, timeLabel])
+        let lStack = UIStackView(arrangedSubviews: [pseudoLabel, titleLabel])
         lStack.axis = .vertical
         lStack.spacing = 24
         

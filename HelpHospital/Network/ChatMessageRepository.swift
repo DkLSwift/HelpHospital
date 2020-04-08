@@ -13,7 +13,7 @@ class ChatMessageRepository {
     
     let service = Service()
     
-    func postMessage(workerId: String, currentUserId: String, needId: String, message: Message, success: @escaping () -> Void) {
+    func postMessage(senderId: String, currentUserId: String, needId: String, message: Message, success: @escaping () -> Void) {
         
         
         let ref = messagesRef.child(needId)

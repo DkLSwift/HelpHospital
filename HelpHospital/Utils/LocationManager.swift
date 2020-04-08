@@ -42,11 +42,7 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
             }
         })
         
-//        _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
-//
-//            circleQuery.removeObserver(withFirebaseHandle: queryHandle)
-            success(keys)
-//        })
+        success(keys)
     }
     
     
@@ -63,7 +59,7 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
                })
     }
     
-    func postNeed(from location: CLLocation, key: String, id: String, title: String, desc: String?, time: String?, timestamp: Double) {
+    func postNeed(from location: CLLocation, key: String, id: String, title: String, desc: String?, timestamp: Double) {
         
         let geoFire = GeoFire(firebaseRef: needsRef)
         
@@ -71,9 +67,8 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
         needsRef.child(key).updateChildValues([
             "title": title,
             "desc": desc ?? "",
-            "time": time ?? "",
             "pseudo": MemberSession.share.member?.pseudo ?? "",
-            "workerId": id,
+            "senderId": id,
             "id": key,
             "timestamp": timestamp
         ])
@@ -81,4 +76,24 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
         usersRef.child(id).child(currentRequests).updateChildValues([key : key])
         
     }
+    
+    func postContribution(from location: CLLocation, key: String, id: String, title: String, desc: String?, timestamp: Double) {
+           
+           let geoFire = GeoFire(firebaseRef: contributionsRef)
+           
+           geoFire.setLocation(location, forKey: key)
+           contributionsRef.child(key).updateChildValues([
+               "title": title,
+               "desc": desc ?? "",
+               "pseudo": MemberSession.share.member?.pseudo ?? "",
+               "senderId": id,
+               "id": key,
+               "timestamp": timestamp
+           ])
+           
+           usersRef.child(id).child(currentContributions).updateChildValues([key : key])
+           
+       }
+    
+    
 }

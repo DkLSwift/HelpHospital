@@ -1,19 +1,19 @@
 //
-//  NeedHeaderCell.swift
+//  MyContributionHeaderCell.swift
 //  HelpHospital
 //
-//  Created by Eric DkL on 04/04/2020.
+//  Created by Eric DkL on 07/04/2020.
 //  Copyright © 2020 Eric DkL. All rights reserved.
 //
 
 import UIKit
 
 
-protocol NeedHeaderCellProtocol: class {
-    func addNeedButtonPressed()
+protocol MyContributionHeaderCellProtocol: class {
+    func addContributionButtonPressed()
 }
 
-class NeedHeaderCell: UITableViewHeaderFooterView {
+class MyContributionHeaderCell: UITableViewHeaderFooterView {
 
     let container: UIView = {
         let v = UIView()
@@ -30,7 +30,7 @@ class NeedHeaderCell: UITableViewHeaderFooterView {
         lbl.numberOfLines = 0
         lbl.adjustsFontSizeToFitWidth = true
         lbl.minimumScaleFactor = 0.7
-        lbl.text = "Poster vos besoins."
+        lbl.text = "Poster vos contributions."
         return lbl
     }()
     let addBtn: UIButton = {
@@ -45,10 +45,11 @@ class NeedHeaderCell: UITableViewHeaderFooterView {
         return btn
     }()
     
-    var delegate: NeedHeaderCellProtocol?
+    var delegate: MyContributionHeaderCellProtocol?
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        
         setup()
     }
     
@@ -75,7 +76,9 @@ class NeedHeaderCell: UITableViewHeaderFooterView {
         desc.anchor(top: addBtn.bottomAnchor, leading: container.leadingAnchor, bottom: container.bottomAnchor, trailing: container.trailingAnchor, padding: .init(top: 20, left: 20, bottom: 20, right: 20))
     }
     
+ 
+    
     @objc func handleAddPressed() {
-        delegate?.addNeedButtonPressed()
+        delegate?.addContributionButtonPressed()
     }
 }

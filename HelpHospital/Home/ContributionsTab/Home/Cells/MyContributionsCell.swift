@@ -1,14 +1,14 @@
 //
-//  HospitalWorkerNeedsCell.swift
+//  MyContributionsCell.swift
 //  HelpHospital
 //
-//  Created by Eric DkL on 25/03/2020.
+//  Created by Eric DkL on 08/04/2020.
 //  Copyright © 2020 Eric DkL. All rights reserved.
 //
 
 import UIKit
 
-class MyNeedsCell: UITableViewCell {
+class MyContributionsCell: UITableViewCell {
 
        let insetView: UIView = {
            let v = UIView()
@@ -36,7 +36,7 @@ class MyNeedsCell: UITableViewCell {
         return btn
     }()
     
-    var needId: String?
+    var contributionId: String?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

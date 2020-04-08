@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol AllNeedsCellProtocol {
-    func favButtonPressed(id: String)
+    func favButtonPressed(id: String, doSub: Bool)
 }
 
 class AllNeedsCell: UITableViewCell {
@@ -37,8 +37,8 @@ class AllNeedsCell: UITableViewCell {
     let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 28)
-        lbl.minimumScaleFactor = 0.6
-        lbl.adjustsFontSizeToFitWidth = true
+//        lbl.minimumScaleFactor = 0.6
+//        lbl.adjustsFontSizeToFitWidth = true
         lbl.textColor = bluePlus
         return lbl
     }()
@@ -54,6 +54,13 @@ class AllNeedsCell: UITableViewCell {
     
     var delegate: AllNeedsCellProtocol?
     var id: String!
+    var sub: Bool? {
+        didSet {
+            if sub == true {
+                favButton.imageView?.image = fullStar
+            }
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -91,12 +98,13 @@ class AllNeedsCell: UITableViewCell {
     @objc func handleFavButton() {
         if favButton.imageView?.image == emptyStar {
               favButton.setImage(fullStar, for: .normal)
+            delegate?.favButtonPressed(id: id, doSub: true)
         } else {
             favButton.setImage(emptyStar, for: .normal)
+            delegate?.favButtonPressed(id: id, doSub: false)
         }
       
-//        check subscribe
-        delegate?.favButtonPressed(id: id)
+        
     }
     
 }

@@ -32,7 +32,12 @@ var usersRef: DatabaseReference {
 var needsRef: DatabaseReference {
     return ref.child("needs")
 }
+var contributionsRef: DatabaseReference {
+    return ref.child("contributions")
+}
 let currentRequests = "currentRequests"
+let currentContributions = "currentContributions"
+let sub = "sub"
 var messagesRef: DatabaseReference {
     return ref.child("messages")
 }

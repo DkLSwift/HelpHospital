@@ -157,8 +157,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let id = MemberSession.share.member?.uuid, let pseudo = MemberSession.share.member?.pseudo , let need = need else { return }
         let timestamp = Double(Date().timeIntervalSince1970)
         
-        let message = Message(text: text, fromId: id, toId: toId ?? need.workerId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
-        chat.postMessage(workerId: need.workerId, currentUserId: id, needId: need.id, message: message) {
+        let message = Message(text: text, fromId: id, toId: toId ?? need.senderId, myPseudo: pseudo, toPseudo: need.pseudo, timestamp: timestamp)
+        chat.postMessage(senderId: need.senderId, currentUserId: id, needId: need.id, message: message) {
             self.messageTF.text = ""
         }
     }

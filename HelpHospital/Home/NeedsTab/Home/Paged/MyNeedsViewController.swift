@@ -11,7 +11,7 @@ import GeoFire
 import CoreLocation
 import FirebaseDatabase
 
- class MyNeedsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NeedHeaderCellProtocol {
+ class MyNeedsViewController: UIViewController, NeedHeaderCellProtocol {
   
     
     
@@ -55,8 +55,6 @@ import FirebaseDatabase
     
     func setupUI() {
         
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(MyNeedsCell.self, forCellReuseIdentifier: cellId)
@@ -94,14 +92,9 @@ import FirebaseDatabase
              guard let id = MemberSession.share.member?.uuid else { return }
             service.fetchCurrentUserNeeds(id: id) { (needs) in
                 
-                self.needs = needs
-//                    .sorted(by: { $0.timestamp < $1.timestamp })
+                self.needs = needs.sorted(by: { $0.timestamp < $1.timestamp })
                  self.tableView.reloadData()
             }
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
-        } else {
-             self.tableView.reloadData()
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
         self.tableView.reloadData()
     }
@@ -112,76 +105,78 @@ import FirebaseDatabase
         present(vc, animated: true, completion: nil)
     }
     
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! MyNeedsCell
-            
-            let need = needs[indexPath.row]
-            cell.needId = need.id
-            cell.titleLabel.text = need.title
-            return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! NeedHeaderCell
-        view.delegate = self
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-            
-        let key = needs[indexPath.row].id
-        var conversationKeys = [String]()
-        conversationKeys.append(key)
-
-        let vc = ConversationListController()
-        vc.conversationsId = conversationKeys
-        vc.isSingleTopic = true
-        vc.modalPresentationStyle = .fullScreen
-         self.navigationController?.pushViewController(vc, animated: true)
-        
-    }
-    
-   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return needs.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 170
-    }
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in
-//            self.needs.remove(at: indexPath.row)
-            self.deleteNeedPressed(needId: self.needs[indexPath.row].id, success: ({
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                complete(true)
-            }))
-           
-        }
-        deleteAction.title = "Supprimer"
-        
-        deleteAction.backgroundColor = seaLightBlue
-        
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = true
-        
-        return configuration
-        
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            print("delete")
-        }
-    }
 }
 
 
-extension MyNeedsViewController {
+extension MyNeedsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+
+       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! MyNeedsCell
+                
+                let need = needs[indexPath.row]
+                cell.needId = need.id
+                cell.titleLabel.text = need.title
+                return cell
+        }
+        
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! NeedHeaderCell
+            view.delegate = self
+            return view
+        }
+        
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            
+                
+            let key = needs[indexPath.row].id
+            var conversationKeys = [String]()
+            conversationKeys.append(key)
+
+            let vc = ConversationListController()
+            vc.conversationsId = conversationKeys
+            vc.isSingleTopic = true
+            vc.modalPresentationStyle = .fullScreen
+             self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        
+       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return needs.count
+        }
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 110
+        }
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 170
+        }
+        func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in
+    //            self.needs.remove(at: indexPath.row)
+                self.deleteNeedPressed(needId: self.needs[indexPath.row].id, success: ({
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    complete(true)
+                }))
+               
+            }
+            deleteAction.title = "Supprimer"
+            
+            deleteAction.backgroundColor = blueMinus
+            
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            configuration.performsFirstActionWithFullSwipe = true
+            
+            return configuration
+            
+        }
+        
+        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                print("delete")
+            }
+        }
     
     func deleteNeedPressed(needId: String, success: @escaping () -> Void) {
         

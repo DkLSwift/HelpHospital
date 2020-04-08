@@ -1,17 +1,17 @@
 //
-//  Need.swift
+//  Contribution.swift
 //  HelpHospital
 //
-//  Created by Eric DkL on 25/03/2020.
+//  Created by Eric DkL on 07/04/2020.
 //  Copyright © 2020 Eric DkL. All rights reserved.
 //
 
 import Foundation
 
-struct Need: Decodable {
+struct Contribution: Decodable {
     
     let title, id, pseudo, senderId: String
-    let time, desc: String?
+    let desc: String?
     let timestamp: Double
     var iSub: Bool? = false
 }
