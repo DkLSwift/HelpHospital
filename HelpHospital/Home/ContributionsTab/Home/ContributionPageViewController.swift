@@ -18,9 +18,9 @@ class ContributionPageViewController: UIPageViewController, UIPageViewController
     
     let myContribButton: UIButton = {
            let btn = UIButton()
-           btn.backgroundColor = blue
+           btn.backgroundColor = blueMinus
            btn.setTitle("Mes Contributions", for: .normal)
-           btn.setTitleColor(.white, for: .normal)
+           btn.setTitleColor(bluePlus, for: .normal)
            return btn
        }()
        let allContribButton: UIButton = {
@@ -52,10 +52,6 @@ class ContributionPageViewController: UIPageViewController, UIPageViewController
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
     func setupUI() {
         var safeTopAnchor = view.topAnchor
         var safeBottomAnchor = view.bottomAnchor
@@ -82,12 +78,29 @@ class ContributionPageViewController: UIPageViewController, UIPageViewController
     }
     
     @objc func handleAllContrib() {
+        allContributionsPressed()
         self.goToNextPage()
     }
     @objc func handleMyContrib() {
+        myContributionsPressed()
         self.goToPreviousPage()
        }
-    
+    func allContributionsPressed() {
+        myContribButton.setTitleColor(.white, for: .normal)
+        myContribButton.backgroundColor = blue
+        
+        allContribButton.setTitleColor(bluePlus, for: .normal)
+        allContribButton.backgroundColor = blueMinus
+       
+    }
+    func myContributionsPressed() {
+         allContribButton.setTitleColor(.white, for: .normal)
+         allContribButton.backgroundColor = blue
+         
+         myContribButton.setTitleColor(bluePlus, for: .normal)
+         myContribButton.backgroundColor = blueMinus
+        
+    }
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = vcs.firstIndex(of: viewController) else { return nil }
         let previousIndex = vcIndex - 1

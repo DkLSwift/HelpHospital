@@ -216,10 +216,44 @@ class ChatMessageRepository {
     
     func clearOldMessagesReferences() {
         
-        //        guard let id = MemberSession.share.member?.uuid else { return }
-        //
-        //        usersMessagesRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
-        //            print(snapshot)
-        //        }
+                guard let id = MemberSession.share.member?.uuid else { return }
+        let dispatchGroup = DispatchGroup()
+                usersMessagesRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
+                    print(snapshot)
+                    
+                    if let dictionary = snapshot.value as? [String: Any] {
+                    
+                    dictionary.forEach { (key, value) in
+                        
+                      
+                        var isNeed = true
+                        var isContribution = true
+                        dispatchGroup.enter()
+                        needsRef.child(key).observeSingleEvent(of: .value) { (snap) in
+                            if !snap.exists() {
+                                isNeed = false
+                            }
+                            dispatchGroup.leave()
+                        }
+                        
+                        dispatchGroup.enter()
+                         print("enter dispatch")
+                        contributionsRef.child(key).observeSingleEvent(of: .value) { (snap) in
+                            if !snap.exists() {
+                                isContribution = false
+                            }
+                            dispatchGroup.leave()
+                        }
+                        dispatchGroup.notify(queue: .main){
+                            if !isNeed && !isContribution {
+                                print("delete")
+                                usersMessagesRef.child(id).child(key).removeValue()
+                            } else {
+                                print("isNeed = \(isNeed) && isContribution = \(isContribution)")
+                            }
+                        }
+                        }
+                    }
+                }
     }
 }

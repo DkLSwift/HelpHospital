@@ -17,20 +17,20 @@ class NeedsPageViewController: UIPageViewController, UIPageViewControllerDelegat
     }()
     
     let myNeedButton: UIButton = {
-           let btn = UIButton()
-           btn.backgroundColor = blue
-           btn.setTitle("Mes Besoins", for: .normal)
-           btn.setTitleColor(.white, for: .normal)
-           return btn
-       }()
-       let allNeedsButton: UIButton = {
-              let btn = UIButton()
-              btn.backgroundColor = blue
-              btn.setTitle("Tous les Besoins", for: .normal)
-              btn.setTitleColor(.white, for: .normal)
-              return btn
-          }()
-       
+        let btn = UIButton()
+        btn.backgroundColor = blueMinus
+        btn.setTitle("Mes Besoins", for: .normal)
+        btn.setTitleColor(bluePlus, for: .normal)
+        return btn
+    }()
+    let allNeedsButton: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = blue
+        btn.setTitle("Tous les Besoins", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        return btn
+    }()
+    
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
@@ -85,11 +85,30 @@ class NeedsPageViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     @objc func handleAllNeeds() {
+       allNeedsPressed()
         self.goToNextPage()
     }
     @objc func handleMyNeeds() {
+        myNeedsPressed()
         self.goToPreviousPage()
        }
+    
+    func allNeedsPressed() {
+        myNeedButton.setTitleColor(.white, for: .normal)
+        myNeedButton.backgroundColor = blue
+        
+        allNeedsButton.setTitleColor(bluePlus, for: .normal)
+        allNeedsButton.backgroundColor = blueMinus
+       
+    }
+    func myNeedsPressed() {
+         allNeedsButton.setTitleColor(.white, for: .normal)
+         allNeedsButton.backgroundColor = blue
+         
+         myNeedButton.setTitleColor(bluePlus, for: .normal)
+         myNeedButton.backgroundColor = blueMinus
+        
+    }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = vcs.firstIndex(of: viewController) else { return nil }
