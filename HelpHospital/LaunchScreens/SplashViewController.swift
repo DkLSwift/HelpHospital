@@ -50,9 +50,12 @@ class SplashViewController: UIViewController {
    
         
         _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
-            let vc = HomeTabController()
+            
+            let vc = MemberSession.share.isLogged ? HomeTabController() : OnBoardingPageController()
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
+            
+            
         })
         
             
