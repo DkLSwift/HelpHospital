@@ -227,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				6E678D71242A8439007CA125 /* Model */,
-				6E5A0E0E242EC26500CDE281 /* Chat */,
 				6E678D6E242A6B49007CA125 /* Home */,
 				6E655B0B242CD48C0081BB3B /* Network */,
 				6ECFAF6F242A2CA900D4FDE5 /* Utils */,
@@ -328,6 +327,7 @@
 		6E5A0E55243B409600CDE281 /* MessageTab */ = {
 			isa = PBXGroup;
 			children = (
+				6E5A0E0E242EC26500CDE281 /* Chat */,
 			);
 			path = MessageTab;
 			sourceTree = "<group>";
@@ -1040,14 +1040,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
 				INFOPLIST_FILE = HelpHospital/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.requena.HelpyHospital;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1062,14 +1063,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
 				INFOPLIST_FILE = HelpHospital/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.requena.HelpyHospital;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -152,4 +152,30 @@ class MyContributionViewController: UIViewController, UITableViewDelegate, UITab
     }
        
     
+    
+     func deleteContributionPressed(contribId: String, success: @escaping () -> Void) {
+            
+            let alert = UIAlertController(title: "Attention", message: "Si vous cloturez cette contribution, toutes les discussions sur le sujet seront supprimées.", preferredStyle: .alert)
+            
+            let deleteAction = UIAlertAction(title: "Supprimer", style: .destructive) { (_ ) in
+                
+                contributionsRef.child(contribId).removeValue()
+                guard let uId = MemberSession.share.member?.uuid else { return }
+                usersRef.child(uId).child(currentContributions).child(contribId).removeValue()
+                messagesRef.child(contribId).removeValue()
+                usersMessagesRef.child(uId).child(contribId).removeValue()
+                
+                self.contributions.removeAll { $0.id == contribId }
+                success()
+    //            self.tableView.reloadData()
+            }
+            
+            let cancelAction = UIAlertAction(title: "Garder", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+            alert.addAction(deleteAction)
+            
+            self.present(alert, animated: true)
+           
+        }
+    
 }

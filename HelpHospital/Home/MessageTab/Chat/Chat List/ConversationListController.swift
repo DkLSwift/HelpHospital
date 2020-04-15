@@ -29,14 +29,17 @@ class ConversationListController: UITableViewController {
 
         dateformatter.dateFormat = "HH:mm"
         setup()
-        
-        
+//
+//        MemberSession.share.listenTo { member in
+//           _ = member != nil ?  self.createNavController(viewController: ConversationListController(), title: "Messages", imageName: "messages") : self.createNavController(viewController: NeedsDisconnectedViewController(), title: "Messages", imageName: "messages")
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
 //        self.tabBarController?.tabBar.isHidden = false
         
-        
+        chatMessagesPreviews = []
+        tableView.reloadData()
         if isSingleTopic {
             guard let id = conversationsId else { return }
             self.getConvFor(keys: id, isSingleTopic: isSingleTopic)

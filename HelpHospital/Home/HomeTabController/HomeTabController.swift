@@ -16,18 +16,18 @@ class HomeTabController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let vc1 = MemberSession.share.isLogged ? createNavController(viewController: NeedsPageViewController(), title: "Besoins", imageName: "doctor") : createNavController(viewController: NeedsDisconnectedViewController(), title: "Besoins", imageName: "doctor")
+//
+//        let vc3 = MemberSession.share.isLogged ? createNavController(viewController: ConversationListController(), title: "Messages", imageName: "messages") : createNavController(viewController: NeedsDisconnectedViewController(), title: "Messages", imageName: "messages")
         
         viewControllers = [
-            vc1,
+            createNavController(viewController: NeedsPageViewController(), title: "Besoins", imageName: "doctor"),
             createNavController(viewController: ContributionPageViewController(), title: "Contributions", imageName: "team"),
             createNavController(viewController: ConversationListController(), title: "Messages", imageName: "messages"),
             createNavController(viewController: SettingsViewController(), title: "Paramètres", imageName: "settings")
         ]
-        MemberSession.share.listenTo { member in
-            self.viewControllers?[0] = member != nil ? self.createNavController(viewController: NeedsPageViewController(), title: "Besoins", imageName: "doctor") : self.createNavController(viewController: NeedsDisconnectedViewController(), title: "Besoins", imageName: "doctor")
-        }
+//        MemberSession.share.listenTo { member in
+//            self.viewControllers?[2] = member != nil ?  self.createNavController(viewController: ConversationListController(), title: "Messages", imageName: "messages") : self.createNavController(viewController: NeedsDisconnectedViewController(), title: "Messages", imageName: "messages")
+//        }
         
         tabBar.barTintColor = bluePlus
         tabBar.isTranslucent = false

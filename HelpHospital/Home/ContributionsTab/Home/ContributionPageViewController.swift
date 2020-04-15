@@ -13,7 +13,8 @@ class ContributionPageViewController: UIPageViewController, UIPageViewController
 
 
     lazy var vcs : [UIViewController] = {
-        return [MyContributionViewController(), AllContributionsViewController()]
+        let vc = MemberSession.share.isLogged ? MyContributionViewController() : NeedsDisconnectedViewController()
+        return [vc, AllContributionsViewController()]
     }()
     
     let myContribButton: UIButton = {
@@ -50,6 +51,13 @@ class ContributionPageViewController: UIPageViewController, UIPageViewController
         
         setupUI()
         
+        MemberSession.share.listenTo { member in
+            self.vcs[0] = member != nil ? MyContributionViewController() : NeedsDisconnectedViewController()
+            if let firstVC = self.vcs.first {
+                self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            }
+            
+        }
     }
     
     func setupUI() {

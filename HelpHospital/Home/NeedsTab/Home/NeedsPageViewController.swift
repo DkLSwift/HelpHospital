@@ -13,7 +13,8 @@ class NeedsPageViewController: UIPageViewController, UIPageViewControllerDelegat
 
 
     lazy var vcs : [UIViewController] = {
-        return [MyNeedsViewController(), AllNeedsViewController()]
+        let vc = MemberSession.share.isLogged ? MyNeedsViewController() : NeedsDisconnectedViewController()
+        return [vc, AllNeedsViewController()]
     }()
     
     let myNeedButton: UIButton = {
@@ -50,6 +51,13 @@ class NeedsPageViewController: UIPageViewController, UIPageViewControllerDelegat
         
         setupUI()
         
+        MemberSession.share.listenTo { member in
+            self.vcs[0] = member != nil ? MyNeedsViewController() : NeedsDisconnectedViewController()
+            if let firstVC = self.vcs.first {
+                self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            }
+            
+        }
 //        if let myView = view?.subviews.first as? UIScrollView {
 //            myView.canCancelContentTouches = false
 //        }

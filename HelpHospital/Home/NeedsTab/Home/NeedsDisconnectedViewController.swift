@@ -14,7 +14,7 @@ class NeedsDisconnectedViewController: UIViewController {
     let messageLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 40)
-        lbl.text = "Vous devez être connecté pour pouvoir poster vos besoins."
+        lbl.text = "Vous devez être connecté pour pouvoir poster vos besoins, contributions, et accéder à la messagerie."
         lbl.textAlignment = .center
         lbl.numberOfLines = 0
         lbl.minimumScaleFactor = 0.6

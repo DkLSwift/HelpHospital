@@ -36,6 +36,15 @@ class SettingsViewController: UIViewController {
         return btn
     }()
     
+    let pseudoTx: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 20)
+        lbl.textColor = bluePlus
+        lbl.text = "Pseudo"
+        lbl.alpha = 0.7
+        return lbl
+    }()
+    
     let pseudoLabel: UILabel = {
            let lbl = UILabel()
            lbl.font = UIFont.systemFont(ofSize: 30)
@@ -103,6 +112,8 @@ class SettingsViewController: UIViewController {
         } else {
             pseudoLabel.text = "Pseudo"
         }
+        view.addSubview(pseudoTx)
+        pseudoTx.anchor(top: nil, leading: view.leadingAnchor, bottom: hStack.topAnchor, trailing: nil, padding: .init(top: 0, left: 30, bottom: 10, right: 0), size: .init(width: 0, height: 30))
     
         changePseudoBtn.addTarget(self, action: #selector(handlePseudoChange), for: .touchUpInside)
         
@@ -156,7 +167,7 @@ class SettingsViewController: UIViewController {
     }
     
     func removeConnectedUI() {
-        [pseudoLabel, changePseudoBtn, disconnectBtn].forEach { $0.removeFromSuperview() }
+        [pseudoTx ,pseudoLabel, changePseudoBtn, disconnectBtn].forEach { $0.removeFromSuperview() }
         setupConnect()
     }
 }
