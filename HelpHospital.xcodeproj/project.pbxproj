@@ -1058,9 +1058,9 @@
 			baseConfigurationReference = BCCDE29D804AFB0A68CE2EF4 /* Pods-HelpHospital.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
 				INFOPLIST_FILE = HelpHospital/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1068,7 +1068,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.requena.HelpyHospital;
 				PRODUCT_NAME = Helpy;
 				SWIFT_VERSION = 5.0;
@@ -1081,9 +1081,9 @@
 			baseConfigurationReference = FE577E234C2622F6B86EC854 /* Pods-HelpHospital.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 5YCAA5UQ97;
 				INFOPLIST_FILE = HelpHospital/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1091,7 +1091,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.requena.HelpyHospital;
 				PRODUCT_NAME = Helpy;
 				SWIFT_VERSION = 5.0;

@@ -71,7 +71,7 @@ class SettingsViewController: UIViewController {
     let disconnectBtn: UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         btn.setTitle("Se déconnecter", for: .normal)
         btn.setTitleColor(bluePlus, for: .normal)
         return btn
@@ -124,15 +124,17 @@ class SettingsViewController: UIViewController {
     
         changePseudoBtn.addTarget(self, action: #selector(handlePseudoChange), for: .touchUpInside)
         
-        view.addSubview(HowItWorkBtn)
-        HowItWorkBtn.anchor(top: pseudoLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 30, bottom: 0, right: 0), size: .init(width: 0, height: 40))
-        
-        HowItWorkBtn.addTarget(self, action: #selector(showSlideVC), for: .touchUpInside)
         
         view.addSubview(disconnectBtn)
-        disconnectBtn.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 150, right: 20), size: .init(width: 150, height: 44))
+        disconnectBtn.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 30, bottom: 150, right: 0), size: .init(width: 150, height: 44))
         
         disconnectBtn.addTarget(self, action: #selector(handleLogOut), for: .touchUpInside)
+        
+        
+        view.addSubview(HowItWorkBtn)
+        HowItWorkBtn.anchor(top: nil, leading: view.leadingAnchor, bottom: disconnectBtn.topAnchor, trailing: nil, padding: .init(top: 0, left: 30, bottom: 50, right: 0), size: .init(width: 0, height: 40))
+        
+        HowItWorkBtn.addTarget(self, action: #selector(showSlideVC), for: .touchUpInside)
     }
     
     @objc func showSlideVC() {
