@@ -126,7 +126,7 @@ class SettingsViewController: UIViewController {
         
         
         view.addSubview(disconnectBtn)
-        disconnectBtn.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 30, bottom: 150, right: 0), size: .init(width: 150, height: 44))
+        disconnectBtn.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 30, bottom: 150, right: 0), size: .init(width: 0, height: 44))
         
         disconnectBtn.addTarget(self, action: #selector(handleLogOut), for: .touchUpInside)
         
